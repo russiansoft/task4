@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Статус">
+
+	<type name="Статус" title="Статус" scope="global">
+		<field.string name="Наименование" width="30" indexing="sort"/>
+		<function name="title">
+			<get field="Наименование"/>
+		</function>
+		<index name="Статус">
+			<key field="Наименование"/>
+		</index>
+		<access.allow role="Администратор"/>
+	</type>
+
+	<form name="Статус">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="30"/>
+		<row/>
+		<row indent="1">
+			<button name="Save" text="💾 Записать"/>
+		</row>
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" outline="2">
+			<edit grow="1"/>
+		</cell>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+	</form>
+
+</unit>

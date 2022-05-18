@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="interval">
+
+	<type name="interval" title="Интервал" report="1" scope="global">
+		<field.date name="from"/>
+		<field.date name="to"/>
+		
+		<state name="Сегодня">
+			<function name="from">
+				<today/>
+			</function>
+			<function name="to">
+				<today/>
+			</function>
+		</state>
+		
+		<access.allow role="Администратор"/>
+	</type>
+
+	<form name="interval">
+		<column width="2"/>
+		<column width="13"/>
+		<column width="13"/>
+		<column width="13"/>
+		<column width="13"/>
+		
+		<row/>
+		<row/>
+		<cell text="Интервал с:"/>
+		<cell bind="from" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<cell text="по:" align="center"/>
+		<cell bind="to" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		
+		<row/>
+		<row/>
+		<cell indent="1">
+			<button name="Сегодня" text="Сегодня"/>
+		</cell>
+		
+	</form>
+	
+</unit>

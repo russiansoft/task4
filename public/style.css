@@ -1,0 +1,10 @@
+*
+{
+	/* background-color: #333 !important;
+	color: #ddd !important; */
+}
+.card:hover
+{
+	background-color: #ffffee;
+	cursor: pointer;
+}

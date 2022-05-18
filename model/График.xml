@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="График">
+
+	<!--График-->
+	<type name="График" scope="global">
+		<field.date name="Начало" width="10"/>
+		<field.date name="Окончание" width="10"/>
+		<field.ref name="Проект" type="Договор" width="10"/>
+		<field.array name="Строки" type="Строка"/>
+		<field.string name="Заголовок"/>
+		<field.array name="УпорядоченныеСтроки" type="Строка" variable="1"/>
+		<field.number name="ВсегоРасчет" precision="2"/>
+		
+		<!--Заголовок окна-->
+		<function name="title">
+			<join>
+				<get value="График "/>
+				<get field="Проект.Наименование"/>
+				<get value=" за "/>
+				<period>
+					<get field="Начало"/>
+					<get field="Окончание"/>
+				</period>
+			</join>
+		</function>
+		
+		<!--Заголовок печатной формы-->
+		<function name="Заголовок">
+			<period>
+				<get field="Начало"/>
+				<get field="Окончание"/>
+			</period>
+		</function>
+		
+		<!--Итоговая сумма-->
+		<function name="ВсегоРасчет">
+			<sum>
+				<get value="Строки"/>
+				<get value="Расчет"/>
+			</sum>
+		</function>
+		
+		<!--Заполнение-->
+		<state name="Заполнить">
+			<query name="Строки">
+				<select from="Работа">
+					<filter by="Проект" field="Проект"/>
+					<range by="Дата" from="Начало" to="Окончание"/>
+					<get field="Дата" as="Дата"/>
+					<get field="Начало" as="Начало"/>
+					<get field="Окончание" as="Окончание"/>
+					<get field="Отработано" as="Отработано"/>
+					<get field="Отработано" as="Расчет"/>
+					<get field="Содержание" as="Содержание"/>
+				</select>
+			</query>
+		</state>
+		
+		<!--Упорядочивание-->
+		<state name="Упорядочить">
+			<query name="УпорядоченныеСтроки">
+				<select from="График-Строка">
+					<filter by="owner" field="id"/>
+					<filter by="member" value="Строки"/>
+					<order by="Дата"/>
+					<order by="Начало"/>
+					<get field="Дата" as="Дата"/>
+					<get field="Начало" as="Начало"/>
+					<get field="Окончание" as="Окончание"/>
+					<get field="Отработано" as="Отработано"/>
+					<get field="Расчет" as="Расчет"/>
+					<get field="Содержание" as="Содержание"/>
+				</select>
+			</query>
+			<function name="ПрименениеПорядка">
+				<get value="1"/>
+			</function>
+		</state>
+		<state name="ПрименениеПорядка">
+			<query name="Строки">
+				<select from="График-Строка">
+					<filter by="owner" field="id"/>
+					<filter by="member" value="УпорядоченныеСтроки"/>
+					<order by="Дата"/>
+					<order by="Начало"/>
+					<get field="Дата" as="Дата"/>
+					<get field="Начало" as="Начало"/>
+					<get field="Окончание" as="Окончание"/>
+					<get field="Отработано" as="Отработано"/>
+					<get field="Расчет" as="Расчет"/>
+					<get field="Содержание" as="Содержание"/>
+				</select>
+			</query>
+			<function name="ОчисткаУпорядоченных">
+				<get value="1"/>
+			</function>
+		</state>
+		<state name="ОчисткаУпорядоченных">
+			<query name="УпорядоченныеСтроки">
+			</query>
+		</state>
+		
+		<!--Индекс-->
+		<index name="График">
+		</index>
+		<access.allow role="Администратор"/>
+	</type>
+	
+	<!--Строка-->
+	<type name="Строка">
+		<field.date name="Дата" width="10"/>
+		<field.string name="Начало"/>
+		<field.string name="Окончание"/>
+		<field.number name="Отработано" precision="2" indexing="total"/>
+		<field.number name="Расчет" precision="2" indexing="total"/>
+		<field.string name="Содержание"/>
+		<index name="График-Строка">
+			<key field="owner"/>
+			<total field="Отработано" precision="2"/>
+			<total field="Расчет" precision="2"/>
+		</index>
+		<access.allow role="Администратор"/>
+	</type>
+	
+	<!--Форма графика-->
+	<form name="График">
+		<column width="2"/>
+		<column width="10"/>
+		<column width="10"/>
+		<column width="10"/>
+		<column width="10"/>
+		<column width="10"/>
+		<column width="35"/>
+		<bar/>
+		<bar indent="1" cols="6">
+			<button name="Save" text="💾 Записать" title="Записать документ"/><label text="  "/>
+			<button name="Заполнить" text="▶ Заполнить" title="Заполнить табличную часть"/><label text="  "/>
+			<button name="Print" text="🖨 Печать" title="Открыть печатную форму"/><label text=" "/>
+		</bar>
+		<bar/>
+		<bar indent="1" text="Период с: " align="right"/>
+		<cell bind="Начало" cols="2" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<bar/>
+		<bar indent="1" text="по: " align="right"/>
+		<cell bind="Окончание" cols="2" outline="2">
+			<edit type="date"/>
+			<tool type="calendar"/>
+		</cell>
+		<bar/>
+		<bar indent="1" text="Проект: " align="right"/>
+		<cell bind="Проект" cols="2" outline="2">
+			<edit type="ref" grow="1"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<row size="15" bold="1"/>
+		<cell bind="Заголовок" align="center" cols="6"/>
+		<bar/>
+		<!--<bar bind="Строки" indent="1" cols="6">
+			<button name="Строки.add" text="✦ Добавить"/><label text="  "/>
+			<button name="Строки.copy" text="⧉ Скопировать"/><label text="  "/>
+			<button name="Строки.remove" text="🞩 Удалить"/>
+			<label text=" " grow="1"/>
+			<button name="Упорядочить" text="⭭ Упорядочить"/><label text="  "/>
+			<button name="Строки.up" text="🡡" title="Вверх"/><label text="  "/>
+			<button name="Строки.down" text="🡣" title="Вниз"/>
+		</bar>-->
+		<!-- <bar bind="Строки" indent="1" cols="6">
+			<label grow="1"/>
+			<tool name="Строки.add" text="✚" title="Добавить"/>
+			<tool name="Строки.copy" text="⧉" title="Скопировать"/>
+			<tool name="Строки.remove" text="🞪" title="Удалить"/>
+			<label text=""/>
+			<tool name="Строки.up" text="🡡" title="Переместить вверх"/>
+			<tool name="Строки.down" text="🡣" title="Переместить вниз"/>
+			<tool name="Упорядочить" text="△" title="Упорядочить"/>
+			<label text=""/>
+			<tool name="Строки.all" text="⬤" title="Выделить все"/>
+			<tool name="Строки.none" text="◯" title="Снять выделение"/>
+		</bar> -->
+		<bar bind="Строки" indent="1" cols="6">
+			<button name="Строки.add" text="Добавить" title="Добавить"/><label text="  "/>
+			<button name="Строки.copy" text="Скопировать" title="Скопировать"/><label text="  "/>
+			<button name="Строки.remove" text="Удалить" title="Удалить"/><label text="  "/>
+			<button name="Упорядочить" text="Упорядочить" title="Упорядочить"/><label text="  "/>
+			<label text="" grow="1"/>
+			<button name="Строки.all" text="🗹" title="Выделить все"/><label text=" "/>
+			<button name="Строки.none" text="□" title="Снять выделение"/><label text=" "/>
+			<label text=""/>
+			<button name="Строки.up" text="🡡" title="Переместить вверх"/><label text=" "/>
+			<button name="Строки.down" text="🡣" title="Переместить вниз"/>
+		</bar>
+		<bar/>
+		<row/>
+		<cell text="Дата" align="center" wrap="1" border="2102"/>
+		<cell text="Начало" align="center" wrap="1" border="2101"/>
+		<cell text="Окончание" align="center" wrap="1" border="2101"/>
+		<cell text="Отработано, часов" align="center" wrap="1" cols="2" border="2101"/>
+		<cell text="Содержание" align="center" wrap="1" border="2201"/>
+		<row/>
+		<cell border="0122"/>
+		<cell border="0121"/>
+		<cell border="0121"/>
+		<cell text="всего" align="center" wrap="1" border="1121"/>
+		<cell text="из них включено в расчет" align="center" wrap="1" border="1121"/>
+		<cell border="0221"/>
+		<nest field="Строки"/>
+		<row/>
+		<cell text="Всего: " bold="1" align="right" cols="4" border="2122"/>
+		<cell bind="ВсегоРасчет" format="Число2" bold="1" align="center" border="2121"/>
+		<cell border="2221"/>
+		<row/>
+		<row/>
+		<row/>
+	</form>
+	
+	<!--Форма строки графика-->
+	<form name="График-Строка">
+		<line indent="1" bind="Дата" align="center" border="1102"/>
+		<cell bind="Начало" format="Время" align="center" border="1101"/>
+		<cell bind="Окончание" format="Время" align="center" border="1101"/>
+		<cell bind="Отработано" align="center" border="1101"/>
+		<cell bind="Расчет" align="center" border="1101">
+			<edit grow="1"/>
+			<tool type="calculator"/>
+		</cell>
+		<cell bind="Содержание" wrap="1" border="1201">
+			<!--<label text=" " grow="1"/>-->
+			<!--<button name="Строки.up" text="🡡" title="Вверх"/><label text=" "/>-->
+			<!--<button name="Строки.down" text="🡣" title="Вниз"/><label text=" "/>-->
+			<!--<button name="Строки.copy" text="Скопировать"/><label text=" "/>-->
+			<!--<button name="Строки.remove" text="Удалить"/><label text=" "/>-->
+		</cell>
+	</form>
+</unit>

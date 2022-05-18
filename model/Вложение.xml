@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Вложение">
+
+	<!--Вложение-->
+	<type name="Вложение" title="Вложение" scope="global">
+		<field.blob name="Файл"/>
+		<access.allow role="Администратор"/>
+	</type>
+	
+	<!--Форма вложения-->
+	<form name="Вложение">
+		<line indent="1" bind="Файл" cols="3" border="1">
+			<edit grow="1"/>
+			<tool type="upload" accept="image/*"/>
+			<tool type="download"/>
+		</line>
+	</form>
+</unit>

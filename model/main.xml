@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="main">
+
+	<role name="Администратор"/>
+	<role name="Пользователь"/>
+
+	<type name="main" scope="global">
+		<field.object name="Аутентификация" type="Аутентификация"/>
+
+		<function name="title">
+			<get value="Задачи"/>
+		</function>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Пользователь"/>
+	</type>
+	
+	<form name="main" role="Администратор">
+		<column width="2"/>
+		<column width="4"/>
+		<column width="60"/>
+
+		<nest field="Аутентификация"/>
+
+
+		<row/>
+		<row indent="1" text="Документы" bold="1" color="009646" cols="2"/>
+		<row/>
+		<row indent="2">
+			<link reference="Задача" type="list" text="❗ Задачи"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="Работа" type="list" text="🕐 Работа"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="График" type="list" text="💳 Графики"/>
+		</row>
+		<row/>
+		<row/>
+		<row indent="1" text="Справочники" bold="1" color="009646" cols="2"/>
+		<row/>
+		<row indent="2">
+			<link reference="Организация" type="list" text="🏢 Организации"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="Договор" type="list" text="🤝 Договоры"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="Сотрудник" type="list" text="👮‍ Сотрудники"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="Статус" type="list" text="💥 Статусы"/>
+		</row>
+		<row/>
+		<row indent="2">
+			<link reference="Место" type="list" text="🪑 Места"/>
+		</row>
+		<row/>
+		<row/>
+		<row/>
+		<cell text="Версия 1.7" cols="2" color="606080"/>
+		<row/>
+	</form>
+
+	<form name="main" role="Пользователь">
+		<column width="2"/>
+		<column width="4"/>
+		<column width="60"/>
+
+		<nest field="Аутентификация"/>
+
+		<row/>
+		<row/>
+		<row/>
+	</form>
+
+	<format name="Дата" DLF="D"/>
+	<format name="Время" NFD="2" NDS=":"/>
+	<format name="Число2" NFD="2"/>
+		
+</unit>

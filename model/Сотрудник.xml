@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Сотрудник">
+	
+	<type name="Сотрудник" title="Сотрудник" scope="global">
+		<field.string name="Наименование" width="30" indexing="sort"/>
+		<field.ref name="Организация" type="Организация" title="Организация" width="20" indexing="key"/>
+		<field.ref name="Проект" type="Договор" title="Проект" width="20" indexing="key"/>
+		<function name="title">
+			<get field="Наименование"/>
+		</function>
+		<index name="Сотрудник">
+			<key field="Наименование"/>
+		</index>
+		<access.allow role="Администратор"/>
+	</type>
+		
+	<form name="Сотрудник">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="30"/>
+		<row/>
+		<row indent="1">
+			<button name="Записать" text="Записать и закрыть"/>
+		</row>
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" outline="2">
+			<edit grow="1"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Организация"/>
+		<cell bind="Организация" outline="2">
+			<edit type="ref" grow="1"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+		<row indent="1" text="Договор"/>
+		<cell bind="Проект" outline="2">
+			<edit type="ref" grow="1"/>
+			<tool type="choosing"/>
+		</cell>
+		<row/>
+	</form>
+
+</unit>

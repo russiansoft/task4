@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Организация">
+	
+	<type name="Организация" title="Организация" scope="global">
+		<field.string name="Наименование" width="30"/>
+		<function name="title">
+			<get field="Наименование"/>
+		</function>
+		<index name="Организация">
+			<key field="Наименование"/>
+		</index>
+		<access.allow role="Администратор"/>
+	</type>
+	
+	<form name="Организация">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="30"/>
+		<row/>
+		<row indent="1">
+			<button name="Записать" text="Записать и закрыть"/>
+		</row>
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" outline="2">
+			<edit grow="1"/>
+		</cell>
+		<row/>
+	</form>
+	
+</unit>
