@@ -105,6 +105,9 @@ function Открыть(id)
 // Аутентификация
 async function Войти()
 {
+	app.login("123");
+	return;
+
 	if (!localStorage["device"])
 		localStorage["device"] = await app.guid();
 	console.log("Идентификатор устройства " + localStorage["device"]);

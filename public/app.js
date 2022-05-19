@@ -22,5 +22,11 @@ App.prototype.guid = async function()
 	return (await this.call("guid")).value;
 }
 
+// login
+App.prototype.login = async function(device)
+{
+	return (await this.call("login", { "device": device }));
+}
+
 // app
 let app = new App();
