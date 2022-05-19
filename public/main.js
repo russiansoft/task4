@@ -40,35 +40,55 @@ async function Shot()
 	dataset.commit();
 }
 
+let count = 0;
+
 // Тестовое заполнение
-async function Заполнить()
+async function Заполнить(clear = false)
 {
+	let content = document.querySelector("#content");
+	if (clear)
+	{
+		content.innerHTML = "";
+		count = 0;
+	}
 	let татьяна = await dataset.find(
 	{
-		from: "Сотрудник",
-		filter: { "Наименование": "Чижиченко Татьяна Николаевна" }
+		"from": "Сотрудник",
+		"filter": { "Наименование": "Чижиченко Татьяна Николаевна" }
 	} );
 	let ожидания = await dataset.find(
 	{
-		from: "Статус",
-		filter: { "Наименование": "Ожидания и отложено" }
+		"from": "Статус",
+		"filter": { "Наименование": "Ожидания и отложено" }
 	} );
-	let records = await dataset.select(
+	let query = 
 	{
-		from: "Задача",
-		take: 50,
-		where: { "Срок": [ "2022-01-01", null ] },
-		filter:
+		"from": "Задача",
+		"skip": count,
+		"take": 4,
+		"where": { "Срок": [ "2022-01-01", null ] },
+		"filter":
 		{
 			//"Постановщик": татьяна.id//,
 			"Статус": ожидания.id
 		}
-	} );
+	};
+	let records = await dataset.select(query);
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
-		new Template("#карточка").fill(record).out(document.body);
+		new Template("#карточка").fill(record).out(content);
 	}
+	count += records.length;
+	query.skip += 4;
+	query.take = 1;
+	records = await dataset.select(query);
+	let have = records.length > 0;
+	if (have)
+		document.querySelector("#more").classList.remove("d-none");
+	else
+		document.querySelector("#more").classList.add("d-none");
+	//new Template("#прокрутка").out(document.body);
 }
 
 // Открытие карточки

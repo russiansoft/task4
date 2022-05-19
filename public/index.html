@@ -24,7 +24,7 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<button class="btn btn-primary" onclick="Shot()">Записать</button>
-					<button class="btn btn-secondary" onclick="Заполнить()">Заполнить</button>
+					<button class="btn btn-secondary" onclick="Заполнить(true)">Заполнить</button>
 					<button class="btn btn-secondary" onclick="Войти()">Войти</button>
 					<button class="btn btn-secondary" onclick="Анализ()">Анализ</button>
 				</div>
@@ -44,6 +44,15 @@
 					<p class="card-text">{Содержание}</p>
 					<a class="card-link" href="#">{Срок}</a>
 					<a class="card-link" href="#">{Дата}</a>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" id="content">
+		</div>
+		<div id="more" class="d-none">
+			<div class="row">
+				<div class="col-sm-6">
+					<button class="btn btn-secondary" onclick="Заполнить()">Вывести еще</button>
 				</div>
 			</div>
 		</div>
