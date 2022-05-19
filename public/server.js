@@ -12,8 +12,8 @@ async function CallServer(gateway, method, list = { } )
 	let json = await response.json();
 	if (json.error)
 		throw "ОШИБКА СЕРВЕРА: " + json.error;
-	console.log("<<< " + gateway + "." + method +
+	console.log("" + gateway + "." + method +
 	            "(" + JSON.stringify(list) +
-	            ") >>> " + JSON.stringify(json));
+	            ") 🔴 " + JSON.stringify(json));
 	return json;
 }

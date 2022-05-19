@@ -83,19 +83,34 @@ function Открыть(id)
 }
 
 // Аутентификация
-function Войти()
+async function Войти()
 {
-	let client = "1018061910916-ugbu0ph8b2dnaqaqn9nm3817l4lu45hp.apps.googleusercontent.com";
-	let state = "123";
-	let uri = "https://xn--40-6kcai3c0bf.xn--p1ai";
+	if (!localStorage["device"])
+		localStorage["device"] = await app.guid();
+	console.log("Идентификатор устройства " + localStorage["device"]);
+
+	let client = "136685971527-6k9gjabo1pj8mnv9d7p91fmuah581o1d.apps.googleusercontent.com";
+	let state = localStorage["device"];
 	let google = "https://accounts.google.com/o/oauth2/v2/auth" +
 				 "?client_id=" + client +
 				 "&response_type=code" +
 				 "&scope=openid%20email" +
 				 "&state=" + state +
-				 "&redirect_uri=" + uri;
+				 "&redirect_uri=" + location.origin;
+	console.log(google);
 	//location.replace(google);
 	let child = open(google);
+}
+
+// Анализ
+function Анализ()
+{
+	let url = new URL(location);
+	if (url.searchParams.has("code"))
+	{
+		console.log("code: " + url.searchParams.get("code"));
+		document.body.append("code: " + url.searchParams.get("code"));
+	}
 }
 
 // Событие загрузки
