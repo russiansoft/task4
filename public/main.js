@@ -105,34 +105,38 @@ function Открыть(id)
 // Аутентификация
 async function Войти()
 {
-	app.login("123");
-	return;
-
 	if (!localStorage["device"])
 		localStorage["device"] = await app.guid();
-	console.log("Идентификатор устройства " + localStorage["device"]);
-
-	let client = "136685971527-6k9gjabo1pj8mnv9d7p91fmuah581o1d.apps.googleusercontent.com";
-	let state = localStorage["device"];
-	let google = "https://accounts.google.com/o/oauth2/v2/auth" +
-				 "?client_id=" + client +
-				 "&response_type=code" +
-				 "&scope=openid%20email" +
-				 "&state=" + state +
-				 "&redirect_uri=" + location.origin;
-	console.log(google);
-	//location.replace(google);
-	let child = open(google);
+	let device = localStorage["device"];
+	console.log("Идентификатор устройства " + device);
+	let login = await app.login(device);
+	if (!login.user)
+	{
+		let google = await app.google();
+		if (!google.client)
+			throw "Отсутствет идентификатор клиента Google";
+		if (google.uri != location.origin)
+			throw "Ошибочный URI перенаправления Google";
+		let request = "https://accounts.google.com/o/oauth2/v2/auth" +
+					  "?client_id=" + google.client +
+					  "&response_type=code" +
+					  "&scope=openid%20email" +
+					  "&redirect_uri=" + google.uri;
+		console.log(request);
+		location.replace(request);
+	}
 }
 
-// Анализ
-function Анализ()
+// Завершить
+async function Завершить()
 {
 	let url = new URL(location);
 	if (url.searchParams.has("code"))
 	{
-		console.log("code: " + url.searchParams.get("code"));
-		document.body.append("code: " + url.searchParams.get("code"));
+		let code = url.searchParams.get("code");
+		console.log("code: " + code);
+		await app.auth(code, localStorage["device"]);
+		location.replace(location.origin);
 	}
 }
 

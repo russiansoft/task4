@@ -5,7 +5,7 @@ function App()
 }
 
 // call
-App.prototype.call = function(method, list = { })
+App.prototype.call = function(method, list = { } )
 {
 	return CallServer("app", method, list);
 }
@@ -25,7 +25,19 @@ App.prototype.guid = async function()
 // login
 App.prototype.login = async function(device)
 {
-	return (await this.call("login", { "device": device }));
+	return (await this.call("login", { "device": device } ));
+}
+
+// google
+App.prototype.google = async function()
+{
+	return (await this.call("google"));
+}
+
+// auth
+App.prototype.auth = async function(code, device)
+{
+	return (await this.call("auth", { "code": code, "device": device } ));
 }
 
 // app
