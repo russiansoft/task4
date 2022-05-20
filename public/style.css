@@ -1,7 +1,10 @@
-*
+@media (prefers-color-scheme: dark)
 {
-	background-color: #333 !important;
-	color: #ddd !important;
+	*
+	{
+		background-color: #333 !important;
+		color: #ddd !important;
+	}
 }
 .card:hover
 {

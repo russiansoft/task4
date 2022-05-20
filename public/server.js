@@ -14,6 +14,6 @@ async function CallServer(gateway, method, list = { } )
 		throw "ОШИБКА СЕРВЕРА: " + json.error;
 	console.log("" + gateway + "." + method +
 	            "(" + JSON.stringify(list) +
-	            ") 🟥 " + JSON.stringify(json));
+	            ") 🟩 " + JSON.stringify(json));
 	return json;
 }

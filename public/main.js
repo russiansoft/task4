@@ -102,15 +102,28 @@ function Открыть(id)
 		//child.sessionStorage["form"] = Id;
 }
 
-// Аутентификация
+let User = ""; // Имя пользователя
+
+// Установка видимости
+function show(selector, visible)
+{
+	let element = document.querySelector(selector);
+	if (element.classList.contains("d-none") == visible)
+		element.classList.toggle("d-none");
+}
+
+// Обновление видимости
+function ОбновитьВидимость()
+{
+	show("#КнопкаВойти", !User);
+	show("#КнопкаВыйти", User);
+}
+
+// Вход
 async function Войти()
 {
-	if (!localStorage["device"])
-		localStorage["device"] = await app.guid();
-	let device = localStorage["device"];
-	console.log("Идентификатор устройства " + device);
-	let login = await app.login(device);
-	if (!login.user)
+	let auth = await app.auth(localStorage["device"]);
+	if (!auth.user)
 	{
 		let google = await app.google();
 		if (!google.client)
@@ -127,24 +140,49 @@ async function Войти()
 	}
 }
 
-// Завершить
-async function Завершить()
+// Выход
+async function Выйти()
 {
-	let url = new URL(location);
-	if (url.searchParams.has("code"))
-	{
-		let code = url.searchParams.get("code");
-		console.log("code: " + code);
-		await app.auth(code, localStorage["device"]);
-		location.replace(location.origin);
-	}
+	app.logout(localStorage["device"]);
+	location.replace(location);
 }
 
 // Событие загрузки
 onload = async function()
 {
+	// Завершение аутентификации Google
+	let url = new URL(location);
+	if (url.searchParams.has("code"))
+	{
+		let code = url.searchParams.get("code");
+		let device = localStorage["device"];
+		await app.login(code, device);
+		location.replace(location.origin);
+		return;
+	}
+
+	// Идентификация устройства
+	if (!localStorage["device"])
+		localStorage["device"] = await app.guid();
+	let device = localStorage["device"];
+	console.log("Идентификатор устройства " + device);
+
+	// Аутентификация
+	if (device)
+	{
+		let auth = await app.auth(device);
+		User = auth.user;
+		let text = auth.user ? auth.user : "Не определен";
+		document.querySelector("#user").innerHTML = text;
+	}
+
+	ОбновитьВидимость();
+
+	// Транзакция
 	window.dataset = new Dataset();
 	await dataset.begin();
+
+	// Обработка изменений полей ввода
 	document.onchange = OnChange;
 }
 

@@ -22,10 +22,10 @@ App.prototype.guid = async function()
 	return (await this.call("guid")).value;
 }
 
-// login
-App.prototype.login = async function(device)
+// auth
+App.prototype.auth = async function(device)
 {
-	return (await this.call("login", { "device": device } ));
+	return (await this.call("auth", { "device": device } ));
 }
 
 // google
@@ -34,10 +34,17 @@ App.prototype.google = async function()
 	return (await this.call("google"));
 }
 
-// auth
-App.prototype.auth = async function(code, device)
+// login
+App.prototype.login = async function(code, device)
 {
-	return (await this.call("auth", { "code": code, "device": device } ));
+	return (await this.call("login", { "code": code, "device": device } ));
+}
+
+
+// logout
+App.prototype.logout = async function(device)
+{
+	return (await this.call("logout", { "device": device } ));
 }
 
 // app
