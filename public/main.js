@@ -115,8 +115,8 @@ function show(selector, visible)
 // Обновление видимости
 function ОбновитьВидимость()
 {
-	show("#КнопкаВойти", !User);
-	show("#КнопкаВыйти", User);
+	show("#login", User == "");
+	show("#logout", User != "");
 }
 
 // Вход
@@ -180,7 +180,7 @@ onload = async function()
 
 	// Транзакция
 	window.dataset = new Dataset();
-	await dataset.begin();
+	await dataset.begin(localStorage["device"]);
 
 	// Обработка изменений полей ввода
 	document.onchange = OnChange;
