@@ -27,20 +27,27 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-					<!-- <button class="btn btn-primary" onclick="Shot()">Записать</button> -->
-					<button class="btn btn-secondary" onclick="Заполнить(true)">Заполнить</button>
+					<!-- <button class="btn btn-primary" onclick="Заполнить(true)">Заполнить</button> -->
 					<button id="login" class="btn btn-secondary d-none" onclick="Войти()">Войти</button>
 					<button id="logout" class="btn btn-secondary d-none" onclick="Выйти()">Выйти</button>
 				</div>
 			</div>
-			<div hidden class="row">
-				<label class="col-sm-3 control-label">Наименование</label>
+			<div class="row">
 				<div class="col-sm-3">
-					<input class="form-control" id="title" bind="Наименование">
+					<label for="from">Период с:</label>
+				</div>
+				<div class="col-sm-3">
+					<input id="from" type="date" class="form-control" onchange="Заполнить(true)"/>
+				</div>
+				<div class="col-sm-1">
+					<label for="to">по:</label>
+				</div>
+				<div class="col-sm-3">
+					<input id="to" type="date" class="form-control" onchange="Заполнить(true)"/>
 				</div>
 			</div>
 		</div>
-		<div hidden id="карточка">
+		<template id="карточка">
 			<div class="card" record="{id}" onclick="Открыть('{id}')">
 				<div class="card-body">
 					<h4 class="card-title">{Тема}</h4>
@@ -50,7 +57,7 @@
 					<a class="card-link" href="#">{Дата}</a>
 				</div>
 			</div>
-		</div>
+		</template>
 		<div class="container-fluid" id="content">
 		</div>
 		<div id="more" class="d-none">

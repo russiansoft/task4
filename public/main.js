@@ -1,50 +1,13 @@
 ﻿
-function ShowMessage(message, type)
-{
-	let wrapper = document.createElement('div');
-	wrapper.innerHTML = '<div class="alert alert-' + type + 
-						' alert-dismissible" role="alert">' + message + 
-						'<button type="button" class="btn-close" ' +
-						'data-bs-dismiss="alert" aria-label="Close"></button></div>';
-	document.querySelector("body").append(wrapper);
-}
-
-// Вывод связанных данных
-function DataOut(record)
-{
-	for (let element of document.querySelectorAll("*"))
-	{
-		if (!element.hasAttribute("bind"))
-			continue;
-		let bind = element.getAttribute("bind");
-		element.value = record[bind];
-	}
-	document.record = record.id;
-}
-
-// При изменении
-function OnChange(event)
-{
-	let element = event.target;
-	if (!element.hasAttribute("bind"))
-		return;
-	let changes = { "id": document.record };
-	changes[element.getAttribute("bind")] = element.value;
-	console.log(JSON.stringify(changes));
-	dataset.save( [ changes ] );
-}
-
-// При нажатии кнопки
-async function Shot()
-{
-	dataset.commit();
-}
-
 let count = 0;
 
-// Тестовое заполнение
+// Заполнение
 async function Заполнить(clear = false)
 {
+	// Новая транзакция
+	window.dataset = new Dataset();
+	await dataset.begin(localStorage["device"]);
+
 	let content = document.querySelector("#content");
 	if (clear)
 	{
@@ -61,12 +24,14 @@ async function Заполнить(clear = false)
 		"from": "Статус",
 		"filter": { "Наименование": "Ожидания и отложено" }
 	} );
+	let from = document.querySelector("#from").valueAsDate.toISOString().slice(0, 10);
+	let to = document.querySelector("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
 	{
 		"from": "Задача",
 		"skip": count,
-		"take": 4,
-		"where": { "Срок": [ "2022-01-01", null ] },
+		"take": 5,
+		"where": { "Срок": [ from, to ] },
 		"filter":
 		{
 			//"Постановщик": татьяна.id//,
@@ -88,16 +53,15 @@ async function Заполнить(clear = false)
 		document.querySelector("#more").classList.remove("d-none");
 	else
 		document.querySelector("#more").classList.add("d-none");
-	//new Template("#прокрутка").out(document.body);
 }
 
 // Открытие карточки
 function Открыть(id)
 {
 	console.log(id);
-	let child = open(location);
+	let child = open("item.html?id=" + id);
 	if (child == null)
-		alert("Ошибка открытия " + location);
+		throw("Ошибка открытия " + location);
 	//else
 		//child.sessionStorage["form"] = Id;
 }
@@ -184,6 +148,12 @@ onload = async function()
 
 	// Обработка изменений полей ввода
 	document.onchange = OnChange;
+
+	// Значения по умолчанию
+	document.querySelector("#from").valueAsDate = new Date();
+	document.querySelector("#to").valueAsDate = new Date();
+
+	Заполнить(true);
 }
 
 
