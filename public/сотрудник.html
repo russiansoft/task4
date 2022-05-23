@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -16,20 +16,22 @@
 	<script src="template.js"></script>
 	<script src="capture.js"></script>
 	<script src="app.js"></script>
-	<script src="task.js"></script>
-	<title>Задачи</title>
+	<script src="сотрудник.js"></script>
+	<title>Сотрудник</title>
 </head>
 	<body>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col">
-					<a href="tasks">Задачи</a>
-					<a href="works">Работа</a>
-					<p></p>
-					<a href="orgs">Организации</a>
-					<a href="contracts">Договоры</a>
-					<a href="сотрудники">Сотрудники</a>
-					<a href="statuses">Статусы</a>
+					<button class="btn btn-primary" onclick="Записать()">Записать</button>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-4">
+					<label for="title">Наименование:</label>
+				</div>
+				<div class="col-sm-4">
+					<input id="title" class="form-control" bind="Наименование"/>
 				</div>
 			</div>
 		</div>
