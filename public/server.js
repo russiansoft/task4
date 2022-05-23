@@ -36,7 +36,10 @@ function DataOut(record)
 		if (!element.hasAttribute("bind"))
 			continue;
 		let bind = element.getAttribute("bind");
-		element.value = record[bind];
+		if (element.type == "time")
+			element.value = ("" + record[bind]).replace(".", ":");
+		else
+			element.value = record[bind];
 	}
 	document.record = record.id;
 }
@@ -47,8 +50,8 @@ function OnChange(event)
 	let element = event.target;
 	if (!element.hasAttribute("bind"))
 		return;
-	let changes = { "id": document.record };
-	changes[element.getAttribute("bind")] = element.value;
-	console.log(JSON.stringify(changes));
-	dataset.save( [ changes ] );
+	let changed = { "id": document.record };
+	changed[element.getAttribute("bind")] = element.value;
+	console.log("Изменения: " + JSON.stringify(changed));
+	dataset.save( [ changed ] );
 }

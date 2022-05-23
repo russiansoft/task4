@@ -20,33 +20,36 @@
 </head>
 	<body>
 		<div class="container-fluid">
-			<div class="row">
-				Пользователь:
+			<div class="row m-3">
+				<span>Пользователь:</span>
 				<div id="user"></div>
 			</div>
-			<div class="row">
+			<div class="row m-3">
 				<div class="col-sm-6">
 					<button id="login" class="btn btn-secondary d-none" onclick="Войти()">Войти</button>
 					<button id="logout" class="btn btn-secondary d-none" onclick="Выйти()">Выйти</button>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-3">
-					<label for="from">Период с:</label>
-				</div>
+			<div class="row m-3">
+				<label for="from" class="col-form-label col-sm-4">Период с:</label>
 				<div class="col-sm-3">
 					<input id="from" type="date" class="form-control" onchange="Заполнить(true)"/>
 				</div>
-				<div class="col-sm-1">
-					<label for="to">по:</label>
-				</div>
+				<label for="to" class="col-form-label col-sm-1">по:</label>
 				<div class="col-sm-3">
 					<input id="to" type="date" class="form-control" onchange="Заполнить(true)"/>
 				</div>
 			</div>
+			<div class="row m-3">
+				<label for="Статус" class="col-form-label col-sm-4">Статус:</label>
+				<div class="col-sm-8">
+					<select id="status" class="form-select" onchange="Заполнить(true)">
+					</select>
+				</div>
+			</div>
 		</div>
 		<template id="карточка">
-			<div class="card" record="{id}" onclick="Открыть('{id}')">
+			<div class="card m-3" record="{id}" onclick="Открыть('{id}')">
 				<div class="card-body">
 					<h4 class="card-title">{Тема}</h4>
 					<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
@@ -58,12 +61,15 @@
 		</template>
 		<div class="container-fluid" id="content">
 		</div>
-		<div id="more" class="d-none">
-			<div class="row">
+		<div id="more" class="container-fluid d-none">
+			<div class="row m-3">
 				<div class="col-sm-6">
 					<button class="btn btn-secondary" onclick="Заполнить()">Вывести еще</button>
 				</div>
 			</div>
 		</div>
+		<template id="templatestatus">
+			<option value="{id}">{Наименование}</option>
+		</template>
 	</body>
 </html>

@@ -19,11 +19,6 @@ async function Заполнить(clear = false)
 		"from": "Сотрудник",
 		"filter": { "Наименование": "Чижиченко Татьяна Николаевна" }
 	} );
-	let ожидания = await dataset.find(
-	{
-		"from": "Статус",
-		"filter": { "Наименование": "Ожидания и отложено" }
-	} );
 	let from = document.querySelector("#from").valueAsDate.toISOString().slice(0, 10);
 	let to = document.querySelector("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
@@ -34,10 +29,11 @@ async function Заполнить(clear = false)
 		"where": { "Срок": [ from, to ] },
 		"filter":
 		{
-			//"Постановщик": татьяна.id//,
-			"Статус": ожидания.id
 		}
 	};
+	let status = document.querySelector("#status").value;
+	if (status)
+		query.filter.Статус = status;
 	let records = await dataset.select(query);
 	for (let id of records)
 	{
@@ -151,9 +147,23 @@ onload = async function()
 
 	// Значения по умолчанию
 	let today = new Date();
-	let from = new Date(today.getFullYear(), today.getMonth(), 1);
-	document.querySelector("#from").valueAsDate = from;
-	document.querySelector("#to").valueAsDate = new Date();
+	let from = today.getDate() - today.getDay() + 1;
+	let to = from + 6;
+	document.querySelector("#from").valueAsDate = new Date(today.setDate(from));
+	document.querySelector("#to").valueAsDate = new Date(today.setDate(to));
+
+
+	// Значения статуса
+	let list = document.querySelector("#status");
+	list.innerHTML = "";
+	let empty = { "id": "", "Наименование": "<не выбран>" };
+	new Template("#templatestatus").fill(empty).out(list);
+	let records = await dataset.select( { "from": "Статус" } );
+	for (let id of records)
+	{
+		let record = await dataset.find(id);
+		new Template("#templatestatus").fill(record).out(list);
+	}
 
 	Заполнить(true);
 }
