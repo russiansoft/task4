@@ -41,19 +41,11 @@ async function Заполнить(clear = false)
 function Открыть(id)
 {
 	console.log(id);
-	let child = open("org.html?id=" + id);
+	let child = open("org?id=" + id);
 	if (child == null)
 		throw("Ошибка открытия " + location);
 	//else
 		//child.sessionStorage["form"] = Id;
-}
-
-// Установка видимости
-function show(selector, visible)
-{
-	let element = document.querySelector(selector);
-	if (element.classList.contains("d-none") == visible)
-		element.classList.toggle("d-none");
 }
 
 // Событие загрузки
