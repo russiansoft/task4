@@ -18,36 +18,27 @@ onload = async function()
 	list.innerHTML = "";
 	let empty = { "id": "", "Наименование": "<не выбран>" };
 	new Template("#templatestatus").fill(empty).out(list);
-	let records = await dataset.select( { "from": "Статус" } );
-	for (let id of records)
-	{
-		let record = await dataset.find(id);
+	let query = { "select": [ "id", "Наименование" ], "from": "Статус" };
+	for (let record of await dataset.select(query))
 		new Template("#templatestatus").fill(record).out(list);
-	}
 
 	// Значения проекта
 	list = document.querySelector('#project');
 	list.innerHTML = "";
 	empty = { "id": "", "Наименование": "<не выбран>" };
 	new Template("#project-template").fill(empty).out(list);
-	records = await dataset.select( { "from": "Договор" } );
-	for (let id of records)
-	{
-		let record = await dataset.find(id);
+	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
+	for (let record of await dataset.select(query))
 		new Template("#project-template").fill(record).out(list);
-	}
 
 	// Постановщик
 	list = document.querySelector('#Постановщик');
 	list.innerHTML = "";
 	empty = { "id": "", "Наименование": "<не выбран>" };
 	new Template("#Постановщик-template").fill(empty).out(list);
-	records = await dataset.select( { "from": "Сотрудник" } );
-	for (let id of records)
-	{
-		let record = await dataset.find(id);
+	query = { "select": [ "id", "Наименование" ], "from": "Сотрудник" };
+	for (let record of await dataset.select(query))
 		new Template("#Постановщик-template").fill(record).out(list);
-	}
 
 	// Обработка изменений полей ввода
 	document.onchange = OnChange;

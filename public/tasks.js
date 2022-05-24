@@ -14,11 +14,6 @@ async function Заполнить(clear = false)
 		content.innerHTML = "";
 		count = 0;
 	}
-	let татьяна = await dataset.find(
-	{
-		"from": "Сотрудник",
-		"filter": { "Наименование": "Чижиченко Татьяна Николаевна" }
-	} );
 	let from = document.querySelector("#from").valueAsDate.toISOString().slice(0, 10);
 	let to = document.querySelector("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
@@ -38,7 +33,13 @@ async function Заполнить(clear = false)
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
-		new Template("#карточка").fill(record).out(content);
+		let template = new Template("#карточка").fill(record);
+		if (record.Постановщик)
+		{
+			let постановщик = await dataset.find(record.Постановщик);
+			template.fill( { "НаименованиеПостановщика": постановщик.Наименование } );
+		}
+		template.out(content);
 	}
 	count += records.length;
 	query.skip += 4;
