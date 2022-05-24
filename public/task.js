@@ -1,12 +1,20 @@
 
-// Запись
+function Изображение()
+{
+	new FileDialog().show();
+}
+	
 async function Записать()
 {
 	await dataset.commit();
 	close();
 }
 
-// При загрузке
+function Работа()
+{
+	open("works.html?task=" + document.record);
+}
+
 onload = async function()
 {
 	// Транзакция

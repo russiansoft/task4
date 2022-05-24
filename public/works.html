@@ -20,9 +20,11 @@
 </head>
 	<body>
 		<template id="карточка">
-			<div class="card" record="{id}" onclick="Открыть('{id}')">
+			<div class="card m-3" record="{id}" onclick="Открыть('{id}')">
 				<div class="card-body">
-					<h4 class="card-title">{Дата}</h4>
+					<h3 class="card-title">{Дата}</h3>
+					<h4 class="card-subtitle">{Начало}-{Окончание}</h4>
+					<p class="card-text">{Содержание}</p>
 				</div>
 			</div>
 		</template>

@@ -28,6 +28,19 @@ function ShowMessage(message, type)
 	document.querySelector("body").append(wrapper);
 }
 
+function format(value, type)
+{
+	if (type == "time")
+	{
+
+		let time = parseFloat(value).toFixed(2);
+		if (time.length < 5)
+		time = "0" + time;
+		return time.replace(".", ":");
+	}
+	return value;
+}
+
 // Вывод связанных данных
 function DataOut(record)
 {
@@ -36,10 +49,7 @@ function DataOut(record)
 		if (!element.hasAttribute("bind"))
 			continue;
 		let bind = element.getAttribute("bind");
-		if (element.type == "time")
-			element.value = ("" + record[bind]).replace(".", ":");
-		else
-			element.value = record[bind];
+		element.value = format(record[bind], element.type);
 	}
 	document.record = record.id;
 }

@@ -1,4 +1,5 @@
 
+let task = null;
 let count = 0;
 
 // Заполнение
@@ -20,11 +21,17 @@ async function Заполнить(clear = false)
 		"skip": count,
 		"take": 15
 	};
+	if (task)
+		query.filter = { "Задача": task };
 	let records = await dataset.select(query);
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
-		new Template("#карточка").fill(record).out(content);
+		let template = new Template("#карточка");
+		template.fill( { "Начало": format(record.Начало, "time") } );
+		template.fill( { "Окончание": format(record.Окончание, "time") } );
+		template.fill(record);
+		template.out(content);
 	}
 	count += records.length;
 	query.skip += 14;
@@ -63,6 +70,10 @@ onload = async function()
 
 	// Обработка изменений полей ввода
 	document.onchange = OnChange;
+
+	let url = new URL(location);
+	if (url.searchParams.has("task"))
+		task = url.searchParams.get("task");
 
 	Заполнить(true);
 }
