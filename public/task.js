@@ -56,7 +56,13 @@ onload = async function()
 	{
 		let id = url.searchParams.get("id");
 		document.record = await dataset.find(id);
-		DataOut(document.record);
 	}
+	else
+	{
+		document.record = await dataset.create("Задача");
+		await dataset.save( [ { "id": document.record.id,
+	                            "Срок": format(new Date, "value") } ] );
+	}
+	DataOut(document.record);
 }
 

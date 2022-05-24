@@ -17,19 +17,10 @@
 	<script src="capture.js"></script>
 	<script src="app.js"></script>
 	<script src="tasks.js"></script>
+	<title>Задачи</title>
 </head>
 	<body>
 		<div class="container-fluid">
-			<div class="row m-3">
-				<span>Пользователь:</span>
-				<div id="user"></div>
-			</div>
-			<div class="row m-3">
-				<div class="col-sm-6">
-					<button id="login" class="btn btn-secondary d-none" onclick="Войти()">Войти</button>
-					<button id="logout" class="btn btn-secondary d-none" onclick="Выйти()">Выйти</button>
-				</div>
-			</div>
 			<div class="row m-3">
 				<label for="from" class="col-form-label col-sm-4">Период с:</label>
 				<div class="col-sm-3">
@@ -60,6 +51,13 @@
 				</div>
 			</div>
 		</template>
+		<div class="container-fluid">
+			<div class="row m-3">
+				<div class="col-sm-6">
+					<button class="btn btn-secondary" onclick="Создать()">Создать</button>
+				</div>
+			</div>
+		</div>
 		<div class="container-fluid" id="content">
 		</div>
 		<div id="more" class="container-fluid d-none">

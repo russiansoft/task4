@@ -30,13 +30,25 @@ function ShowMessage(message, type)
 
 function format(value, type)
 {
-	if (type == "time")
+	if (type == "date")
+	{
+		if (value.length == 10)
+			return value.slice(8, 10) + "." +
+			       value.slice(5, 7) + "." +
+				   value.slice(0, 4);
+	}
+	else if (type == "time")
 	{
 
 		let time = parseFloat(value).toFixed(2);
 		if (time.length < 5)
 		time = "0" + time;
 		return time.replace(".", ":");
+	}
+	else if (type == "value")
+	{
+		if (typeof value == "Date")
+			return value.toISOString().slice(0, 10);
 	}
 	return value;
 }
@@ -49,7 +61,10 @@ function DataOut(record)
 		if (!element.hasAttribute("bind"))
 			continue;
 		let bind = element.getAttribute("bind");
-		element.value = format(record[bind], element.type);
+		if (element.type == "time")
+			element.value = format(record[bind], element.type);
+		else
+			element.value = record[bind];
 	}
 	document.record = record.id;
 }

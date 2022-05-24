@@ -28,6 +28,7 @@ async function Заполнить(clear = false)
 	{
 		let record = await dataset.find(id);
 		let template = new Template("#карточка");
+		template.fill( { "Дата": format(record.Дата, "date") } );
 		template.fill( { "Начало": format(record.Начало, "time") } );
 		template.fill( { "Окончание": format(record.Окончание, "time") } );
 		template.fill(record);
