@@ -27,8 +27,13 @@ onload = async function()
 	let empty = { "id": "", "Наименование": "<не выбран>" };
 	new Template("#templatestatus").fill(empty).out(list);
 	let query = { "select": [ "id", "Наименование" ], "from": "Статус" };
+	let defaultStatus = "";
 	for (let record of await dataset.select(query))
+	{
 		new Template("#templatestatus").fill(record).out(list);
+		if (record.Наименование == "Входящие")
+			defaultStatus = record.id;
+	}
 
 	// Значения проекта
 	list = document.querySelector('#project');
@@ -59,9 +64,12 @@ onload = async function()
 	}
 	else
 	{
-		document.record = await dataset.create("Задача");
-		await dataset.save( [ { "id": document.record.id,
-	                            "Срок": format(new Date, "value") } ] );
+		document.record = await dataset.create("Задача",
+		{
+			"Срок": (new Date).toISOString().slice(0, 10),
+			"Дата": (new Date).toISOString().slice(0, 10),
+			"Статус": defaultStatus
+		} );
 	}
 	DataOut(document.record);
 }
