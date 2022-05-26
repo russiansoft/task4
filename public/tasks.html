@@ -38,9 +38,16 @@
 					</select>
 				</div>
 			</div>
+			<div class="row m-3">
+				<label for="Статус" class="col-form-label col-sm-4">Проект:</label>
+				<div class="col-sm-8">
+					<select id="project" class="form-select" onchange="Заполнить(true)">
+					</select>
+				</div>
+			</div>
 		</div>
 		<template id="карточка">
-			<div class="card m-3" record="{id}" onclick="Открыть('{id}')">
+			<div class="card m-3 {class}" record="{id}" onclick="Открыть('{id}')">
 				<div class="card-body">
 					<h4 class="card-title">{Тема}</h4>
 					<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
@@ -68,6 +75,9 @@
 			</div>
 		</div>
 		<template id="templatestatus">
+			<option value="{id}">{Наименование}</option>
+		</template>
+		<template id="project-template">
 			<option value="{id}">{Наименование}</option>
 		</template>
 	</body>

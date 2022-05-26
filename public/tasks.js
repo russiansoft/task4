@@ -1,5 +1,6 @@
 
 let count = 0;
+let statuses = { };
 
 // Заполнение
 async function Заполнить(clear = false)
@@ -14,8 +15,8 @@ async function Заполнить(clear = false)
 		content.innerHTML = "";
 		count = 0;
 	}
-	let from = format(document.querySelector("#from").valueAsDate, "value");
-	let to = format(document.querySelector("#to").valueAsDate, "value");
+	let from = document.querySelector("#from").valueAsDate.toISOString().slice(0, 10);
+	let to = document.querySelector("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
 	{
 		"from": "Задача",
@@ -29,6 +30,9 @@ async function Заполнить(clear = false)
 	let status = document.querySelector("#status").value;
 	if (status)
 		query.filter.Статус = status;
+	let project = document.querySelector("#project").value;
+	if (project)
+		query.filter.Проект = project;
 	let records = await dataset.select(query);
 	for (let id of records)
 	{
@@ -41,6 +45,20 @@ async function Заполнить(clear = false)
 		}
 		template.fill( { "Срок": format(record.Срок, "date") } );
 		template.fill( { "Дата": format(record.Дата, "date") } );
+		if (record.Статус == statuses["Входящие"])
+			template.fill( { "class": "bg-warning text-dark" } );
+		else if (record.Статус == statuses["Действия"])
+			template.fill( { "class": "bg-danger text-white" } );
+		else if (record.Статус == statuses["Завершено"])
+			template.fill( { "class": "bg-success text-white" } );
+		else if (record.Статус == statuses["Информация"])
+			template.fill( { "class": "bg-info text-white" } );
+		else if (record.Статус == statuses["Когда-нибудь, может быть"])
+			template.fill( { "class": "" } );
+		else if (record.Статус == statuses["Ожидания и отложено"])
+			template.fill( { "class": "bg-secondary text-white" } );
+		else
+			template.fill( { "class": "bg-dark text-white" } );
 		template.fill(record);
 		template.out(content);
 	}
@@ -104,7 +122,18 @@ onload = async function()
 	{
 		let record = await dataset.find(id);
 		new Template("#templatestatus").fill(record).out(list);
+		statuses[record.Наименование] = record.id;
 	}
+
+	// Значения проекта
+	list = document.querySelector('#project');
+	list.innerHTML = "";
+	empty = { "id": "", "Наименование": "<не выбран>" };
+	new Template("#project-template").fill(empty).out(list);
+	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
+	for (let record of await dataset.select(query))
+		new Template("#project-template").fill(record).out(list);
+
 
 	Заполнить(true);
 }

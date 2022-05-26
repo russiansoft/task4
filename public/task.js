@@ -15,6 +15,42 @@ function Работа()
 	open("works.html?task=" + document.record);
 }
 
+async function ЗаполнитьВложения()
+{
+	let outer = document.querySelector("#attach");
+	outer.innerHTML = "";
+	let query = 
+	{
+		"from": "owner",
+		"where": { "owner": document.record }
+	};
+	for (let id of await dataset.select(query))
+	{
+		let item = await dataset.find(id);
+		let attributes = { };
+		for (let element of item.Файл.split("|"))
+		{
+			if (!element)
+				continue;
+			let pair = element.split(":");
+			attributes[pair[0]] = pair[1];
+		}
+		console.log(attributes.address);
+		attributes.address = attributes.address.replaceAll("\\", "/");
+		console.log(attributes.address);
+		new Template("#file-template").fill(attributes).out(outer);
+	}
+}
+
+async function ОткрытьФайл(name, type, address)
+{
+	let file = await hive.get(address);
+	let a = document.createElement("a");
+    a.download = name;
+    a.href = "data:" + type + ";base64," + file.content;
+    a.click();
+}
+
 onload = async function()
 {
 	// Транзакция
@@ -72,5 +108,7 @@ onload = async function()
 		} );
 	}
 	DataOut(document.record);
+
+	ЗаполнитьВложения();
 }
 

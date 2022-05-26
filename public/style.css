@@ -13,6 +13,6 @@ body
 }
 .card:hover
 {
-	background-color: #eee;
+	box-shadow: 0 0 5px 0px;
 	cursor: pointer;
 }

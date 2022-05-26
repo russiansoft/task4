@@ -21,7 +21,19 @@ onload = async function()
 	{
 		let id = url.searchParams.get("id");
 		document.record = await dataset.find(id);
-		DataOut(document.record);
 	}
+	else
+	{
+		let task = await dataset.find(url.searchParams.get("task"));
+		document.record = await dataset.create("Работа",
+		{
+			"Дата": (new Date).toISOString().slice(0, 10),
+			"Задача": task.id
+		} );
+	}
+	let work = document.record;
+	DataOut(document.record);
+	let task = await dataset.find(work.Задача);
+	document.querySelector("#task").innerHTML = task.Тема;
 }
 

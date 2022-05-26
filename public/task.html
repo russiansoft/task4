@@ -15,6 +15,7 @@
 	<script src="dataset.js"></script>
 	<script src="template.js"></script>
 	<script src="capture.js"></script>
+	<script src="hive.js"></script>
 	<script src="app.js"></script>
 	<script src="manuscript.js"></script>
 	<script src="task.js"></script>
@@ -29,6 +30,15 @@
 		</template>
 		<template id="Постановщик-template">
 			<option value="{id}">{Наименование}</option>
+		</template>
+		<template id="file-template">
+			<div class="card m-3 bg-info text-white"
+			     onclick="ОткрытьФайл('{name}', '{type}', '{address}')">
+				<div class="card-body">
+					<p>{name}</p>
+					<p>{address}</p>
+				</div>
+			</div>
 		</template>
 		<div class="container-fluid">
 			<div class="row m-3">
@@ -87,7 +97,8 @@
 				<div class="col-sm-8">
 					<button class="btn btn-secondary" onclick="Изображение()">Изображение</button>
 				</div>
-				<!-- <input type="file" accept="image/*" class="d-none"> -->
+			</div>
+			<div id="attach">
 			</div>
 			<div class="row m-3">
 				<label for="Содержание" class="col-form-label col-sm-12">Содержание:</label>

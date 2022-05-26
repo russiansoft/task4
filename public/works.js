@@ -45,6 +45,11 @@ async function Заполнить(clear = false)
 		document.querySelector("#more").classList.add("d-none");
 }
 
+function Создать()
+{
+	open("work.html?task=" + task);
+}
+
 // Открытие карточки
 function Открыть(id)
 {
@@ -74,7 +79,11 @@ onload = async function()
 
 	let url = new URL(location);
 	if (url.searchParams.has("task"))
+	{
 		task = url.searchParams.get("task");
+		let record = await dataset.find(task);
+		document.querySelector("#task").innerHTML = record.Тема;
+	}
 
 	Заполнить(true);
 }
