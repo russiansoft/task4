@@ -1,6 +1,6 @@
 
 // Вызов сервера
-async function CallServer(gateway, method, list = { } )
+async function CallServer(gateway, method, list = { }, log = true)
 {
 	let options = 
 	{
@@ -12,9 +12,10 @@ async function CallServer(gateway, method, list = { } )
 	let json = await response.json();
 	if (json.error)
 		throw "ОШИБКА СЕРВЕРА: " + json.error;
-	console.log("" + gateway + "." + method +
-	            "(" + JSON.stringify(list) +
-	            ") 🟩 " + JSON.stringify(json));
+	if (log)
+		console.log("" + gateway + "." + method +
+					"(" + JSON.stringify(list) +
+					") 🟩 " + JSON.stringify(json));
 	return json;
 }
 

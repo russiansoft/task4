@@ -5,7 +5,7 @@ function FileDialog()
 }
 
 // Отображение
-FileDialog.prototype.show = function()
+FileDialog.prototype.show = function(onchoose)
 {
 	let input = document.createElement("input");
 	input.type = "file";
@@ -25,7 +25,7 @@ FileDialog.prototype.show = function()
 			if (start == -1)
 				return;
 			let base64 = reader.result.slice(start + beginning.length);
-			return { "name": file.name, "type": file.type, "data": base64 };
+			onchoose( { "name": file.name, "type": file.type, "data": base64 } );
 		};
 		reader.readAsDataURL(file);
 	}

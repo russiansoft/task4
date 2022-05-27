@@ -1,7 +1,24 @@
 
-function Изображение()
+async function Изображение()
 {
-	new FileDialog().show();
+	new FileDialog().show(async function(file)
+	{
+		let extension = "";
+		let point = file.name.lastIndexOf(".");
+		if (point != -1)
+			extension = file.name.slice(point + 1);
+		console.log(extension);
+		
+		let result = await hive.put(file.data, extension);
+		let value = "name:" + file.name;
+		if (file.type) 
+			value += "|type:" + file.type;
+		value += "|address:" + result.address + "|";
+		console.log(value);
+
+		dataset.add(document.record, "Вложения", { "Файл": value } );
+		await ЗаполнитьВложения();
+	} );
 }
 	
 async function Записать()
@@ -35,9 +52,7 @@ async function ЗаполнитьВложения()
 			let pair = element.split(":");
 			attributes[pair[0]] = pair[1];
 		}
-		console.log(attributes.address);
-		attributes.address = attributes.address.replaceAll("\\", "/");
-		console.log(attributes.address);
+		attributes.address = attributes.address.replace(/\\/g, "/");
 		new Template("#file-template").fill(attributes).out(outer);
 	}
 }

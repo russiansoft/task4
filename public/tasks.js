@@ -21,7 +21,7 @@ async function Заполнить(clear = false)
 	{
 		"from": "Задача",
 		"skip": count,
-		"take": 5,
+		"take": 20,
 		"where": { "Срок": [ from, to ] },
 		"filter":
 		{
@@ -63,7 +63,7 @@ async function Заполнить(clear = false)
 		template.out(content);
 	}
 	count += records.length;
-	query.skip += 4;
+	query.skip += 20;
 	query.take = 1;
 	records = await dataset.select(query);
 	let have = records.length > 0;
