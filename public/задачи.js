@@ -2,12 +2,9 @@
 let count = 0;
 let статусы = { };
 
-// Заполнение
 async function Заполнить(clear = false)
 {
-	// Новая транзакция
-	window.dataset = new Dataset();
-	await dataset.begin(localStorage["device"]);
+	await dataset.begin();
 
 	let content = document.querySelector("#content");
 	if (clear)
@@ -73,7 +70,6 @@ async function Заполнить(clear = false)
 		document.querySelector("#more").classList.add("d-none");
 }
 
-// Открытие карточки
 function Открыть(id)
 {
 	console.log(id);
@@ -89,21 +85,9 @@ function Создать()
 	open("задача.html");
 }
 
-// Событие загрузки
 onload = async function()
 {
-	// Идентификация устройства
-	if (!localStorage["device"])
-		localStorage["device"] = await app.guid();
-	let device = localStorage["device"];
-	console.log("Идентификатор устройства " + device);
-
-	// Транзакция
-	window.dataset = new Dataset();
-	await dataset.begin(localStorage["device"]);
-
-	// Обработка изменений полей ввода
-	document.onchange = OnChange;
+	await dataset.begin();
 
 	// Значения по умолчанию
 	let today = new Date();
@@ -134,8 +118,5 @@ onload = async function()
 	for (let record of await dataset.select(query))
 		new Template("#project-template").fill(record).out(list);
 
-
 	Заполнить(true);
 }
-
-

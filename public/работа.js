@@ -1,17 +1,13 @@
 
-// Запись
 async function Записать()
 {
 	await dataset.commit();
 	close();
 }
 
-// При загрузке
 onload = async function()
 {
-	// Транзакция
-	window.dataset = new Dataset();
-	await dataset.begin(localStorage["device"]);
+	await dataset.begin();
 
 	// Обработка изменений полей ввода
 	document.onchange = OnChange;
@@ -36,4 +32,3 @@ onload = async function()
 	let task = await dataset.find(work.Задача);
 	document.querySelector("#task").innerHTML = task.Тема;
 }
-

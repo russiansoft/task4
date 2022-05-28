@@ -1,19 +1,14 @@
 
-// Запись
 async function Записать()
 {
 	await dataset.commit();
 	close();
 }
 
-// При загрузке
 onload = async function()
 {
-	// Транзакция
-	window.dataset = new Dataset();
-	await dataset.begin(localStorage["device"]);
+	await dataset.begin();
 
-	// Обработка изменений полей ввода
 	document.onchange = OnChange;
 
 	let url = new URL(location);
@@ -24,4 +19,3 @@ onload = async function()
 		DataOut(document.record);
 	}
 }
-

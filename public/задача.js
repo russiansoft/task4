@@ -68,9 +68,7 @@ async function ОткрытьФайл(name, type, address)
 
 onload = async function()
 {
-	// Транзакция
-	window.dataset = new Dataset();
-	await dataset.begin(localStorage["device"]);
+	await dataset.begin();
 
 	// Значения статуса
 	let list = document.querySelector("#status");
@@ -126,4 +124,3 @@ onload = async function()
 
 	ЗаполнитьВложения();
 }
-

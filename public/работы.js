@@ -2,12 +2,9 @@
 let task = null;
 let count = 0;
 
-// Заполнение
 async function Заполнить(clear = false)
 {
-	// Новая транзакция
-	window.dataset = new Dataset();
-	await dataset.begin(localStorage["device"]);
+	await dataset.begin();
 
 	let content = document.querySelector("#content");
 	if (clear)
@@ -50,7 +47,6 @@ function Создать()
 	open("работа.html?task=" + task);
 }
 
-// Открытие карточки
 function Открыть(id)
 {
 	console.log(id);
@@ -61,22 +57,11 @@ function Открыть(id)
 		//child.sessionStorage["form"] = Id;
 }
 
-// Событие загрузки
 onload = async function()
 {
-	// Идентификация устройства
-	if (!localStorage["device"])
-		localStorage["device"] = await app.guid();
-	let device = localStorage["device"];
-	console.log("Идентификатор устройства " + device);
+	await dataset.begin();
 
-	// Транзакция
-	window.dataset = new Dataset();
-	await dataset.begin(localStorage["device"]);
-
-	// Обработка изменений полей ввода
-	document.onchange = OnChange;
-
+	// Отбор по задаче
 	let url = new URL(location);
 	if (url.searchParams.has("task"))
 	{
