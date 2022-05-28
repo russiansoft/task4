@@ -89,6 +89,8 @@ onload = async function()
 {
 	await dataset.begin();
 
+	(await new Template().load("menu.html")).out("#container");
+
 	// Значения по умолчанию
 	let today = new Date();
 	let from = today.getDate() - today.getDay() + 1;

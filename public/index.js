@@ -74,4 +74,6 @@ onload = async function()
 	}
 
 	ОбновитьВидимость();
+
+	(await new Template().load("menu.html")).out("#container");
 }
