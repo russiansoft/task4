@@ -34,8 +34,7 @@ function Работа()
 
 async function ЗаполнитьВложения()
 {
-	let outer = document.querySelector("#attach");
-	outer.innerHTML = "";
+	element("#attach").innerHTML = "";
 	let query = 
 	{
 		"from": "owner",
@@ -53,7 +52,7 @@ async function ЗаполнитьВложения()
 			attributes[pair[0]] = pair[1];
 		}
 		attributes.address = attributes.address.replace(/\\/g, "/");
-		new Template("#file-template").fill(attributes).out(outer);
+		new Template("#file-template").fill(attributes).out("#attach");
 	}
 }
 
@@ -71,36 +70,33 @@ onload = async function()
 	await dataset.begin();
 
 	// Значения статуса
-	let list = document.querySelector("#status");
-	list.innerHTML = "";
+	element("#status").innerHTML = "";
 	let empty = { "id": "", "Наименование": "<не выбран>" };
-	new Template("#templatestatus").fill(empty).out(list);
+	new Template("#templatestatus").fill(empty).out("#status");
 	let query = { "select": [ "id", "Наименование" ], "from": "Статус" };
 	let defaultStatus = "";
 	for (let record of await dataset.select(query))
 	{
-		new Template("#templatestatus").fill(record).out(list);
+		new Template("#templatestatus").fill(record).out("#status");
 		if (record.Наименование == "Входящие")
 			defaultStatus = record.id;
 	}
 
 	// Значения проекта
-	list = document.querySelector('#project');
-	list.innerHTML = "";
+	element("#project").innerHTML = "";
 	empty = { "id": "", "Наименование": "<не выбран>" };
-	new Template("#project-template").fill(empty).out(list);
+	new Template("#project-template").fill(empty).out("#project");
 	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
 	for (let record of await dataset.select(query))
-		new Template("#project-template").fill(record).out(list);
+		new Template("#project-template").fill(record).out("#project");
 
 	// Постановщик
-	list = document.querySelector('#Постановщик');
-	list.innerHTML = "";
+	element("#employee").innerHTML = "";
 	empty = { "id": "", "Наименование": "<не выбран>" };
-	new Template("#Постановщик-template").fill(empty).out(list);
+	new Template("#employee-template").fill(empty).out("#employee");
 	query = { "select": [ "id", "Наименование" ], "from": "Сотрудник" };
 	for (let record of await dataset.select(query))
-		new Template("#Постановщик-template").fill(record).out(list);
+		new Template("#employee-template").fill(record).out("#employee");
 
 	// Обработка изменений полей ввода
 	document.onchange = OnChange;

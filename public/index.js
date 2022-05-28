@@ -1,19 +1,11 @@
 ﻿
 let User = ""; // Имя пользователя
 
-// Установка видимости
-function show(selector, visible)
-{
-	let element = document.querySelector(selector);
-	if (element.classList.contains("d-none") == visible)
-		element.classList.toggle("d-none");
-}
-
 // Обновление видимости
 function ОбновитьВидимость()
 {
-	show("#login", User == "");
-	show("#logout", User != "");
+	display("#login", User == "");
+	display("#logout", User != "");
 }
 
 // Вход
@@ -70,7 +62,7 @@ onload = async function()
 		let auth = await app.auth(device);
 		User = auth.user;
 		let text = auth.user ? auth.user : "Не определен";
-		document.querySelector("#user").innerHTML = text;
+		element("#user").innerHTML = text;
 	}
 
 	ОбновитьВидимость();

@@ -6,10 +6,9 @@ async function Заполнить(clear = false)
 {
 	await dataset.begin();
 
-	let content = document.querySelector("#content");
 	if (clear)
 	{
-		content.innerHTML = "";
+		element("#content").innerHTML = "";
 		count = 0;
 	}
 	let query = 
@@ -24,22 +23,18 @@ async function Заполнить(clear = false)
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
-		let template = new Template("#карточка");
+		let template = new Template("#card");
 		template.fill( { "Дата": format(record.Дата, "date") } );
 		template.fill( { "Начало": format(record.Начало, "time") } );
 		template.fill( { "Окончание": format(record.Окончание, "time") } );
 		template.fill(record);
-		template.out(content);
+		template.out("#content");
 	}
 	count += records.length;
 	query.skip += 14;
 	query.take = 1;
 	records = await dataset.select(query);
-	let have = records.length > 0;
-	if (have)
-		document.querySelector("#more").classList.remove("d-none");
-	else
-		document.querySelector("#more").classList.add("d-none");
+	display("#more", records.length > 0);
 }
 
 function Создать()
@@ -49,12 +44,7 @@ function Создать()
 
 function Открыть(id)
 {
-	console.log(id);
-	let child = open("работа?id=" + id);
-	if (child == null)
-		throw("Ошибка открытия " + location);
-	//else
-		//child.sessionStorage["form"] = Id;
+	open("работа?id=" + id);
 }
 
 onload = async function()
@@ -67,7 +57,7 @@ onload = async function()
 	{
 		task = url.searchParams.get("task");
 		let record = await dataset.find(task);
-		document.querySelector("#task").innerHTML = record.Тема;
+		element("#task").innerHTML = record.Тема;
 	}
 
 	Заполнить(true);

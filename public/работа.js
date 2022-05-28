@@ -30,5 +30,5 @@ onload = async function()
 	let work = document.record;
 	DataOut(document.record);
 	let task = await dataset.find(work.Задача);
-	document.querySelector("#task").innerHTML = task.Тема;
+	element("#task").innerHTML = task.Тема;
 }

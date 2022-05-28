@@ -23,29 +23,29 @@
 			<div class="row m-3">
 				<label for="from" class="col-form-label col-sm-4">Период с:</label>
 				<div class="col-sm-3">
-					<input id="from" type="date" class="form-control" onchange="Заполнить(true)"/>
+					<input id="from" type="date" class="form-control" onchange="Заполнить()"/>
 				</div>
 				<label for="to" class="col-form-label col-sm-1">по:</label>
 				<div class="col-sm-3">
-					<input id="to" type="date" class="form-control" onchange="Заполнить(true)"/>
+					<input id="to" type="date" class="form-control" onchange="Заполнить()"/>
 				</div>
 			</div>
 			<div class="row m-3">
 				<label for="Статус" class="col-form-label col-sm-4">Статус:</label>
 				<div class="col-sm-8">
-					<select id="status" class="form-select" onchange="Заполнить(true)">
+					<select id="status" class="form-select" onchange="Заполнить()">
 					</select>
 				</div>
 			</div>
 			<div class="row m-3">
 				<label for="Статус" class="col-form-label col-sm-4">Проект:</label>
 				<div class="col-sm-8">
-					<select id="project" class="form-select" onchange="Заполнить(true)">
+					<select id="project" class="form-select" onchange="Заполнить()">
 					</select>
 				</div>
 			</div>
 		</div>
-		<template id="карточка">
+		<template id="card">
 			<div class="card m-3 {class}" record="{id}" onclick="Открыть('{id}')">
 				<div class="card-body">
 					<h4 class="card-title">{Тема}</h4>
@@ -60,7 +60,7 @@
 		<div class="container-fluid">
 			<div class="row m-3">
 				<div class="col-sm-6">
-					<button class="btn btn-primary" onclick="Заполнить(true)">Обновить</button>
+					<button class="btn btn-primary" onclick="Заполнить()">Обновить</button>
 					<button class="btn btn-secondary" onclick="Создать()">Создать</button>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 		<div id="more" class="container-fluid d-none">
 			<div class="row m-3">
 				<div class="col-sm-6">
-					<button class="btn btn-secondary" onclick="Заполнить()">Вывести еще</button>
+					<button class="btn btn-secondary" onclick="Дозаполнить()">Вывести еще</button>
 				</div>
 			</div>
 		</div>

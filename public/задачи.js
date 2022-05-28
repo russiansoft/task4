@@ -2,18 +2,19 @@
 let count = 0;
 let статусы = { };
 
-async function Заполнить(clear = false)
+async function Заполнить()
+{
+	element("#content").innerHTML = "";
+	count = 0;
+	await Дозаполнить();
+}
+
+async function Дозаполнить()
 {
 	await dataset.begin();
 
-	let content = document.querySelector("#content");
-	if (clear)
-	{
-		content.innerHTML = "";
-		count = 0;
-	}
-	let from = document.querySelector("#from").valueAsDate.toISOString().slice(0, 10);
-	let to = document.querySelector("#to").valueAsDate.toISOString().slice(0, 10);
+	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
+	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
 	{
 		"from": "Задача",
@@ -24,17 +25,17 @@ async function Заполнить(clear = false)
 		{
 		}
 	};
-	let status = document.querySelector("#status").value;
+	let status = element("#status").value;
 	if (status)
 		query.filter.Статус = status;
-	let project = document.querySelector("#project").value;
+	let project = element("#project").value;
 	if (project)
 		query.filter.Проект = project;
 	let records = await dataset.select(query);
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
-		let template = new Template("#карточка");
+		let template = new Template("#card");
 		if (record.Постановщик)
 		{
 			let постановщик = await dataset.find(record.Постановщик);
@@ -57,32 +58,23 @@ async function Заполнить(clear = false)
 		else
 			template.fill( { "class": "bg-dark text-white" } );
 		template.fill(record);
-		template.out(content);
+		template.out("#content");
 	}
 	count += records.length;
 	query.skip += 20;
 	query.take = 1;
 	records = await dataset.select(query);
-	let have = records.length > 0;
-	if (have)
-		document.querySelector("#more").classList.remove("d-none");
-	else
-		document.querySelector("#more").classList.add("d-none");
-}
-
-function Открыть(id)
-{
-	console.log(id);
-	let child = open("задача.html?id=" + id);
-	if (child == null)
-		throw("Ошибка открытия " + location);
-	//else
-		//child.sessionStorage["form"] = Id;
+	display("#more", records.length > 0);
 }
 
 function Создать()
 {
 	open("задача.html");
+}
+
+function Открыть(id)
+{
+	open("задача.html?id=" + id);
 }
 
 onload = async function()
@@ -95,30 +87,28 @@ onload = async function()
 	let today = new Date();
 	let from = today.getDate() - today.getDay() + 1;
 	let to = from + 6;
-	document.querySelector("#from").valueAsDate = new Date(today.setDate(from));
-	document.querySelector("#to").valueAsDate = new Date(today.setDate(to));
+	element("#from").valueAsDate = new Date(today.setDate(from));
+	element("#to").valueAsDate = new Date(today.setDate(to));
 
 	// Значения статуса
-	let list = document.querySelector("#status");
-	list.innerHTML = "";
+	element("#status").innerHTML = "";
 	let empty = { "id": "", "Наименование": "<не выбран>" };
-	new Template("#templatestatus").fill(empty).out(list);
+	new Template("#templatestatus").fill(empty).out("#status");
 	let records = await dataset.select( { "from": "Статус" } );
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
-		new Template("#templatestatus").fill(record).out(list);
+		new Template("#templatestatus").fill(record).out("#status");
 		статусы[record.Наименование] = record.id;
 	}
 
 	// Значения проекта
-	list = document.querySelector('#project');
-	list.innerHTML = "";
+	element("#project").innerHTML = "";
 	empty = { "id": "", "Наименование": "<не выбран>" };
-	new Template("#project-template").fill(empty).out(list);
+	new Template("#project-template").fill(empty).out("#project");
 	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
 	for (let record of await dataset.select(query))
-		new Template("#project-template").fill(record).out(list);
+		new Template("#project-template").fill(record).out("#project");
 
 	Заполнить(true);
 }
