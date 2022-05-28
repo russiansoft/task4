@@ -1,6 +1,6 @@
 
 let count = 0;
-let statuses = { };
+let статусы = { };
 
 // Заполнение
 async function Заполнить(clear = false)
@@ -45,17 +45,17 @@ async function Заполнить(clear = false)
 		}
 		template.fill( { "Срок": format(record.Срок, "date") } );
 		template.fill( { "Дата": format(record.Дата, "date") } );
-		if (record.Статус == statuses["Входящие"])
+		if (record.Статус == статусы["Входящие"])
 			template.fill( { "class": "bg-warning text-dark" } );
-		else if (record.Статус == statuses["Действия"])
+		else if (record.Статус == статусы["Действия"])
 			template.fill( { "class": "bg-danger text-white" } );
-		else if (record.Статус == statuses["Завершено"])
+		else if (record.Статус == статусы["Завершено"])
 			template.fill( { "class": "bg-success text-white" } );
-		else if (record.Статус == statuses["Информация"])
+		else if (record.Статус == статусы["Информация"])
 			template.fill( { "class": "bg-info text-white" } );
-		else if (record.Статус == statuses["Когда-нибудь, может быть"])
+		else if (record.Статус == статусы["Когда-нибудь, может быть"])
 			template.fill( { "class": "" } );
-		else if (record.Статус == statuses["Ожидания и отложено"])
+		else if (record.Статус == статусы["Ожидания и отложено"])
 			template.fill( { "class": "bg-secondary text-white" } );
 		else
 			template.fill( { "class": "bg-dark text-white" } );
@@ -77,7 +77,7 @@ async function Заполнить(clear = false)
 function Открыть(id)
 {
 	console.log(id);
-	let child = open("task.html?id=" + id);
+	let child = open("задача.html?id=" + id);
 	if (child == null)
 		throw("Ошибка открытия " + location);
 	//else
@@ -86,7 +86,7 @@ function Открыть(id)
 
 function Создать()
 {
-	open("task.html");
+	open("задача.html");
 }
 
 // Событие загрузки
@@ -122,7 +122,7 @@ onload = async function()
 	{
 		let record = await dataset.find(id);
 		new Template("#templatestatus").fill(record).out(list);
-		statuses[record.Наименование] = record.id;
+		статусы[record.Наименование] = record.id;
 	}
 
 	// Значения проекта

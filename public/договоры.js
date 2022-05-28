@@ -16,7 +16,7 @@ async function Заполнить(clear = false)
 	}
 	let query = 
 	{
-		"from": "Статус",
+		"from": "Договор",
 		"skip": count,
 		"take": 15
 	};
@@ -41,7 +41,7 @@ async function Заполнить(clear = false)
 function Открыть(id)
 {
 	console.log(id);
-	let child = open("status?id=" + id);
+	let child = open("договор?id=" + id);
 	if (child == null)
 		throw("Ошибка открытия " + location);
 	//else

@@ -29,7 +29,7 @@ async function Записать()
 
 function Работа()
 {
-	open("works.html?task=" + document.record);
+	open("работы.html?задача=" + document.record);
 }
 
 async function ЗаполнитьВложения()

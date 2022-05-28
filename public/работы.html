@@ -16,16 +16,31 @@
 	<script src="template.js"></script>
 	<script src="capture.js"></script>
 	<script src="app.js"></script>
-	<script src="orgs.js"></script>
+	<script src="работы.js"></script>
+	<title>Работа</title>
 </head>
 	<body>
 		<template id="карточка">
-			<div class="card" record="{id}" onclick="Открыть('{id}')">
+			<div class="card m-3" record="{id}" onclick="Открыть('{id}')">
 				<div class="card-body">
-					<h4 class="card-title">{Наименование}</h4>
+					<h3 class="card-title">{Дата}</h3>
+					<h4 class="card-subtitle">{Начало}-{Окончание}</h4>
+					<p class="card-text">{Содержание}</p>
 				</div>
 			</div>
 		</template>
+		<div class="row m-3">
+			<div class="col">
+				<h1 id="task"></h1>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row m-3">
+				<div class="col-sm-6">
+					<button class="btn btn-secondary" onclick="Создать()">Создать</button>
+				</div>
+			</div>
+		</div>
 		<div class="container-fluid" id="content">
 		</div>
 		<div id="more" class="d-none">
