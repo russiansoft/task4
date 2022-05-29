@@ -85,7 +85,10 @@ onload = async function()
 
 	// Значения по умолчанию
 	let today = new Date();
-	let from = today.getDate() - today.getDay() + 1;
+	let day = today.getDay() - 1;
+	if (day < 0)
+		day += 7;
+	let from = today.getDate() - day;
 	let to = from + 6;
 	element("#from").valueAsDate = new Date(today.setDate(from));
 	element("#to").valueAsDate = new Date(today.setDate(to));
