@@ -67,5 +67,6 @@ onload = async function()
 
 	ОбновитьВидимость();
 
-	(await new Template().load("menu.html")).out("#container");
+	(await new Template().load("menu.html")).out("#top");
+	element("main").style.marginTop = element("#top").offsetHeight + "px";
 }

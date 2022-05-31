@@ -81,8 +81,10 @@ onload = async function()
 {
 	await dataset.begin();
 
-	(await new Template().load("menu.html")).out("#container");
-
+	(await new Template().load("menu.html")).out("nav");
+	console.log("h:" + element("nav").offsetHeight);
+	element("header").style.marginTop = element("nav").offsetHeight + "px";
+	
 	// Значения по умолчанию
 	let today = new Date();
 	let day = today.getDay() - 1;
