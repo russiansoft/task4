@@ -56,6 +56,11 @@ onload = async function()
 	let device = localStorage["device"];
 	console.log("Идентификатор устройства " + device);
 
+	// Навигация
+	(await new Template().load("nav.html")).out("nav");
+	element("main").style.marginTop = element("nav").offsetHeight + "px";
+	element("nav").style.borderBottom = "1px solid Highlight";
+
 	// Аутентификация
 	if (device)
 	{
@@ -63,11 +68,8 @@ onload = async function()
 		User = auth.user;
 		let text = auth.user ? auth.user : "Не определен";
 		element("#user").innerHTML = text;
+		element("#nav_user").innerHTML = text;
 	}
 
 	ОбновитьВидимость();
-
-	(await new Template().load("nav.html")).out("nav");
-	element("main").style.marginTop = element("nav").offsetHeight + "px";
-	element("nav").style.borderBottom = "1px solid Highlight";
 }
