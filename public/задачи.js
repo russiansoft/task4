@@ -92,8 +92,8 @@ onload = async function()
 		day += 7;
 	let from = today.getDate() - day;
 	let to = from + 6;
-	element("#from").valueAsDate = new Date(today.setDate(from));
-	element("#to").valueAsDate = new Date(today.setDate(to));
+	element("#from").valueAsDate = new Date(new Date().setDate(from));
+	element("#to").valueAsDate = new Date(new Date().setDate(to));
 
 	// Значения статуса
 	element("#status").innerHTML = "";
