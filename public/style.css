@@ -11,9 +11,10 @@ body
 		color: #ddd !important;
 	}
 }
-header
+nav
 {
-	border-top: 1px solid Highlight;
+	background-color: white;
+	border-bottom: 1px solid Highlight;
 }
 .card:hover
 {

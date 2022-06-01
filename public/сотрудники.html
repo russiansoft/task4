@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,17 +15,12 @@
 	<script src="dataset.js"></script>
 	<script src="client.js"></script>
 	<script src="template.js"></script>
+	<script src="nav.js"></script>
 	<script src="сотрудники.js"></script>
 	<title>Сотрудники</title>
 </head>
 	<body>
-		<template id="card">
-			<div class="card" record="{id}" onclick="Открыть('{id}')">
-				<div class="card-body">
-					<h4 class="card-title">{Наименование}</h4>
-				</div>
-			</div>
-		</template>
+		<nav class="navbar fixed-top navbar-expand-lg"></nav>
 		<div class="container-fluid" id="content">
 		</div>
 		<div id="more" class="d-none">
@@ -35,5 +30,12 @@
 				</div>
 			</div>
 		</div>
+		<template id="card">
+			<div class="card" record="{id}" onclick="Открыть('{id}')">
+				<div class="card-body">
+					<h4 class="card-title">{Наименование}</h4>
+				</div>
+			</div>
+		</template>
 	</body>
 </html>
