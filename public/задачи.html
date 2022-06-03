@@ -19,10 +19,18 @@
 	<script src="nav.js"></script>
 	<script src="задачи.js"></script>
 	<title>Задачи</title>
+	<style>
+		.card
+		{
+			height: 16em;
+			overflow-y: auto;
+		}
+	</style>
 </head>
 	<body>
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
 		<header class="container-fluid">
+			<div class="row m-2"></div>
 			<div class="row m-2">
 				<label for="from" class="col-form-label col-sm-4">Период с:</label>
 				<div class="col-sm-3">
@@ -49,16 +57,17 @@
 			</div>
 			<div class="row m-2">
 				<div class="col-sm-6">
-					<button class="btn btn-primary" onclick="Заполнить()">
-						<i class="bi bi-search"></i> Обновить
+					<button class="btn btn-outline-primary" onclick="Заполнить()">
+						Обновить
 					</button>
-					<button class="btn btn-secondary" onclick="Создать()">
+					<button class="btn btn-outline-secondary" onclick="Создать()">
 						<i class="bi bi-plus-circle"></i> Создать
 					</button>
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid" id="content">
+		<div class="container-fluid">
+			<div class="row" id="content"></div>
 		</div>
 		<div id="more" class="container-fluid d-none">
 			<div class="row m-2">
@@ -67,6 +76,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="row m-2"></div>
 		<template id="templatestatus">
 			<option value="{id}">{Наименование}</option>
 		</template>
@@ -74,14 +84,16 @@
 			<option value="{id}">{Наименование}</option>
 		</template>
 		<template id="card">
-			<div class="card m-2 {class}" record="{id}" onclick="Открыть('{id}')">
-				<div class="card-body">
-					<h4 class="card-title">{Тема}</h4>
-					<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
-					<p class="card-text">{Содержание}</p>
-					<a class="card-link" href="#">{Срок}</a>
-					<a class="card-link" href="#">{Дата}</a>
-					<a class="card-link" href="#">{НаименованиеПостановщика}</a>
+			<div class="col-md-6 col-lg-4">
+				<div class="card m-2 {class}" record="{id}" onclick="Открыть('{id}')">
+					<div class="card-body">
+						<h4 class="card-title">{Тема}</h4>
+						<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
+						<p class="card-text">{Содержание}</p>
+						<a class="card-link" href="#">{Срок}</a>
+						<a class="card-link" href="#">{Дата}</a>
+						<a class="card-link" href="#">{НаименованиеПостановщика}</a>
+					</div>
 				</div>
 			</div>
 		</template>
