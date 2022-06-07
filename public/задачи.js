@@ -26,7 +26,7 @@ async function Дозаполнить()
 		}
 	};
 	let status = element("#status").value;
-	if (status)
+	if (status && status != "undone")
 		query.filter.Статус = status;
 	let project = element("#project").value;
 	if (project)
@@ -35,6 +35,8 @@ async function Дозаполнить()
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
+		if (status == "undone" && record.Статус == статусы["Завершено"])
+			continue;
 		let template = new Template("#card");
 		if (record.Постановщик)
 		{
@@ -81,20 +83,12 @@ addEventListener("load", async function()
 {
 	await dataset.begin();
 
-	// Значения по умолчанию
-	let today = new Date();
-	let day = today.getDay() - 1;
-	if (day < 0)
-		day += 7;
-	let from = today.getDate() - day;
-	let to = from + 6;
-	element("#from").valueAsDate = new Date(new Date().setDate(from));
-	element("#to").valueAsDate = new Date(new Date().setDate(to));
-
 	// Значения статуса
 	element("#status").innerHTML = "";
 	let empty = { "id": "", "Наименование": "<не выбран>" };
 	new Template("#templatestatus").fill(empty).out("#status");
+	let undone = { "id": "undone", "Наименование": "<все незавершенные>" };
+	new Template("#templatestatus").fill(undone).out("#status");
 	let records = await dataset.select( { "from": "Статус" } );
 	for (let id of records)
 	{
@@ -110,6 +104,17 @@ addEventListener("load", async function()
 	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
 	for (let record of await dataset.select(query))
 		new Template("#project-template").fill(record).out("#project");
+
+	// Значения по умолчанию
+	let today = new Date();
+	let day = today.getDay() - 1;
+	if (day < 0)
+		day += 7;
+	let from = today.getDate() - day;
+	let to = from + 6;
+	element("#from").valueAsDate = new Date(new Date().setDate(from));
+	element("#to").valueAsDate = new Date(new Date().setDate(to));
+	element("#status").value = "undone";
 
 	Заполнить(true);
 } );
