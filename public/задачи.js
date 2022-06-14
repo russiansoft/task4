@@ -43,6 +43,11 @@ async function Дозаполнить()
 			let постановщик = await dataset.find(record.Постановщик);
 			template.fill( { "НаименованиеПостановщика": постановщик.Наименование } );
 		}
+		if (record.Проект)
+		{
+			let проект = await dataset.find(record.Проект);
+			template.fill( { "НаименованиеПроекта": проект.Наименование } );
+		}
 		template.fill( { "Срок": format(record.Срок, "date") } );
 		template.fill( { "Дата": format(record.Дата, "date") } );
 		if (record.Статус == статусы["Входящие"])
@@ -56,7 +61,7 @@ async function Дозаполнить()
 		else if (record.Статус == статусы["Когда-нибудь, может быть"])
 			template.fill( { "class": "" } );
 		else if (record.Статус == статусы["Ожидания и отложено"])
-			template.fill( { "class": "bg-secondary text-white" } );
+			template.fill( { "class": "bg-info text-dark" } );
 		else
 			template.fill( { "class": "bg-dark text-white" } );
 		template.fill(record);
@@ -85,7 +90,7 @@ addEventListener("load", async function()
 
 	// Значения статуса
 	element("#status").innerHTML = "";
-	let empty = { "id": "", "Наименование": "<не выбран>" };
+	let empty = { "id": "", "Наименование": "<все>" };
 	new Template("#templatestatus").fill(empty).out("#status");
 	let undone = { "id": "undone", "Наименование": "<все незавершенные>" };
 	new Template("#templatestatus").fill(undone).out("#status");
@@ -99,7 +104,7 @@ addEventListener("load", async function()
 
 	// Значения проекта
 	element("#project").innerHTML = "";
-	empty = { "id": "", "Наименование": "<не выбран>" };
+	empty = { "id": "", "Наименование": "<все>" };
 	new Template("#project-template").fill(empty).out("#project");
 	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
 	for (let record of await dataset.select(query))

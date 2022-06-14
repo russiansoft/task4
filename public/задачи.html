@@ -58,6 +58,7 @@
 			<div class="row m-2">
 				<div class="col-sm-6">
 					<button class="btn btn-outline-primary" onclick="Заполнить()">
+						<i class="bi bi-arrow-clockwise"></i>
 						Обновить
 					</button>
 					<button class="btn btn-outline-secondary" onclick="Создать()">
@@ -84,9 +85,10 @@
 			<option value="{id}">{Наименование}</option>
 		</template>
 		<template id="card">
-			<div class="col-md-6 col-lg-4">
+			<div class="col-md-6 col-lg-4 p-0">
 				<div class="card m-2 {class}" record="{id}" onclick="Открыть('{id}')">
 					<div class="card-body">
+						<h3 class="card-title">{НаименованиеПроекта}</h3>
 						<h4 class="card-title">{Тема}</h4>
 						<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
 						<p class="card-text">{Содержание}</p>

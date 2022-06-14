@@ -20,10 +20,21 @@
 	<title>Работа</title>
 </head>
 	<body>
-		<nav class="navbar fixed-top navbar-expand-lg"></nav>
+		<nav class="navbar fixed-top navbar-expand-sm"></nav>
+		<div class="row m-4"></div>
 		<div class="row m-3">
 			<div class="col">
 				<h1 id="task"></h1>
+			</div>
+		</div>
+		<div class="row m-2">
+			<label for="from" class="col-form-label col-sm-4">Период с:</label>
+			<div class="col-sm-3">
+				<input id="from" type="date" class="form-control" onchange="Заполнить()"/>
+			</div>
+			<label for="to" class="col-form-label col-sm-1">по:</label>
+			<div class="col-sm-3">
+				<input id="to" type="date" class="form-control" onchange="Заполнить()"/>
 			</div>
 		</div>
 		<div class="container-fluid">
@@ -38,7 +49,7 @@
 		<div id="more" class="d-none">
 			<div class="row">
 				<div class="col-sm-6">
-					<button class="btn btn-secondary" onclick="Заполнить()">Вывести еще</button>
+					<button class="btn btn-secondary" onclick="Дозаполнить()">Вывести еще</button>
 				</div>
 			</div>
 		</div>

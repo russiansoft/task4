@@ -2,20 +2,25 @@
 let task = null;
 let count = 0;
 
-async function Заполнить(clear = false)
+async function Заполнить()
+{
+	element("#content").innerHTML = "";
+	count = 0;
+	await Дозаполнить();
+}
+
+async function Дозаполнить()
 {
 	await dataset.begin();
 
-	if (clear)
-	{
-		element("#content").innerHTML = "";
-		count = 0;
-	}
+	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
+	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
 	{
 		"from": "Работа",
 		"skip": count,
-		"take": 15
+		"take": 15,
+		"where": { "Дата": [ from, to ] }
 	};
 	if (task)
 		query.filter = { "Задача": task };
@@ -53,14 +58,33 @@ onload = async function()
 
 	// Отбор по задаче
 	let url = new URL(location);
-	if (url.searchParams.has("task"))
+	if (url.searchParams.has("задача"))
 	{
-		task = url.searchParams.get("task");
+		task = url.searchParams.get("задача");
 		let record = await dataset.find(task);
 		element("#task").innerHTML = record.Тема;
 	}
 
-	Заполнить(true);
+	// Значения по умолчанию
+	if (url.searchParams.has("задача"))
+	{
+		let year = new Date().getFullYear();
+		element("#from").valueAsDate = new Date(year, 0, 1);
+		element("#to").valueAsDate = new Date(year, 11, 31);
+	}
+	else
+	{
+		let today = new Date();
+		let day = today.getDay() - 1;
+		if (day < 0)
+			day += 7;
+		let from = today.getDate() - day;
+		let to = from + 6;
+		element("#from").valueAsDate = new Date(new Date().setDate(from));
+		element("#to").valueAsDate = new Date(new Date().setDate(to));
+	}
+
+	Заполнить();
 }
 
 
