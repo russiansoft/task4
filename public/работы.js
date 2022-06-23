@@ -11,7 +11,7 @@ async function Заполнить()
 
 async function Дозаполнить()
 {
-	await dataset.begin();
+	await database.begin();
 
 	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
 	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
@@ -24,10 +24,10 @@ async function Дозаполнить()
 	};
 	if (task)
 		query.filter = { "Задача": task };
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	for (let id of records)
 	{
-		let record = await dataset.find(id);
+		let record = await database.find(id);
 		let template = new Template("#card");
 		template.fill( { "Дата": format(record.Дата, "date") } );
 		template.fill( { "Начало": format(record.Начало, "time") } );
@@ -38,7 +38,7 @@ async function Дозаполнить()
 	count += records.length;
 	query.skip += 14;
 	query.take = 1;
-	records = await dataset.select(query);
+	records = await database.select(query);
 	display("#more", records.length > 0);
 }
 
@@ -54,14 +54,14 @@ function Открыть(id)
 
 onload = async function()
 {
-	await dataset.begin();
+	await database.begin();
 
 	// Отбор по задаче
 	let url = new URL(location);
 	if (url.searchParams.has("задача"))
 	{
 		task = url.searchParams.get("задача");
-		let record = await dataset.find(task);
+		let record = await database.find(task);
 		element("#task").innerHTML = record.Тема;
 	}
 

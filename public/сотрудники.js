@@ -3,7 +3,7 @@ let count = 0;
 
 async function Заполнить(clear = false)
 {
-	await dataset.begin();
+	await database.begin();
 
 	if (clear)
 	{
@@ -16,16 +16,16 @@ async function Заполнить(clear = false)
 		"skip": count,
 		"take": 15
 	};
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	for (let id of records)
 	{
-		let record = await dataset.find(id);
+		let record = await database.find(id);
 		new Template("#card").fill(record).out("#content");
 	}
 	count += records.length;
 	query.skip += 14;
 	query.take = 1;
-	records = await dataset.select(query);
+	records = await database.select(query);
 	display("#more", records.length > 0);
 }
 

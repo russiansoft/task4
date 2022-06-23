@@ -11,7 +11,7 @@ async function Заполнить()
 
 async function Дозаполнить()
 {
-	await dataset.begin();
+	await database.begin();
 
 	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
 	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
@@ -31,21 +31,21 @@ async function Дозаполнить()
 	let project = element("#project").value;
 	if (project)
 		query.filter.Проект = project;
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	for (let id of records)
 	{
-		let record = await dataset.find(id);
+		let record = await database.find(id);
 		if (status == "undone" && record.Статус == статусы["Завершено"])
 			continue;
 		let template = new Template("#card");
 		if (record.Постановщик)
 		{
-			let постановщик = await dataset.find(record.Постановщик);
+			let постановщик = await database.find(record.Постановщик);
 			template.fill( { "НаименованиеПостановщика": постановщик.Наименование } );
 		}
 		if (record.Проект)
 		{
-			let проект = await dataset.find(record.Проект);
+			let проект = await database.find(record.Проект);
 			template.fill( { "НаименованиеПроекта": проект.Наименование } );
 		}
 		template.fill( { "Срок": format(record.Срок, "date") } );
@@ -70,7 +70,7 @@ async function Дозаполнить()
 	count += records.length;
 	query.skip += 20;
 	query.take = 1;
-	records = await dataset.select(query);
+	records = await database.select(query);
 	display("#more", records.length > 0);
 }
 
@@ -84,20 +84,21 @@ function Открыть(id)
 	open("задача.html?id=" + id);
 }
 
-addEventListener("load", async function()
+async function Загрузка()
 {
-	await dataset.begin();
+	await LoadNav();
+	await database.begin();
 
 	// Значения статуса
 	element("#status").innerHTML = "";
 	let empty = { "id": "", "Наименование": "<все>" };
 	new Template("#templatestatus").fill(empty).out("#status");
-	let undone = { "id": "undone", "Наименование": "<все незавершенные>" };
+	let undone = { "id": "undone", "Наименование": "<незавершенные>" };
 	new Template("#templatestatus").fill(undone).out("#status");
-	let records = await dataset.select( { "from": "Статус" } );
+	let records = await database.select( { "from": "Статус" } );
 	for (let id of records)
 	{
-		let record = await dataset.find(id);
+		let record = await database.find(id);
 		new Template("#templatestatus").fill(record).out("#status");
 		статусы[record.Наименование] = record.id;
 	}
@@ -107,7 +108,7 @@ addEventListener("load", async function()
 	empty = { "id": "", "Наименование": "<все>" };
 	new Template("#project-template").fill(empty).out("#project");
 	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
-	for (let record of await dataset.select(query))
+	for (let record of await database.select(query))
 		new Template("#project-template").fill(record).out("#project");
 
 	// Значения по умолчанию
@@ -122,4 +123,4 @@ addEventListener("load", async function()
 	element("#status").value = "undone";
 
 	Заполнить(true);
-} );
+}

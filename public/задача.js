@@ -16,14 +16,14 @@ async function Изображение()
 		value += "|address:" + result.address + "|";
 		console.log(value);
 
-		dataset.add(document.record, "Вложения", { "Файл": value } );
+		database.add(document.record, "Вложения", { "Файл": value } );
 		await ЗаполнитьВложения();
 	} );
 }
 	
 async function Записать()
 {
-	await dataset.commit();
+	await database.commit();
 	close();
 }
 
@@ -40,9 +40,9 @@ async function ЗаполнитьВложения()
 		"from": "owner",
 		"where": { "owner": document.record }
 	};
-	for (let id of await dataset.select(query))
+	for (let id of await database.select(query))
 	{
-		let item = await dataset.find(id);
+		let item = await database.find(id);
 		let attributes = { };
 		for (let element of item.Файл.split("|"))
 		{
@@ -67,7 +67,7 @@ async function ОткрытьФайл(name, type, address)
 
 onload = async function()
 {
-	await dataset.begin();
+	await database.begin();
 
 	// Значения статуса
 	element("#status").innerHTML = "";
@@ -75,7 +75,7 @@ onload = async function()
 	new Template("#templatestatus").fill(empty).out("#status");
 	let query = { "select": [ "id", "Наименование" ], "from": "Статус" };
 	let defaultStatus = "";
-	for (let record of await dataset.select(query))
+	for (let record of await database.select(query))
 	{
 		new Template("#templatestatus").fill(record).out("#status");
 		if (record.Наименование == "Входящие")
@@ -87,7 +87,7 @@ onload = async function()
 	empty = { "id": "", "Наименование": "<не выбран>" };
 	new Template("#project-template").fill(empty).out("#project");
 	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
-	for (let record of await dataset.select(query))
+	for (let record of await database.select(query))
 		new Template("#project-template").fill(record).out("#project");
 
 	// Постановщик
@@ -95,7 +95,7 @@ onload = async function()
 	empty = { "id": "", "Наименование": "<не выбран>" };
 	new Template("#employee-template").fill(empty).out("#employee");
 	query = { "select": [ "id", "Наименование" ], "from": "Сотрудник" };
-	for (let record of await dataset.select(query))
+	for (let record of await database.select(query))
 		new Template("#employee-template").fill(record).out("#employee");
 
 	// Обработка изменений полей ввода
@@ -105,11 +105,11 @@ onload = async function()
 	if (url.searchParams.has("id"))
 	{
 		let id = url.searchParams.get("id");
-		document.record = await dataset.find(id);
+		document.record = await database.find(id);
 	}
 	else
 	{
-		document.record = await dataset.create("Задача",
+		document.record = await database.create("Задача",
 		{
 			"Срок": (new Date).toISOString().slice(0, 10),
 			"Дата": (new Date).toISOString().slice(0, 10),

@@ -1,6 +1,4 @@
 
-let User = ""; // Имя пользователя
-
 // Вход
 async function Войти()
 {
@@ -30,43 +28,23 @@ async function Выйти()
 }
 
 // Событие загрузки
-addEventListener("load", async function()
+async function LoadNav()
 {
-	// Завершение аутентификации Google
-	let url = new URL(location);
-	if (url.searchParams.has("code"))
-	{
-		let code = url.searchParams.get("code");
-		let device = localStorage["device"];
-		await app.login(code, device);
-		location.replace(location.origin);
-		return;
-	}
+	await auth.load();
 
-	// Идентификация устройства
-	if (!localStorage["device"])
-		localStorage["device"] = await app.guid();
-	let device = localStorage["device"];
-	console.log("Идентификатор устройства " + device);
-
-	// Навигация
-	(await new Template().load("nav.html")).out("nav");
-
-	// Аутентификация
-	if (device)
-	{
-		let auth = await app.auth(device);
-		User = auth.user;
-		let text = auth.user ? auth.user : "Не определен";
-		element("#user").innerHTML = text;
-	}
+	// Вывод
+	let template = new Template();
+	await template.load("nav.html");
+	let name = auth.user ? auth.user : "";
+	template.fill( { "user": name } );
+	template.out("nav");
 
 	// Обновление видимости
-	display("#login", User == "");
-	display("#logout", User != "");
+	display("#login", name == "");
+	display("#logout", name != "");
 
 	// Отступ
 	let next = element("nav").nextElementSibling;
 	if (next)
 		next.style.marginTop = element("nav").offsetHeight + "px";
-} );
+}

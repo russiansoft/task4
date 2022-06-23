@@ -13,21 +13,26 @@
 	<link rel="icon" href="favicon.svg">
 	<link rel="stylesheet" href="style.css"/>
 	<script src="server.js"></script>
-	<script src="dataset.js"></script>
+	<script src="database.js"></script>
 	<script src="client.js"></script>
 	<script src="template.js"></script>
 	<script src="nav.js"></script>
 	<script src="задачи.js"></script>
 	<title>Задачи</title>
 	<style>
-		.card
+		/* .card
 		{
 			height: 16em;
 			overflow-y: auto;
+		} */
+		.card-text
+		{
+			max-height: 3em;
+			overflow-y: hidden;
 		}
 	</style>
 </head>
-	<body>
+	<body onload="Загрузка()">
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
 		<header class="container-fluid">
 			<div class="row m-2"></div>

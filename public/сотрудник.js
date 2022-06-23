@@ -1,13 +1,13 @@
 
 async function Записать()
 {
-	await dataset.commit();
+	await database.commit();
 	close();
 }
 
 onload = async function()
 {
-	await dataset.begin();
+	await database.begin();
 
 	document.onchange = OnChange;
 
@@ -15,7 +15,7 @@ onload = async function()
 	if (url.searchParams.has("id"))
 	{
 		let id = url.searchParams.get("id");
-		document.record = await dataset.find(id);
+		document.record = await database.find(id);
 		DataOut(document.record);
 	}
 }

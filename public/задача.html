@@ -12,13 +12,80 @@
 	<link rel="icon" href="favicon.svg">
 	<link rel="stylesheet" href="style.css"/>
 	<script src="server.js"></script>
-	<script src="dataset.js"></script>
+	<script src="database.js"></script>
 	<script src="client.js"></script>
 	<script src="template.js"></script>
 	<script src="задача.js"></script>
 	<title>Задача</title>
 </head>
 	<body>
+		<div class="container-fluid">
+			<div class="row m-2">
+				<div class="col">
+					<button class="btn btn-primary" onclick="Записать()">Записать</button>
+					<button class="btn btn-secondary" onclick="Работа()">Работа</button>
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Срок:</label>
+				<div class="col-sm-4">
+					<input type="date" class="form-control" bind="Срок">
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Статус:</label>
+				<div class="col-sm-8">
+					<select id="status" class="form-select" bind="Статус">
+					</select>
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Следующее действие:</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" bind="СледующееДействие" rows="3"></textarea>
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Тема:</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" bind="Тема" rows="3"></textarea>
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Проект:</label>
+				<div class="col-sm-8">
+					<select id="project" class="form-select" bind="Проект">
+					</select>
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Постановщик:</label>
+				<div class="col-sm-8">
+					<select id="employee" class="form-select" bind="Постановщик">
+					</select>
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Дата постановки:</label>
+				<div class="col-sm-4">
+					<input id="Дата" type="date" class="form-control" bind="Дата">
+				</div>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Вложения:</label>
+				<div class="col-sm-8">
+					<button class="btn btn-secondary" onclick="Изображение()">Изображение</button>
+				</div>
+			</div>
+			<div id="attach">
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-12">Содержание:</label>
+				<div class="col-sm-12">
+					<textarea id="Содержание" class="form-control" bind="Содержание" rows="7"></textarea>
+				</div>
+			</div>
+		</div>
 		<template id="templatestatus">
 			<option value="{id}">{Наименование}</option>
 		</template>
@@ -36,72 +103,5 @@
 				</div>
 			</div>
 		</template>
-		<div class="container-fluid">
-			<div class="row m-3">
-				<div class="col">
-					<button class="btn btn-primary" onclick="Записать()">Записать</button>
-					<button class="btn btn-secondary" onclick="Работа()">Работа</button>
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="Срок" class="col-form-label col-sm-4">Срок:</label>
-				<div class="col-sm-4">
-					<input id="Срок" type="date" class="form-control" bind="Срок">
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="Статус" class="col-form-label col-sm-4">Статус:</label>
-				<div class="col-sm-8">
-					<select id="status" class="form-select" bind="Статус">
-					</select>
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="СледующееДействие" class="col-form-label col-sm-4">Следующее действие:</label>
-				<div class="col-sm-8">
-					<textarea id="СледующееДействие" class="form-control" bind="СледующееДействие" rows="3"></textarea>
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="Тема" class="col-form-label col-sm-4">Тема:</label>
-				<div class="col-sm-8">
-					<textarea id="Тема" class="form-control" bind="Тема" rows="3"></textarea>
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="Проект" class="col-form-label col-sm-4">Проект:</label>
-				<div class="col-sm-8">
-					<select id="project" class="form-select" bind="Проект">
-					</select>
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="employee" class="col-form-label col-sm-4">Постановщик:</label>
-				<div class="col-sm-8">
-					<select id="employee" class="form-select" bind="Постановщик">
-					</select>
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="Дата постановки" class="col-form-label col-sm-4">Дата постановки:</label>
-				<div class="col-sm-4">
-					<input id="Дата" type="date" class="form-control" bind="Дата">
-				</div>
-			</div>
-			<div class="row m-3">
-				<label for="Вложения" class="col-form-label col-sm-4">Вложения:</label>
-				<div class="col-sm-8">
-					<button class="btn btn-secondary" onclick="Изображение()">Изображение</button>
-				</div>
-			</div>
-			<div id="attach">
-			</div>
-			<div class="row m-3">
-				<label for="Содержание" class="col-form-label col-sm-12">Содержание:</label>
-				<div class="col-sm-12">
-					<textarea id="Содержание" class="form-control" bind="Содержание" rows="7"></textarea>
-				</div>
-			</div>
-		</div>
 	</body>
 </html>
