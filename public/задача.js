@@ -98,9 +98,6 @@ onload = async function()
 	for (let record of await database.select(query))
 		new Template("#employee-template").fill(record).out("#employee");
 
-	// Обработка изменений полей ввода
-	document.onchange = OnChange;
-
 	let url = new URL(location);
 	if (url.searchParams.has("id"))
 	{

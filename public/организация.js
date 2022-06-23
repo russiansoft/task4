@@ -9,8 +9,6 @@ onload = async function()
 {
 	await database.begin();
 
-	document.onchange = OnChange;
-
 	let url = new URL(location);
 	if (url.searchParams.has("id"))
 	{
