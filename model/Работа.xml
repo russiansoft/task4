@@ -2,6 +2,10 @@
 
 <unit name="Работа">
 	
+	<type name="Работы" scope="global">
+		<field.ref name="Задача" type="Задача"/>
+	</type>
+
 	<type name="Работа" title="Работа" scope="global">
 		<field.ref name="Организация" type="Организация" title="Организация" width="10" indexing="key"/>
 		<field.ref name="Проект" type="Договор" width="6" indexing="key"/>

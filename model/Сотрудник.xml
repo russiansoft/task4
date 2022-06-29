@@ -6,6 +6,7 @@
 		<field.string name="Наименование" width="30" indexing="sort"/>
 		<field.ref name="Организация" type="Организация" title="Организация" width="20" indexing="key"/>
 		<field.ref name="Проект" type="Договор" title="Проект" width="20" indexing="key"/>
+		<field.boolean name="hidden"/>
 		<function name="title">
 			<get field="Наименование"/>
 		</function>

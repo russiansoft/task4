@@ -1,11 +1,11 @@
 
 let count = 0;
 
-async function Заполнить(clear = false)
+async function Заполнить(очистить = true)
 {
 	await database.begin();
 
-	if (clear)
+	if (очистить)
 	{
 		element("#content").innerHTML = "";
 		count = 0;
@@ -16,6 +16,9 @@ async function Заполнить(clear = false)
 		"skip": count,
 		"take": 15
 	};
+	let search = element("#search").value;
+	if (search)
+		query.search = search;
 	let records = await database.select(query);
 	for (let id of records)
 	{
@@ -29,12 +32,9 @@ async function Заполнить(clear = false)
 	display("#more", records.length > 0);
 }
 
-function Открыть(id)
-{
-	open("сотрудник?id=" + id);
-}
-
 onload = async function()
 {
+	await LoadNav();
 	Заполнить(true);
+	element("#search").focus();
 }

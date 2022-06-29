@@ -2,17 +2,15 @@
 let task = null;
 let count = 0;
 
-async function Заполнить()
+async function Заполнить(очистить = true)
 {
-	element("#content").innerHTML = "";
-	count = 0;
-	await Дозаполнить();
-}
+	if (очистить)
+	{
+		element("#content").innerHTML = "";
+		count = 0;
+	}
 
-async function Дозаполнить()
-{
 	await database.begin();
-
 	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
 	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
@@ -42,16 +40,6 @@ async function Дозаполнить()
 	display("#more", records.length > 0);
 }
 
-function Создать()
-{
-	open("работа.html?task=" + task);
-}
-
-function Открыть(id)
-{
-	open("работа?id=" + id);
-}
-
 onload = async function()
 {
 	await database.begin();
@@ -63,7 +51,10 @@ onload = async function()
 		task = url.searchParams.get("задача");
 		let record = await database.find(task);
 		element("#task").innerHTML = record.Тема;
+		element("#create").href = "работа?task=" + task;
 	}
+
+	review(document);
 
 	// Значения по умолчанию
 	if (url.searchParams.has("задача"))

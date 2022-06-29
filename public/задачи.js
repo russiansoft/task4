@@ -2,17 +2,15 @@
 let count = 0;
 let статусы = { };
 
-async function Заполнить()
+async function Заполнить(очистить = true)
 {
-	element("#content").innerHTML = "";
-	count = 0;
-	await Дозаполнить();
-}
+	if (очистить)
+	{
+		element("#content").innerHTML = "";
+		count = 0;
+	}
 
-async function Дозаполнить()
-{
 	await database.begin();
-
 	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
 	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
@@ -21,9 +19,7 @@ async function Дозаполнить()
 		"skip": count,
 		"take": 20,
 		"where": { "Срок": [ from, to ] },
-		"filter":
-		{
-		}
+		"filter": { }
 	};
 	let status = element("#status").value;
 	if (status && status != "undone")
@@ -74,42 +70,22 @@ async function Дозаполнить()
 	display("#more", records.length > 0);
 }
 
-function Создать()
+async function Сегодня()
 {
-	open("задача.html");
-}
-
-function Открыть(id)
-{
-	open("задача.html?id=" + id);
+	element("#from").valueAsDate = new Date();
+	element("#to").valueAsDate = new Date();
+	Заполнить();
 }
 
 async function Загрузка()
 {
 	await LoadNav();
 	await database.begin();
+	review(document);
 
-	// Значения статуса
-	element("#status").innerHTML = "";
-	let empty = { "id": "", "Наименование": "<все>" };
-	new Template("#templatestatus").fill(empty).out("#status");
-	let undone = { "id": "undone", "Наименование": "<незавершенные>" };
-	new Template("#templatestatus").fill(undone).out("#status");
-	let records = await database.select( { "from": "Статус" } );
-	for (let id of records)
-	{
-		let record = await database.find(id);
-		new Template("#templatestatus").fill(record).out("#status");
-		статусы[record.Наименование] = record.id;
-	}
-
-	// Значения проекта
-	element("#project").innerHTML = "";
-	empty = { "id": "", "Наименование": "<все>" };
-	new Template("#project-template").fill(empty).out("#project");
-	query = { "select": [ "id", "Наименование" ], "from": "Договор" };
-	for (let record of await database.select(query))
-		new Template("#project-template").fill(record).out("#project");
+	// Значения статусов
+	for (let id of await database.select( { "from": "Статус" } ))
+		статусы[(await database.find(id)).Наименование] = id;
 
 	// Значения по умолчанию
 	let today = new Date();
@@ -122,5 +98,5 @@ async function Загрузка()
 	element("#to").valueAsDate = new Date(new Date().setDate(to));
 	element("#status").value = "undone";
 
-	Заполнить(true);
+	Заполнить();
 }

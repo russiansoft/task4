@@ -1,31 +1,29 @@
 
-async function Записать()
+let stopwatch = null;
+function log(text)
 {
-	await database.commit();
-	close();
+	let now = new Date();
+	let delta = 0;
+	if (stopwatch)
+		delta = now - stopwatch;
+	//let time =  //.toISOString().slice(11).replace("Z", "");
+	stopwatch = now;
+	console.log(delta + "\t" + text);
 }
 
-onload = async function()
-{
-	await database.begin();
+let working = false;
 
-	let url = new URL(location);
-	if (url.searchParams.has("id"))
-	{
-		let id = url.searchParams.get("id");
-		document.record = await database.find(id);
-	}
-	else
-	{
-		let task = await database.find(url.searchParams.get("task"));
-		document.record = await database.create("Работа",
-		{
-			"Дата": (new Date).toISOString().slice(0, 10),
-			"Задача": task.id
-		} );
-	}
-	let work = document.record;
-	DataOut(document.record);
-	let task = await database.find(work.Задача);
-	element("#task").innerHTML = task.Тема;
+async function Work()
+{
+	let id = new Date().getMilliseconds();
+	log("<" + id + ">");
+	await database.sleep(1000);
+	log("</" + id + ">");
+}
+
+async function Тест()
+{
+	log("Начало");
+	Work();
+	log("Окончание");
 }

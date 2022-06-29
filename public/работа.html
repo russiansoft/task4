@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-		  rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-		  crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-			crossorigin="anonymous"></script>
-	<link rel="icon" href="favicon.svg">
-	<link rel="stylesheet" href="style.css"/>
-	<script src="server.js"></script>
-	<script src="database.js"></script>
-	<script src="client.js"></script>
-	<script src="template.js"></script>
-	<script src="работа.js"></script>
-	<title>Работа</title>
-</head>
-	<body>
-		<div class="container-fluid">
-			<div class="row m-3">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+				crossorigin="anonymous"></script>
+		<link rel="icon" href="favicon.svg">
+		<link rel="stylesheet" href="style.css"/>
+		<script src="server.js"></script>
+		<script src="database.js"></script>
+		<script src="client.js"></script>
+		<script src="template.js"></script>
+		<script src="classes.js"></script>
+		<script src="работа.js"></script>
+		<title>Работа</title>
+	</head>
+	<body data-type="Работа" data-template="template" data-out="main">
+		<main class="container-fluid p-0"></main>
+		<template>
+			<div class="row m-2">
 				<div class="col">
-					<button class="btn btn-primary" onclick="Записать()">Записать</button>
+					<button class="btn btn-primary cmd-ok">Записать</button>
+					<button class="btn btn-secondary" onclick="Тест()">Тест</button>
 				</div>
 			</div>
-			<div class="row m-3">
+			<div class="row m-2">
 				<div class="col">
-					<h2 id="task"></h2>
+					<h2 id="task">{НаименованиеЗадачи}</h2>
 				</div>
 			</div>
-			<div class="row m-3">
-				<label for="Дата" class="col-form-label col-sm-4">Дата:</label>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Дата:</label>
 				<div class="col-sm-4">
-					<input id="Дата" type="date" class="form-control" bind="Дата">
+					<input type="date" class="form-control" data-value="Дата">
 				</div>
 			</div>
-			<div class="row m-3">
+			<div class="row m-2">
 				<label for="Начало" class="col-form-label col-sm-4">Начало:</label>
-				<div class="col-sm-4">
-					<input id="Начало" type="time" step="900" class="form-control" bind="Начало">
+				<div class="col-sm-3">
+					<input id="Начало" type="time" step="900" class="form-control" data-value="Начало">
 				</div>
 			</div>
-			<div class="row m-3">
+			<div class="row m-2">
 				<label for="Окончание" class="col-form-label col-sm-4">Окончание:</label>
-				<div class="col-sm-4">
-					<input id="Окончание" type="time" step="900" class="form-control" bind="Окончание">
+				<div class="col-sm-3">
+					<input id="Окончание" type="time" step="900" class="form-control" data-value="Окончание">
 				</div>
 			</div>
-			<div class="row m-3">
+			<div class="row m-2">
 				<label for="Содержание" class="col-form-label col-sm-12">Содержание:</label>
 				<div class="col-sm-12">
-					<textarea id="Содержание" class="form-control" bind="Содержание" rows="7"></textarea>
+					<textarea id="Содержание" class="form-control" data-value="Содержание" rows="7"></textarea>
 				</div>
 			</div>
-		</div>
+		</template>
 	</body>
 </html>
