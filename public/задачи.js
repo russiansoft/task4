@@ -11,14 +11,13 @@ async function Заполнить(очистить = true)
 	}
 
 	await database.begin();
-	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
-	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
 	{
 		"from": "Задача",
 		"skip": count,
 		"take": 20,
-		"where": { "Срок": [ from, to ] },
+		"where": { "Срок": [ element("manuscript-period").fromDate,
+		                     element("manuscript-period").toDate ] },
 		"filter": { }
 	};
 	let status = element("#status").value;
@@ -70,13 +69,6 @@ async function Заполнить(очистить = true)
 	display("#more", records.length > 0);
 }
 
-async function Сегодня()
-{
-	element("#from").valueAsDate = new Date();
-	element("#to").valueAsDate = new Date();
-	Заполнить();
-}
-
 async function Загрузка()
 {
 	await LoadNav();
@@ -88,14 +80,6 @@ async function Загрузка()
 		статусы[(await database.find(id)).Наименование] = id;
 
 	// Значения по умолчанию
-	let today = new Date();
-	let day = today.getDay() - 1;
-	if (day < 0)
-		day += 7;
-	let from = today.getDate() - day;
-	let to = from + 6;
-	element("#from").valueAsDate = new Date(new Date().setDate(from));
-	element("#to").valueAsDate = new Date(new Date().setDate(to));
 	element("#status").value = "undone";
 
 	Заполнить();
