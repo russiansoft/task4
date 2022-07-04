@@ -31,3 +31,13 @@ var Работа = class
 		}
 	}
 }
+
+var Задачи = class
+{
+	async create()
+	{
+	}
+	async read()
+	{
+	}
+}

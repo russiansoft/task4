@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Задачи">
+
+	<type name="Задачи" scope="global">
+
+		<field.object name="Период" type="Период"/>
+
+		<function name="index">
+			<get value="Задачи"/>
+		</function>
+
+		<access.allow role="Администратор"/>
+	</type>
+
+</unit>

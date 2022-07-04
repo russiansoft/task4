@@ -10,7 +10,7 @@ async function Заполнить(очистить = true)
 		count = 0;
 	}
 
-	await database.begin();
+	let db = await new Database().begin();
 	let query = 
 	{
 		"from": "Задача",
@@ -26,21 +26,21 @@ async function Заполнить(очистить = true)
 	let project = element("#project").value;
 	if (project)
 		query.filter.Проект = project;
-	let records = await database.select(query);
+	let records = await db.select(query);
 	for (let id of records)
 	{
-		let record = await database.find(id);
+		let record = await db.find(id);
 		if (status == "undone" && record.Статус == статусы["Завершено"])
 			continue;
 		let template = new Template("#card");
 		if (record.Постановщик)
 		{
-			let постановщик = await database.find(record.Постановщик);
+			let постановщик = await db.find(record.Постановщик);
 			template.fill( { "НаименованиеПостановщика": постановщик.Наименование } );
 		}
 		if (record.Проект)
 		{
-			let проект = await database.find(record.Проект);
+			let проект = await db.find(record.Проект);
 			template.fill( { "НаименованиеПроекта": проект.Наименование } );
 		}
 		template.fill( { "Срок": format(record.Срок, "date") } );
@@ -65,21 +65,19 @@ async function Заполнить(очистить = true)
 	count += records.length;
 	query.skip += 20;
 	query.take = 1;
-	records = await database.select(query);
+	records = await db.select(query);
 	display("#more", records.length > 0);
 }
 
 async function Загрузка()
 {
 	await LoadNav();
-	await database.begin();
 	review(document);
-
-	// Значения статусов
-	for (let id of await database.select( { "from": "Статус" } ))
-		статусы[(await database.find(id)).Наименование] = id;
-
-	// Значения по умолчанию
+	
+	// Статусы
+	let db = await new Database().begin();
+	for (let id of await db.select( { "from": "Статус" } ))
+		статусы[(await db.find(id)).Наименование] = id;
 	element("#status").value = "undone";
 
 	Заполнить();

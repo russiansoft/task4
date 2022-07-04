@@ -17,6 +17,7 @@
 	<script src="database.js"></script>
 	<script src="client.js"></script>
 	<script src="template.js"></script>
+	<script src="classes.js"></script>
 	<script src="nav.js"></script>
 	<script src="manuscript-period.js"></script>
 	<script src="задачи.js"></script>
@@ -28,14 +29,13 @@
 			overflow-y: hidden;
 		}
 	</style>
-	<script>
-	</script>
 </head>
-	<body onload="Загрузка()">
+	<body data-type="Задачи" onload="Загрузка()">
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
 		<div class="container-fluid">
 			<div class="row m-2"></div>
 			<manuscript-period class="row m-2" onchange="Заполнить()"></manuscript-period>
+			<data-object type="Период"></data-object>
 			<div class="row m-2">
 				<label class="col-form-label col-width w-15ch">Статус:</label>
 				<div class="col-width w-35ch">

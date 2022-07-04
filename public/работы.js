@@ -11,14 +11,13 @@ async function Заполнить(очистить = true)
 	}
 
 	await database.begin();
-	let from = element("#from").valueAsDate.toISOString().slice(0, 10);
-	let to = element("#to").valueAsDate.toISOString().slice(0, 10);
 	let query = 
 	{
 		"from": "Работа",
 		"skip": count,
 		"take": 15,
-		"where": { "Дата": [ from, to ] }
+		"where": { "Дата": [ element("manuscript-period").fromDate,
+		                     element("manuscript-period").toDate ] }
 	};
 	if (task)
 		query.filter = { "Задача": task };
@@ -60,19 +59,8 @@ onload = async function()
 	if (url.searchParams.has("задача"))
 	{
 		let year = new Date().getFullYear();
-		element("#from").valueAsDate = new Date(year, 0, 1);
-		element("#to").valueAsDate = new Date(year, 11, 31);
-	}
-	else
-	{
-		let today = new Date();
-		let day = today.getDay() - 1;
-		if (day < 0)
-			day += 7;
-		let from = today.getDate() - day;
-		let to = from + 6;
-		element("#from").valueAsDate = new Date(new Date().setDate(from));
-		element("#to").valueAsDate = new Date(new Date().setDate(to));
+		//element("#from").valueAsDate = new Date(year, 0, 1);
+		//element("#to").valueAsDate = new Date(year, 11, 31);
 	}
 
 	Заполнить();

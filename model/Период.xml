@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<unit name="interval">
+<unit name="Период">
 
-	<type name="interval" title="Интервал" report="1" scope="global">
+	<type name="Период" scope="global">
 		<field.date name="from"/>
 		<field.date name="to"/>
 		
