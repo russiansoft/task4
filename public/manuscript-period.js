@@ -35,9 +35,9 @@ class ManuscriptPeriod extends HTMLElement
 			day += 7;
 		let from = today.getDate() - day;
 		let to = from + 6;
-		//this.from.valueAsDate = new Date(Date.UTC(today.getFullYear(), 0, 1));
+		this.from.valueAsDate = new Date(Date.UTC(today.getFullYear(), 0, 1));
 		//console.log("Начало: " + this.from.valueAsDate);
-		this.from.valueAsDate = new Date(new Date().setDate(from));
+		//this.from.valueAsDate = new Date(new Date().setDate(from));
 		//this.to.valueAsDate = new Date(new Date().setDate(to));
 		this.to.valueAsDate = new Date();
 

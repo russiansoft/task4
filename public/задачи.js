@@ -21,8 +21,22 @@ async function Заполнить(очистить = true)
 		"filter": { }
 	};
 	let status = element("#status").value;
-	if (status && status != "undone")
-		query.filter.Статус = status;
+	if (status)
+	{
+		if (status == "undone")
+		{
+			query.filter.Статус = [ ];
+			for (let статус of await db.select( { "select": [ "id", "Наименование" ],
+			                                      "from": "Статус" } ))
+			{
+				if (статус.Наименование != "Завершено" &&
+				    статус.Наименование != "Информация")
+					query.filter.Статус.push(статус.id);
+			}
+		}
+		else
+			query.filter.Статус = status;
+	}
 	let project = element("#project").value;
 	if (project)
 		query.filter.Проект = project;
@@ -30,8 +44,8 @@ async function Заполнить(очистить = true)
 	for (let id of records)
 	{
 		let record = await db.find(id);
-		if (status == "undone" && record.Статус == статусы["Завершено"])
-			continue;
+		// if (status == "undone" && record.Статус == статусы["Завершено"])
+		// 	continue;
 		let template = new Template("#card");
 		if (record.Постановщик)
 		{
