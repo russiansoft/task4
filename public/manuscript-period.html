@@ -1,11 +1,14 @@
-<label class="col-form-label col-width w-15ch">Период с:</label>
-<div class="col-width w-15ch">
-	<input id="manuscript-period-from" type="date" class="form-control"/>
+
+<div class="row m-2" data-type="Период">
+
+	<label class="col-form-label col-width w-15ch">Период с:</label>
+	<div class="col-width w-15ch">
+		<input class="form-control" id="manuscript-period-from" type="date" data-bind="Начало"/>
+	</div>
+
+	<label class="col-form-label col-width w-5ch text-center">по:</label>
+	<div class="col-width w-15ch">
+		<input class="form-control" id="manuscript-period-to" type="date" data-bind="Окончание"/>
+	</div>
+
 </div>
-<label class="col-form-label col-width w-5ch text-center">по:</label>
-<div class="col-width w-15ch">
-	<input id="manuscript-period-to" type="date" class="form-control"/>
-</div>
-<!-- <div class="col-grow ms-2">
-	<button id="manuscript-period-today" class="btn btn-outline-secondary">Сегодня</button>
-</div> -->

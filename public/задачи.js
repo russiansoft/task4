@@ -44,8 +44,6 @@ async function Заполнить(очистить = true)
 	for (let id of records)
 	{
 		let record = await db.find(id);
-		// if (status == "undone" && record.Статус == статусы["Завершено"])
-		// 	continue;
 		let template = new Template("#card");
 		if (record.Постановщик)
 		{

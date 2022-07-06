@@ -3,8 +3,8 @@
 <unit name="Период">
 
 	<type name="Период" scope="global">
-		<field.date name="from"/>
-		<field.date name="to"/>
+		<field.date name="Начало"/>
+		<field.date name="Окончание"/>
 		
 		<state name="Сегодня">
 			<function name="from">

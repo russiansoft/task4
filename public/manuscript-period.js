@@ -12,6 +12,26 @@ class DataObject extends HTMLElement
 if (!customElements.get("data-object"))
 	customElements.define("data-object", DataObject);
 
+// Компонент из шаблона
+class FromTemplate extends HTMLElement
+{
+	// При вставке компонента
+	async connectedCallback()
+	{
+		let template = new Template();
+		let src = this.getAttribute("src");
+		if (!src)
+			throw "Не заполнен атрибут src";
+		console.log("FromTemplate " + src);
+		await template.load(src);
+		template.out(this);
+	}
+}
+
+// Регистрация компонента
+if (!customElements.get("from-template"))
+	customElements.define("from-template", FromTemplate);
+
 // Компонент выбора периода
 class ManuscriptPeriod extends HTMLElement
 {
