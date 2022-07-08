@@ -1,4 +1,5 @@
 
+let period = null;
 let count = 0;
 let статусы = { };
 
@@ -9,15 +10,13 @@ async function Заполнить(очистить = true)
 		element("#content").innerHTML = "";
 		count = 0;
 	}
-
 	let db = await new Database().begin();
 	let query = 
 	{
 		"from": "Задача",
 		"skip": count,
 		"take": 20,
-		"where": { "Срок": [ element("manuscript-period").fromDate,
-		                     element("manuscript-period").toDate ] },
+		"where": { "Срок": [ period.Начало, period.Окончание ] },
 		"filter": { }
 	};
 	let status = element("#status").value;
@@ -86,6 +85,9 @@ async function Загрузка()
 	await LoadNav();
 	review(document);
 	
+	period = await database.create("Период");
+	period.view(document.querySelector("header"));
+
 	// Статусы
 	let db = await new Database().begin();
 	for (let id of await db.select( { "from": "Статус" } ))

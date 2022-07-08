@@ -41,3 +41,15 @@ var Задачи = class
 	{
 	}
 }
+
+var Сотрудник = class
+{
+}
+
+var Договор = class
+{
+}
+
+var Статус = class
+{
+}
