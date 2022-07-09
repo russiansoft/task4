@@ -87,7 +87,6 @@ async function Загрузка()
 	
 	period = await database.create("Период");
 	period.view(document.querySelector("header"));
-	document.addEventListener("save", Заполнить);
 
 	// Статусы
 	let db = await new Database().begin();
