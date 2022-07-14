@@ -84,7 +84,8 @@ async function Загрузка()
 {
 	await LoadNav();
 	review(document);
-	
+
+	new Template("#filters").out("header");
 	period = await database.create("Период");
 	period.view(document.querySelector("header"));
 

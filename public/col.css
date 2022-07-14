@@ -1,71 +1,58 @@
 
-.col-width
-{
-	flex: 0 0 auto;
-	padding-left: 0;
-	padding-right: 0;
-	width: 0ch;
-}
-.col-grow
-{
-	flex: 1 0 auto;
-	width: 0ch;
-	padding-left: 0;
-	padding-right: 0;
-}
+.col-0ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 0ch; }
+.col-1ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 1ch; }
+.col-2ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 2ch; }
+.col-3ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 3ch; }
+.col-4ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 4ch; }
+.col-5ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 5ch; }
+.col-6ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 6ch; }
+.col-7ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 7ch; }
+.col-8ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 8ch; }
+.col-9ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 9ch; }
+.col-10ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 10ch; }
+.col-11ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 11ch; }
+.col-12ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 12ch; }
+.col-13ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 13ch; }
+.col-14ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 14ch; }
+.col-15ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 15ch; }
+.col-16ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 16ch; }
+.col-17ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 17ch; }
+.col-18ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 18ch; }
+.col-19ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 19ch; }
+.col-20ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 20ch; }
+.col-21ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 21ch; }
+.col-22ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 22ch; }
+.col-23ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 23ch; }
+.col-24ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 24ch; }
+.col-25ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 25ch; }
+.col-26ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 26ch; }
+.col-27ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 27ch; }
+.col-28ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 28ch; }
+.col-29ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 29ch; }
+.col-30ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 30ch; }
+.col-31ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 31ch; }
+.col-32ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 32ch; }
+.col-33ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 33ch; }
+.col-34ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 34ch; }
+.col-35ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 35ch; }
+.col-36ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 36ch; }
+.col-37ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 37ch; }
+.col-38ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 38ch; }
+.col-39ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 39ch; }
+.col-40ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 40ch; }
+.col-50ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 50ch; }
+.col-60ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 60ch; }
+.col-70ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 70ch; }
+.col-80ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 80ch; }
+.col-90ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 90ch; }
+.col-100ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 100ch; }
+.col-110ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 110ch; }
+.col-120ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 120ch; }
+.col-130ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 130ch; }
+.col-140ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 140ch; }
+.col-150ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 150ch; }
+.col-200ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 200ch; }
+.col-250ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 250ch; }
+.col-300ch { flex: 0 0 auto; padding-left: 0; padding-right: 0; width: 300ch; }
 
-.w-0ch { width: 0ch; }
-.w-1ch { width: 1ch; }
-.w-2ch { width: 2ch; }
-.w-3ch { width: 3ch; }
-.w-4ch { width: 4ch; }
-.w-5ch { width: 5ch; }
-.w-6ch { width: 6ch; }
-.w-7ch { width: 7ch; }
-.w-8ch { width: 8ch; }
-.w-9ch { width: 9ch; }
-.w-10ch { width: 10ch; }
-.w-11ch { width: 11ch; }
-.w-12ch { width: 12ch; }
-.w-13ch { width: 13ch; }
-.w-14ch { width: 14ch; }
-.w-15ch { width: 15ch; }
-.w-16ch { width: 16ch; }
-.w-17ch { width: 17ch; }
-.w-18ch { width: 18ch; }
-.w-19ch { width: 19ch; }
-.w-20ch { width: 20ch; }
-.w-21ch { width: 21ch; }
-.w-22ch { width: 22ch; }
-.w-23ch { width: 23ch; }
-.w-24ch { width: 24ch; }
-.w-25ch { width: 25ch; }
-.w-26ch { width: 26ch; }
-.w-27ch { width: 27ch; }
-.w-28ch { width: 28ch; }
-.w-29ch { width: 29ch; }
-.w-30ch { width: 30ch; }
-.w-31ch { width: 31ch; }
-.w-32ch { width: 32ch; }
-.w-33ch { width: 33ch; }
-.w-34ch { width: 34ch; }
-.w-35ch { width: 35ch; }
-.w-36ch { width: 36ch; }
-.w-37ch { width: 37ch; }
-.w-38ch { width: 38ch; }
-.w-39ch { width: 39ch; }
-.w-40ch { width: 40ch; }
-.w-50ch { width: 50ch; }
-.w-60ch { width: 60ch; }
-.w-70ch { width: 70ch; }
-.w-80ch { width: 80ch; }
-.w-90ch { width: 90ch; }
-.w-100ch { width: 100ch; }
-.w-110ch { width: 110ch; }
-.w-120ch { width: 120ch; }
-.w-130ch { width: 130ch; }
-.w-140ch { width: 140ch; }
-.w-150ch { width: 150ch; }
-.w-200ch { width: 200ch; }
-.w-250ch { width: 250ch; }
-.w-300ch { width: 300ch; }
+.col-grow { flex: 1 0 auto; padding-left: 0; padding-right: 0; }
