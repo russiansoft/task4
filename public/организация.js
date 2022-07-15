@@ -1,19 +1,55 @@
 
-async function Записать()
+import { LoadNav } from "./nav.js";
+
+let count = 0;
+
+export class Организации
 {
-	await database.commit();
-	close();
+	async create()
+	{
+		await LoadNav();
+	}
+
+	async view(parent)
+	{
+		let layout = await new Layout().load("организация.html");
+		layout.template("#list").out(parent);
+		this.Заполнить();
+	}
+
+	async Заполнить(очистить = true)
+	{
+		let layout = await new Layout().load("организация.html");
+		if (clear)
+		{
+			element("#content").innerHTML = "";
+			count = 0;
+		}
+		let query = 
+		{
+			"from": "Организация",
+			"skip": count,
+			"take": 15
+		};
+		let records = await database.select(query);
+		for (let id of records)
+		{
+			let record = await database.find(id);
+			layout.template("#card").fill(record).out("#content");
+		}
+		count += records.length;
+		query.skip += 14;
+		query.take = 1;
+		records = await database.select(query);
+		display("#more", records.length > 0);
+	}
 }
 
-onload = async function()
+export class Организация
 {
-	await database.begin();
-
-	let url = new URL(location);
-	if (url.searchParams.has("id"))
+	async view(parent)
 	{
-		let id = url.searchParams.get("id");
-		document.record = await database.find(id);
-		DataOut(document.record);
+		let layout = await new Layout().load("организация.html");
+		layout.template("#form").fill(this).out(parent);
 	}
 }

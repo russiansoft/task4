@@ -16,6 +16,10 @@
 		<access.allow role="Администратор"/>
 	</type>
 		
+	<type name="Сотрудники" scope="global">
+		<access.allow role="Администратор"/>
+	</type>
+
 	<form name="Сотрудник">
 		<column width="2"/>
 		<column width="30"/>

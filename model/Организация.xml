@@ -28,5 +28,9 @@
 		</cell>
 		<row/>
 	</form>
-	
+
+	<type name="Организации" scope="global">
+		<access.allow role="Администратор"/>
+	</type>
+
 </unit>

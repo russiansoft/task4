@@ -37,14 +37,14 @@ export async function LoadNav()
 	await template.load("nav.html");
 	let name = auth.user ? auth.user : "";
 	template.fill( { "user": name } );
-	template.out("main");
+	template.out("nav");
 
 	// Обновление видимости
 	display("#login", name == "");
 	display("#logout", name != "");
 
 	// Отступ
-	// let next = element("nav").nextElementSibling;
-	// if (next)
-	// 	next.style.marginTop = element("nav").offsetHeight + "px";
+	let next = element("nav").nextElementSibling;
+	if (next)
+		next.style.marginTop = element("nav").offsetHeight + "px";
 }

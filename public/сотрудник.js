@@ -1,25 +1,24 @@
-
 import { LoadNav } from "./nav.js";
 
 let count = 0;
 
-export class Статусы
+export class Сотрудники
 {
 	async create()
 	{
 		await LoadNav();
 	}
-
 	async view(parent)
 	{
-		let layout = await new Layout().load("shared.html");
+		let layout = await new Layout().load("сотрудник.html");
 		layout.template("#list").out(parent);
 		this.Заполнить();
+		element("#search").focus();
 	}
 
 	async Заполнить(очистить = true)
 	{
-		let layout = await new Layout().load("shared.html");
+		let layout = await new Layout().load("сотрудник.html");
 		if (очистить)
 		{
 			element("#content").innerHTML = "";
@@ -27,10 +26,13 @@ export class Статусы
 		}
 		let query = 
 		{
-			"from": "Статус",
+			"from": "Сотрудник",
 			"skip": count,
 			"take": 15
 		};
+		let search = element("#search").value;
+		if (search)
+			query.search = search;
 		let records = await database.select(query);
 		for (let id of records)
 		{
@@ -45,11 +47,11 @@ export class Статусы
 	}
 }
 
-export class Статус
+export class Сотрудник
 {
 	async view(parent)
 	{
-		let layout = await new Layout().load("shared.html");
+		let layout = await new Layout().load("сотрудник.html");
 		layout.template("#form").fill(this).out(parent);
 	}
 }

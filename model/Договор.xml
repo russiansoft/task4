@@ -13,6 +13,10 @@
 		<access.allow role="Администратор"/>
 	</type>
 		
+	<type name="Договоры" scope="global">
+		<access.allow role="Администратор"/>
+	</type>
+
 	<form name="Договор">
 		<column width="2"/>
 		<column width="30"/>
