@@ -1,5 +1,5 @@
 
-var Период = class
+export class Период
 {
 	async create()
 	{
