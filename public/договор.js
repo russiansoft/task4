@@ -12,15 +12,15 @@ export class Договоры
 
 	async view(parent)
 	{
-		let layout = await new Layout().load("договор.html");
+		let layout = await new Layout().load("shared.html");
 		layout.template("#list").out(parent);
 		this.Заполнить();
 	}
 
 	async Заполнить(очистить = true)
 	{
-		let layout = await new Layout().load("договор.html");
-		if (clear)
+		let layout = await new Layout().load("shared.html");
+		if (очистить)
 		{
 			element("#content").innerHTML = "";
 			count = 0;
@@ -35,7 +35,8 @@ export class Договоры
 		for (let id of records)
 		{
 			let record = await database.find(id);
-			layout.template("#card").fill(record).out("#content");
+			layout.template("#card").fill( { "type": "Договор" } ).
+			                         fill(record).out("#content");
 		}
 		count += records.length;
 		query.skip += 14;
@@ -49,7 +50,7 @@ export class Договор
 {
 	async view(parent)
 	{
-		let layout = await new Layout().load("договор.html");
+		let layout = await new Layout().load("shared.html");
 		layout.template("#form").fill(this).out(parent);
 	}
 }

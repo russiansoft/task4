@@ -35,7 +35,8 @@ export class Статусы
 		for (let id of records)
 		{
 			let record = await database.find(id);
-			layout.template("#card").fill(record).out("#content");
+			layout.template("#card").fill( { "type": "Статус" } ).
+			                         fill(record).out("#content");
 		}
 		count += records.length;
 		query.skip += 14;
