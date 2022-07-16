@@ -37,7 +37,7 @@ export class Работы
 			task = url.searchParams.get("задача");
 			let record = await database.find(task);
 			element("#task").innerHTML = record.Тема;
-			element("#create").href = "form?type=Работа&task=" + task;
+			element("#create").href = "?type=Работа&task=" + task;
 		}
 		
 		layout.template("template#content").fill(this).out(parent);

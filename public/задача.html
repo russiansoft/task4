@@ -22,7 +22,7 @@
 <template id="commands">
 	<div class="row m-2 mt-3 mb-3">
 		<div class="col-grow">
-			<a class="btn btn-outline-success me-1" href="form?type=Задача" target="_blank">
+			<a class="btn btn-outline-success me-1" href="?type=Задача" target="_blank">
 				<i class="bi bi-plus-circle"></i> Создать
 			</a>
 			<button class="btn btn-outline-success" onclick="object.Заполнить()">
@@ -42,12 +42,12 @@
 			<div class="card-body">
 				<h3 class="card-title">{НаименованиеПроекта}</h3>
 				<!-- <a class="h4 card-title" href="задача?id={id}" target="_blank">{Тема}</a> -->
-				<a class="h4 card-title" href="form?type=Задача&id={id}" target="_blank">{Тема}</a>
+				<a class="h4 card-title" href="?type=Задача&id={id}" target="_blank">{Тема}</a>
 				<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
 				<p class="card-text" style="max-height: 3em; overflow-y: hidden;">{Содержание}</p>
-				<a class="card-link" href="form?type=Задача&id={id}" target="_blank">{Срок}</a>
-				<a class="card-link" href="form?type=Задача&id={id}" target="_blank">{Дата}</a>
-				<a class="card-link" href="form?type=Задача&id={id}" target="_blank">{НаименованиеПостановщика}</a>
+				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{Срок}</a>
+				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{Дата}</a>
+				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{НаименованиеПостановщика}</a>
 			</div>
 		</div>
 	</div>
@@ -67,7 +67,7 @@
 	<div class="row m-2">
 		<div class="col-grow">
 			<button class="btn btn-primary me-2 cmd-ok">Записать</button>
-			<a class="btn btn-success" href="form?type=Работы&задача={id}" target="_blank">Работа</a>
+			<a class="btn btn-success" href="?type=Работы&задача={id}" target="_blank">Работа</a>
 		</div>
 	</div>
 	<div class="row m-2">
