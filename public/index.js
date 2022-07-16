@@ -1,5 +1,4 @@
 ﻿
-
 async function Upload()
 {
 	new FileDialog().show(async function(file)
@@ -19,8 +18,12 @@ async function Upload()
 	} );
 }
 
-async function Загрузка()
+async function form()
 {
-	await LoadNav();
-	//location.replace("задачи");
+	let type = "Задачи";
+	let url = new URL(location);
+	if (url.searchParams.has("type"))
+		type = url.searchParams.get("type");
+	document.title = type;
+	await load(type);
 }
