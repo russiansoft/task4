@@ -13,7 +13,7 @@ export class Сотрудники
 		let layout = await new Layout().load("сотрудник.html");
 		layout.template("#list").out(parent);
 		this.Заполнить();
-		element("#search").focus();
+		document.find("#search").focus();
 	}
 
 	async Заполнить(очистить = true)
@@ -21,7 +21,7 @@ export class Сотрудники
 		let layout = await new Layout().load("сотрудник.html");
 		if (очистить)
 		{
-			element("#content").innerHTML = "";
+			document.find("#content").innerHTML = "";
 			count = 0;
 		}
 		let query = 
@@ -30,7 +30,7 @@ export class Сотрудники
 			"skip": count,
 			"take": 15
 		};
-		let search = element("#search").value;
+		let search = document.find("#search").value;
 		if (search)
 			query.search = search;
 		let records = await database.select(query);

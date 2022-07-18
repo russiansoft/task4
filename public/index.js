@@ -18,12 +18,16 @@ async function Upload()
 	} );
 }
 
-async function form()
+async function load()
 {
 	let type = "Задачи";
 	let url = new URL(location);
 	if (url.searchParams.has("type"))
 		type = url.searchParams.get("type");
 	document.title = type;
-	await load(type);
+	let id = "";
+	if (url.searchParams.has("id"))
+		id = url.searchParams.get("id");
+	await preload(type, id, "main");
+	display("main", true);
 }

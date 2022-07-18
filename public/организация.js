@@ -22,7 +22,7 @@ export class Организации
 		let layout = await new Layout().load("shared.html");
 		if (очистить)
 		{
-			element("#content").innerHTML = "";
+			document.find("#content").innerHTML = "";
 			count = 0;
 		}
 		let query = 

@@ -44,7 +44,7 @@ export async function LoadNav()
 	display("#logout", name != "");
 
 	// Отступ
-	let next = element("nav").nextElementSibling;
+	let next = document.find("nav").nextElementSibling;
 	if (next)
-		next.style.marginTop = element("nav").offsetHeight + "px";
+		next.style.marginTop = document.find("nav").offsetHeight + "px";
 }

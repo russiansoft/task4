@@ -25,15 +25,14 @@ export class Задачи
 		let db = await new Database().begin();
 		for (let id of await db.select( { "from": "Статус" } ))
 			статусы[(await db.find(id)).Наименование] = id;
-		element("#status").value = "undone";
+		document.find("#status").value = "undone";
 
 		layout.template("#commands").fill(this).out(parent);
 		
 		layout.template("template#content").fill(this).out(parent);
-
-		this.Заполнить();
-
 		layout.template("#footer").fill(this).out(parent);
+
+		await this.Заполнить();
 	}
 
 	async Заполнить(очистить = true)
@@ -41,7 +40,7 @@ export class Задачи
 		let layout = await new Layout().load("задача.html");
 		if (очистить)
 		{
-			element("#content").innerHTML = "";
+			document.find("#content").innerHTML = "";
 			count = 0;
 		}
 		let db = await new Database().begin();
@@ -53,7 +52,7 @@ export class Задачи
 			"where": { "Срок": [ period.Начало, period.Окончание ] },
 			"filter": { }
 		};
-		let status = element("#status").value;
+		let status = document.find("#status").value;
 		if (status)
 		{
 			if (status == "undone")
@@ -70,7 +69,7 @@ export class Задачи
 			else
 				query.filter.Статус = status;
 		}
-		let project = element("#project").value;
+		let project = document.find("#project").value;
 		if (project)
 			query.filter.Проект = project;
 		let records = await db.select(query);
@@ -139,7 +138,7 @@ export class Задача
 	async ЗаполнитьВложения()
 	{
 		let layout = await new Layout().load("задача.html");
-		element("#attach").innerHTML = "";
+		document.find("#attach").innerHTML = "";
 		for (let id of await database.select( {
 			"from": "owner",
 			"where": { "owner": object.id } } ))

@@ -26,7 +26,7 @@ export class Работы
 		// let db = await new Database().begin();
 		// for (let id of await db.select( { "from": "Статус" } ))
 		// 	статусы[(await db.find(id)).Наименование] = id;
-		// element("#status").value = "undone";
+		// document.find("#status").value = "undone";
 
 		layout.template("#commands").fill(this).out(parent);
 
@@ -36,8 +36,8 @@ export class Работы
 		{
 			task = url.searchParams.get("задача");
 			let record = await database.find(task);
-			element("#task").innerHTML = record.Тема;
-			element("#create").href = "?type=Работа&task=" + task;
+			document.find("#task").innerHTML = record.Тема;
+			document.find("#create").href = "?type=Работа&task=" + task;
 		}
 		
 		layout.template("template#content").fill(this).out(parent);
@@ -52,7 +52,7 @@ export class Работы
 		let layout = await new Layout().load("работа.html");
 		if (очистить)
 		{
-			element("#content").innerHTML = "";
+			document.find("#content").innerHTML = "";
 			count = 0;
 		}
 	
