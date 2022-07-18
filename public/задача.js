@@ -8,18 +8,20 @@ let статусы = { };
 
 export class Задачи
 {
-	async create()
-	{
-		await LoadNav();
-	}
-
 	async view(parent)
 	{
-		period = await database.create("Период");
-		period.view(parent);
-	
 		let layout = await new Layout().load("задача.html");
-		layout.template("#filters").fill(this).out(parent);
+
+		await LoadNav();
+
+		period = await database.create("Период");
+		period.view(parent.find("header"));
+		parent.find("header").addEventListener("save", function()
+		{
+			object.Заполнить();
+		} );
+	
+		layout.template("#filters").fill(this).out(parent.find("header"));
 
 		// Статусы
 		let db = await new Database().begin();
@@ -27,10 +29,10 @@ export class Задачи
 			статусы[(await db.find(id)).Наименование] = id;
 		document.find("#status").value = "undone";
 
-		layout.template("#commands").fill(this).out(parent);
+		layout.template("#commands").fill(this).out(parent.find("menu"));
 		
-		layout.template("template#content").fill(this).out(parent);
-		layout.template("#footer").fill(this).out(parent);
+		layout.template("#content").fill(this).out(parent.find("main"));
+		layout.template("#footer").fill(this).out(parent.find("footer"));
 
 		await this.Заполнить();
 	}

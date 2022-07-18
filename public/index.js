@@ -20,14 +20,8 @@ async function Upload()
 
 async function load()
 {
-	let type = "Задачи";
 	let url = new URL(location);
-	if (url.searchParams.has("type"))
-		type = url.searchParams.get("type");
-	document.title = type;
-	let id = "";
-	if (url.searchParams.has("id"))
-		id = url.searchParams.get("id");
-	await preload(type, id, "main");
+	//document.title = type;
+	await preload(url.searchParams.get("type"), url.searchParams.get("id"), "body");
 	display("main", true);
 }
