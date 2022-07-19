@@ -2,7 +2,6 @@
 import { LoadNav } from "./nav.js";
 import { Период } from "./период.js";
 
-let period = null;
 let count = 0;
 let статусы = { };
 
@@ -14,8 +13,8 @@ export class Задачи
 
 		await LoadNav();
 
-		period = await database.create("Период");
-		period.view(parent.find("header"));
+		let период = await database.find(object.Период.id);
+		период.view(parent.find("header"));
 		parent.find("header").addEventListener("save", function()
 		{
 			object.Заполнить();
@@ -45,13 +44,14 @@ export class Задачи
 			document.find("#content").innerHTML = "";
 			count = 0;
 		}
+		let период = await database.find(object.Период.id);
 		let db = await new Database().begin();
 		let query = 
 		{
 			"from": "Задача",
 			"skip": count,
 			"take": 20,
-			"where": { "Срок": [ period.Начало, period.Окончание ] },
+			"where": { "Срок": [ период.Начало, период.Окончание ] },
 			"filter": { }
 		};
 		let status = document.find("#status").value;

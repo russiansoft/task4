@@ -6,6 +6,19 @@
 		<field.date name="Начало"/>
 		<field.date name="Окончание"/>
 		
+		<constructor>
+			<function name="Начало">
+				<date>
+					<year><today/></year>
+					<get value="1"/>
+					<get value="1"/>
+				</date>
+			</function>
+			<function name="Окончание">
+				<today/>
+			</function>
+		</constructor>
+
 		<state name="Сегодня">
 			<function name="from">
 				<today/>

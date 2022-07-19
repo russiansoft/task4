@@ -1,20 +1,20 @@
 
 export class Период
 {
-	async create()
-	{
-		// Значения по умолчанию
-		let today = new Date();
-		let day = today.getDay() - 1;
-		if (day < 0)
-			day += 7;
-		let from = today.getDate() - day;
-		let to = from + 6;
-		this.Начало = new Date(Date.UTC(today.getFullYear(), 0, 1)).toISOString().slice(0, 10);
-		this.Окончание = new Date().toISOString().slice(0, 10);
-		//console.log("Создан период " + JSON.stringify(this));
-		//valueAsDate
-	}
+	// async create()
+	// {
+	// 	// Значения по умолчанию
+	// 	let today = new Date();
+	// 	let day = today.getDay() - 1;
+	// 	if (day < 0)
+	// 		day += 7;
+	// 	let from = today.getDate() - day;
+	// 	let to = from + 6;
+	// 	this.Начало = new Date(Date.UTC(today.getFullYear(), 0, 1)).toISOString().slice(0, 10);
+	// 	this.Окончание = new Date().toISOString().slice(0, 10);
+	// 	//console.log("Создан период " + JSON.stringify(this));
+	// 	//valueAsDate
+	// }
 	async read()
 	{
 	}
