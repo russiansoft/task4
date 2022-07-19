@@ -1,67 +1,4 @@
 
-<template id="filters">
-	<div class="row m-2">
-		<label class="col-form-label col-20ch">Статус:</label>
-		<div class="col-50ch">
-			<select class="form-select" id="status" data-type="Статус" onchange="object.Заполнить()">
-				<option value="">(все)</option>
-				<option value="undone">(незавершенные)</option>
-			</select>
-		</div>
-	</div>
-	<div class="row m-2">
-		<label class="col-form-label col-20ch">Проект:</label>
-		<div class="col-50ch">
-			<select class="form-select" id="project" data-type="Договор" onchange="object.Заполнить()">
-				<option value="">(все)</option>
-			</select>
-		</div>
-	</div>
-</template>
-
-<template id="commands">
-	<div class="row m-2 mt-3 mb-3">
-		<div class="col-grow">
-			<a class="btn btn-outline-success me-1" href="?type=Задача" target="_blank">
-				<i class="bi bi-plus-circle"></i> Создать
-			</a>
-			<button class="btn btn-outline-success" onclick="object.Заполнить()">
-				<i class="bi bi-arrow-clockwise"></i>
-			</button>
-		</div>
-	</div>
-</template>
-
-<template id="content">
-	<div class="row m-2" id="content"></div>
-</template>
-
-<template id="card">
-	<div class="col-md-6 col-lg-4 col-xl-3 p-0">
-		<div class="card me-3 mb-3 {class}" record="{id}">
-			<div class="card-body">
-				<h3 class="card-title">{НаименованиеПроекта}</h3>
-				<!-- <a class="h4 card-title" href="задача?id={id}" target="_blank">{Тема}</a> -->
-				<a class="h4 card-title" href="?type=Задача&id={id}" target="_blank">{Тема}</a>
-				<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
-				<p class="card-text" style="max-height: 3em; overflow-y: hidden;">{Содержание}</p>
-				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{Срок}</a>
-				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{Дата}</a>
-				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{НаименованиеПостановщика}</a>
-			</div>
-		</div>
-	</div>
-</template>
-
-<template id="footer">
-	<div class="row m-2 d-none" id="more">
-		<div class="col-grow">
-			<button class="btn btn-secondary" onclick="object.Заполнить(false)">Вывести еще</button>
-		</div>
-	</div>
-	<div class="row m-2"></div>
-</template>
-
 <template id="form">
 	<div class="row m-2"></div>
 	<div class="row m-2">
@@ -137,7 +74,7 @@
 
 <template id="line">
 	<div class="card m-2 bg-info text-white"
-		 onclick="object.ОткрытьФайл('{name}', '{type}', '{address}')">
+		 onclick="new FileDialog().download('{name}', '{type}', '{address}')">
 		<div class="card-body">
 			<p class="m-0"><i class="bi bi-file-earmark"></i> {name}</p>
 		</div>
