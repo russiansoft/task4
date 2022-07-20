@@ -50,7 +50,7 @@ export class Статус
 {
 	async view(parent)
 	{
-		let layout = await new Layout().load("shared.html");
+		let layout = await new Layout().load("статус.html");
 		layout.template("#form").fill(this).out(parent);
 	}
 }

@@ -4,6 +4,7 @@
 
 	<type name="Статус" title="Статус" scope="global">
 		<field.string name="Наименование" width="30" indexing="sort"/>
+		<field.string name="Оформление"/>
 		<function name="title">
 			<get field="Наименование"/>
 		</function>

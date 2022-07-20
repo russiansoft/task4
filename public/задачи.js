@@ -56,11 +56,6 @@ export class Задачи
 		if (project)
 			query.filter.Проект = project;
 		let records = await db.select(query);
-
-		let статусы = { };
-		for (let id of await db.select( { "from": "Статус" } ))
-			статусы[(await db.find(id)).Наименование] = id;
-
 		for (let id of records)
 		{
 			let record = await db.find(id);
@@ -77,23 +72,13 @@ export class Задачи
 			}
 			template.fill( { "Срок": format(record.Срок, "date") } );
 			template.fill( { "Дата": format(record.Дата, "date") } );
-
-			// Статусы
-			if (record.Статус == статусы["Входящие"])
-				template.fill( { "class": "bg-warning text-dark" } );
-			else if (record.Статус == статусы["Действия"])
-				template.fill( { "class": "bg-danger text-white" } );
-			else if (record.Статус == статусы["Завершено"])
-				template.fill( { "class": "bg-success text-white" } );
-			else if (record.Статус == статусы["Информация"])
-				template.fill( { "class": "bg-info text-white" } );
-			else if (record.Статус == статусы["Когда-нибудь, может быть"])
-				template.fill( { "class": "" } );
-			else if (record.Статус == статусы["Ожидания и отложено"])
-				template.fill( { "class": "bg-info text-dark" } );
-			else
-				template.fill( { "class": "bg-dark text-white" } );
-
+			let оформление = "bg-dark text-white";
+			if (record.Статус)
+			{
+				let статус = await db.find(record.Статус);
+				оформление = статус.Оформление;
+			}
+			template.fill( { "class": оформление } );
 			template.fill(record);
 			template.out("#content");
 		}
