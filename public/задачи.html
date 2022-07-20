@@ -35,7 +35,7 @@
 
 <template id="content">
 	<div class="row m-2" id="content"></div>
-	<data-paginator container="#content" portion="3" onmore="object.Заполнить(false)"></data-paginator>
+	<data-paginator container="#content" portion="10" onmore="object.Заполнить(false)"></data-paginator>
 </template>
 
 <template id="card">
@@ -51,15 +51,6 @@
 				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{Дата}</a>
 				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{НаименованиеПостановщика}</a>
 			</div>
-		</div>
-	</div>
-</template>
-
-<template id="paginator">
-	<div class="row m-2">
-		<label class="col-20ch col-form-label text-success" id="data-paginator-text"></label>
-		<div class="col-20ch">
-			<button class="btn btn-outline-success" id="data-paginator-more">Вывести еще</button>
 		</div>
 	</div>
 </template>

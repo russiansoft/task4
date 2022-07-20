@@ -1,14 +1,7 @@
 
 <template id="list">
-	<div class="container-fluid" id="content">
-	</div>
-	<div id="more" class="d-none">
-		<div class="row m-2">
-			<div class="col-grow">
-				<button class="btn btn-secondary" onclick="object.Заполнить(false)">Вывести еще</button>
-			</div>
-		</div>
-	</div>
+	<div class="container-fluid" id="content"></div>
+	<data-paginator container="#content" portion="10" onmore="object.Заполнить(false)"></data-paginator>
 </template>
 
 <template id="card">

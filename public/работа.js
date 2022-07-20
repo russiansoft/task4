@@ -3,8 +3,6 @@ import { LoadNav } from "./nav.js";
 import { Период } from "./период.js";
 
 let task = null;
-//let period = null;
-let count = 0;
 
 export class Работы
 {
@@ -17,18 +15,6 @@ export class Работы
 	{
 		let layout = await new Layout().load("работа.html");
 		layout.template("#title").fill(this).out(parent);
-
-		// period = await database.create("Период");
-		// period.view(parent);
-	
-		// layout.template("#filters").fill(this).out(parent);
-
-		// // Статусы
-		// let db = await new Database().begin();
-		// for (let id of await db.select( { "from": "Статус" } ))
-		// 	статусы[(await db.find(id)).Наименование] = id;
-		// document.find("#status").value = "undone";
-
 		layout.template("#commands").fill(this).out(parent);
 
 		// Отбор по задаче
@@ -42,32 +28,25 @@ export class Работы
 		}
 		
 		layout.template("template#content").fill(this).out(parent);
-
 		this.Заполнить();
-
-		layout.template("#footer").fill(this).out(parent);
 	}
 
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("работа.html");
-		if (очистить)
-		{
-			document.find("#content").innerHTML = "";
-			count = 0;
-		}
-	
+		let paginator = document.find("data-paginator");
 		let период = await database.find(object.Период.id);
 		let db = await new Database().begin();
+		if (очистить)
+			paginator.clear();
 		let query = 
 		{
 			"from": "Работа",
-			"skip": count,
-			"take": 15,
 			"where": { "Дата": [ период.Начало, период.Окончание ] }
 		};
 		if (task)
 			query.filter = { "Задача": task };
+		paginator.split(query);
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -78,12 +57,9 @@ export class Работы
 			template.fill( { "Окончание": format(record.Окончание, "time") } );
 			template.fill(record);
 			template.out("#content");
+			paginator.add();
 		}
-		count += records.length;
-		query.skip += 14;
-		query.take = 1;
-		records = await db.select(query);
-		display("#more", records.length > 0);
+		await paginator.request(db);
 	}
 }
 

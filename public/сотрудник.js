@@ -19,17 +19,11 @@ export class Сотрудники
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("сотрудник.html");
+		let paginator = document.find("data-paginator");
 		if (очистить)
-		{
-			document.find("#content").innerHTML = "";
-			count = 0;
-		}
-		let query = 
-		{
-			"from": "Сотрудник",
-			"skip": count,
-			"take": 15
-		};
+			paginator.clear();
+		let query = { "from": "Сотрудник" };
+		paginator.split(query);
 		let search = document.find("#search").value;
 		if (search)
 			query.search = search;
@@ -38,12 +32,9 @@ export class Сотрудники
 		{
 			let record = await database.find(id);
 			layout.template("#card").fill(record).out("#content");
+			paginator.add();
 		}
-		count += records.length;
-		query.skip += 14;
-		query.take = 1;
-		records = await database.select(query);
-		display("#more", records.length > 0);
+		await paginator.request(database);
 	}
 }
 

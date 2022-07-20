@@ -1,8 +1,6 @@
 
 import { LoadNav } from "./nav.js";
 
-let count = 0;
-
 export class Статусы
 {
 	async create()
@@ -20,29 +18,20 @@ export class Статусы
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("shared.html");
+		let paginator = document.find("data-paginator");
 		if (очистить)
-		{
-			document.find("#content").innerHTML = "";
-			count = 0;
-		}
-		let query = 
-		{
-			"from": "Статус",
-			"skip": count,
-			"take": 15
-		};
+			paginator.clear();
+		let query = { "from": "Статус" };
+		paginator.split(query);
 		let records = await database.select(query);
 		for (let id of records)
 		{
 			let record = await database.find(id);
 			layout.template("#card").fill( { "type": "Статус" } ).
 			                         fill(record).out("#content");
+			paginator.add();
 		}
-		count += records.length;
-		query.skip += 14;
-		query.take = 1;
-		records = await database.select(query);
-		display("#more", records.length > 0);
+		await paginator.request(database);
 	}
 }
 

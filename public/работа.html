@@ -24,6 +24,7 @@
 
 <template id="content">
 	<div class="row m-2" id="content"></div>
+	<data-paginator container="#content" portion="10" onmore="object.Заполнить(false)"></data-paginator>
 </template>
 
 <template id="card">
@@ -34,15 +35,6 @@
 			<p class="card-text">{Содержание}</p>
 		</div>
 	</div>
-</template>
-
-<template id="footer">
-	<div class="row m-2 d-none" id="more">
-		<div class="col-grow">
-			<button class="btn btn-secondary" onclick="object.Заполнить(false)">Вывести еще</button>
-		</div>
-	</div>
-	<div class="row m-2"></div>
 </template>
 
 <template id="form">
