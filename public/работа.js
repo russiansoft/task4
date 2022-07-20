@@ -1,8 +1,9 @@
 
 import { LoadNav } from "./nav.js";
+import { Период } from "./период.js";
 
 let task = null;
-let period = null;
+//let period = null;
 let count = 0;
 
 export class Работы
@@ -17,8 +18,8 @@ export class Работы
 		let layout = await new Layout().load("работа.html");
 		layout.template("#title").fill(this).out(parent);
 
-		period = await database.create("Период");
-		period.view(parent);
+		// period = await database.create("Период");
+		// period.view(parent);
 	
 		// layout.template("#filters").fill(this).out(parent);
 
@@ -56,20 +57,21 @@ export class Работы
 			count = 0;
 		}
 	
-		await database.begin();
+		let период = await database.find(object.Период.id);
+		let db = await new Database().begin();
 		let query = 
 		{
 			"from": "Работа",
 			"skip": count,
 			"take": 15,
-			"where": { "Дата": [ period.Начало, period.Окончание ] }
+			"where": { "Дата": [ период.Начало, период.Окончание ] }
 		};
 		if (task)
 			query.filter = { "Задача": task };
-		let records = await database.select(query);
+		let records = await db.select(query);
 		for (let id of records)
 		{
-			let record = await database.find(id);
+			let record = await db.find(id);
 			let template = layout.template("#card");
 			template.fill( { "Дата": format(record.Дата, "date") } );
 			template.fill( { "Начало": format(record.Начало, "time") } );
@@ -80,7 +82,7 @@ export class Работы
 		count += records.length;
 		query.skip += 14;
 		query.take = 1;
-		records = await database.select(query);
+		records = await db.select(query);
 		display("#more", records.length > 0);
 	}
 }

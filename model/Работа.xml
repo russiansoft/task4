@@ -4,6 +4,7 @@
 	
 	<type name="Работы" scope="global">
 		<field.ref name="Задача" type="Задача"/>
+		<field.object name="Период" type="Период"/>
 		<access.allow role="Администратор"/>
 	</type>
 
