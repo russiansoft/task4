@@ -21,7 +21,7 @@ async function Upload()
 async function load()
 {
 	let url = new URL(location);
-	//document.title = type;
-	await preload(url.searchParams.get("type"), url.searchParams.get("id"), "body");
+	await preload(url.searchParams.get("type") ?? "Задачи",
+	              url.searchParams.get("id"), "body");
 	display("main", true);
 }

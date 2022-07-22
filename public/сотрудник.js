@@ -1,7 +1,5 @@
 import { LoadNav } from "./nav.js";
 
-let count = 0;
-
 export class Сотрудники
 {
 	async create()

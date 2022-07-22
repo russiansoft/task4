@@ -1,6 +1,6 @@
 
 <template id="filters">
-	<data-view bind="{id}.Период" data-onsave="object.Заполнить()"></data-view>
+	<data-view data-id="{id}.Период" data-onsave="object.Заполнить()"></data-view>
 	<div class="row m-2">
 		<label class="col-form-label col-20ch">Статус:</label>
 		<div class="col-50ch">
@@ -35,6 +35,8 @@
 
 <template id="content">
 	<div class="row m-2" id="content"></div>
+	<data-view data-id="{id}.Paginator" data-container="#content" data-portion="4"
+	           data-onmore="object.Заполнить(false)"></data-view>
 	<data-paginator container="#content" portion="10" onmore="object.Заполнить(false)"></data-paginator>
 </template>
 

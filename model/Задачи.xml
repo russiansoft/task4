@@ -5,6 +5,7 @@
 	<type name="Задачи" scope="global">
 
 		<field.object name="Период" type="Период"/>
+		<field.object name="Paginator" type="Paginator"/>
 
 		<function name="index">
 			<get value="Задачи"/>

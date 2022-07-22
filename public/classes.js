@@ -1,4 +1,5 @@
 
+import { Paginator } from "./paginator.js";
 import { Период } from "./период.js";
 import { Задача } from "./задача.js";
 import { Задачи } from "./задачи.js";
@@ -14,6 +15,7 @@ class Вложение
 
 window.classes =
 {
+	"Paginator": Paginator,
 	"Период": Период,
 	"Задачи": Задачи,
 	"Задача": Задача,

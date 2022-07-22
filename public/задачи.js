@@ -1,6 +1,6 @@
 import { LoadNav } from "./nav.js";
 import { Период } from "./период.js";
-import "./data-paginator.js";
+import "./paginator.js";
 
 export class Задачи
 {
@@ -19,7 +19,7 @@ export class Задачи
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("задачи.html");
-		let paginator = document.find("data-paginator");
+		let paginator = await database.find(object.id + ".Paginator");
 		let период = await database.find(object.Период.id);
 		let db = await new Database().begin();
 		if (очистить)
