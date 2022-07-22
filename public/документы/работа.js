@@ -34,7 +34,7 @@ export class Работы
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("работа.html");
-		let paginator = document.find("data-paginator");
+		let paginator = await database.find(object.id + ".Paginator");
 		let период = await database.find(object.Период.id);
 		let db = await new Database().begin();
 		if (очистить)

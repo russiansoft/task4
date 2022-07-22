@@ -9,7 +9,7 @@ export class Сотрудники
 	async view(parent)
 	{
 		let layout = await new Layout().load("сотрудник.html");
-		layout.template("#list").out(parent);
+		layout.template("#list").fill(this).out(parent);
 		this.Заполнить();
 		document.find("#search").focus();
 	}
@@ -17,7 +17,7 @@ export class Сотрудники
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("сотрудник.html");
-		let paginator = document.find("data-paginator");
+		let paginator = await database.find(object.id + ".Paginator");
 		if (очистить)
 			paginator.clear();
 		let query = { "from": "Сотрудник" };

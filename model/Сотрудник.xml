@@ -17,6 +17,7 @@
 	</type>
 		
 	<type name="Сотрудники" scope="global">
+		<field.object name="Paginator" type="Paginator"/>
 		<access.allow role="Администратор"/>
 	</type>
 

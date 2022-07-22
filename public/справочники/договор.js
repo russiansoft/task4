@@ -11,14 +11,15 @@ export class Договоры
 	async view(parent)
 	{
 		let layout = await new Layout().load("shared.html");
-		layout.template("#list").out(parent);
+		await layout.template("#list").fill(this).out(parent);
+		await binding(parent);
 		this.Заполнить();
 	}
 
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("shared.html");
-		let paginator = document.find("data-paginator");
+		let paginator = database.get(object.id + ".Paginator");
 		if (очистить)
 			paginator.clear();
 		let query = { "from": "Договор" };

@@ -1,0 +1,82 @@
+
+<template id="form">
+	<div class="row m-2"></div>
+	<div class="row m-2">
+		<div class="col-grow">
+			<button class="btn btn-primary me-2 cmd-ok">Записать</button>
+			<a class="btn btn-success" href="?type=Работы&задача={id}" target="_blank">Работа</a>
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Срок:</label>
+		<div class="col-20ch">
+			<input type="date" class="form-control" data-value="Срок">
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Статус:</label>
+		<div class="col-30ch col-grow">
+			<select class="form-select" data-type="Статус" data-value="Статус">
+				<option value="">(не выбран)</option>
+			</select>
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Следующее действие:</label>
+		<div class="col-30ch col-grow">
+			<textarea class="form-control" data-value="СледующееДействие" rows="3"></textarea>
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Тема:</label>
+		<div class="col-30ch col-grow">
+			<textarea class="form-control" data-value="Тема" rows="3"></textarea>
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Проект:</label>
+		<div class="col-30ch col-grow">
+			<select id="project" class="form-select" data-type="Договор" data-value="Проект">
+				<option value="">(не выбран)</option>
+			</select>
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Постановщик:</label>
+		<div class="col-30ch col-grow">
+			<select id="employee" class="form-select" data-type="Сотрудник" data-value="Постановщик">
+				<option value="">(не выбран)</option>
+			</select>
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Дата постановки:</label>
+		<div class="col-20ch">
+			<input id="Дата" type="date" class="form-control" data-value="Дата">
+		</div>
+	</div>
+	<div class="row m-2">
+		<label class="col-form-label col-25ch">Вложения:</label>
+		<div class="col-30ch col-grow">
+			<button class="btn btn-outline-secondary" onclick="object.Изображение()">
+				<i class="bi bi-paperclip"></i>
+			</button>
+		</div>
+	</div>
+	<div id="attach"></div>
+	<div class="row m-2">
+		<label class="col-form-label col-30ch col-grow">Содержание:</label>
+		<div class="col-grow">
+			<textarea id="Содержание" class="form-control" data-value="Содержание" rows="7"></textarea>
+		</div>
+	</div>
+</template>
+
+<template id="line">
+	<div class="card m-2 bg-info text-white"
+		 onclick="new FileDialog().download('{name}', '{type}', '{address}')">
+		<div class="card-body">
+			<p class="m-0"><i class="bi bi-file-earmark"></i> {name}</p>
+		</div>
+	</div>
+</template>

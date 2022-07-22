@@ -6,7 +6,7 @@
 			<h1 id="task"></h1>
 		</div>
 	</div>
-	<data-view bind="{id}.Период" data-onsave="object.Заполнить()"></data-view>
+	<data-view data-id="{id}.Период" data-onsave="object.Заполнить()"></data-view>
 </template>
 
 <template id="commands">
@@ -24,7 +24,8 @@
 
 <template id="content">
 	<div class="row m-2" id="content"></div>
-	<data-paginator container="#content" portion="10" onmore="object.Заполнить(false)"></data-paginator>
+	<data-view data-id="{id}.Paginator" data-container="#content" data-portion="4"
+	           data-onmore="object.Заполнить(false)"></data-view>
 </template>
 
 <template id="card">

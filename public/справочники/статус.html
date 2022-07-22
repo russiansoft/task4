@@ -1,17 +1,4 @@
 
-<template id="list">
-	<div class="container-fluid" id="content"></div>
-	<data-paginator container="#content" portion="10" onmore="object.Заполнить(false)"></data-paginator>
-</template>
-
-<template id="card">
-	<div class="card m-2">
-		<div class="card-body">
-			<a class="card-title h4" href="?type={type}&id={id}" target="_blank">{Наименование}</a>
-		</div>
-	</div>
-</template>
-
 <template id="form">
 	<div class="row m-2">
 		<div class="col-grow">
@@ -24,6 +11,14 @@
 		</div>
 		<div class="col-30ch col-grow">
 			<input class="form-control" data-value="Наименование"/>
+		</div>
+	<div class="row m-2 form-group">
+	</div>
+		<div class="col-20ch">
+			<label class="col-form-label">Оформление:</label>
+		</div>
+		<div class="col-30ch col-grow">
+			<input class="form-control" data-value="Оформление"/>
 		</div>
 	</div>
 </template>
