@@ -13,6 +13,7 @@ export class Задачи
 		layout.template("#commands").fill(this).out(parent.find("menu"));
 		layout.template("#content").fill(this).out(parent.find("main"));
 		layout.template("#footer").fill(this).out(parent.find("footer"));
+		await binding(parent);
 		await this.Заполнить();
 	}
 
