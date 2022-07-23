@@ -13,23 +13,17 @@
 		<link rel="stylesheet" href="col.css">
 		<link rel="stylesheet" href="style.css"/>
 		<link rel="icon" href="favicon.svg">
-		<script src="server.js"></script>
-		<script src="database.js"></script>
-		<script src="client.js"></script>
-		<script src="reactive.js"></script>
-		<script src="template.js"></script>
 		<script type="module">
-			import "./classes.js"
+			import "./index.js";
 		</script>
-		<script src="index.js"></script>
 		<title>Задачи</title>
 	</head>
-	<body onload="load()">
+	<body>
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
 		<header class="container-fluid">
 			<div class="row m-2">
 				<div class="col-grow">
-					<button class="btn btn-link" onclick="Upload()">
+					<button class="btn btn-link" id="upload">
 						<i class="bi bi-cloud-arrow-up-fill"></i>
 					</button>
 				</div>

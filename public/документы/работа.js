@@ -1,6 +1,10 @@
 
+import { Database, database } from "./database.js";
+import { Layout } from "./template.js";
+import { object, binding } from "./reactive.js";
 import { LoadNav } from "./nav.js";
 import { Период } from "./период.js";
+import { format } from "./client.js";
 
 let task = null;
 
@@ -28,6 +32,7 @@ export class Работы
 		}
 		
 		layout.template("template#content").fill(this).out(parent);
+		await binding(parent);
 		this.Заполнить();
 	}
 

@@ -1,5 +1,17 @@
 ﻿
-async function Upload()
+import "./classes.js";
+import { preload } from "./reactive.js";
+import { display } from "./client.js";
+
+async function load()
+{
+	let url = new URL(location);
+	await preload(url.searchParams.get("type") ?? "Задачи",
+	              url.searchParams.get("id"), "body");
+	display("main", true);
+}
+
+async function upload()
 {
 	new FileDialog().show(async function(file)
 	{
@@ -18,10 +30,5 @@ async function Upload()
 	} );
 }
 
-async function load()
-{
-	let url = new URL(location);
-	await preload(url.searchParams.get("type") ?? "Задачи",
-	              url.searchParams.get("id"), "body");
-	display("main", true);
-}
+addEventListener("load", load);
+document.find("button#upload").addEventListener("click", upload);

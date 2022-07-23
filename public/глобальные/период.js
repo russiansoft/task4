@@ -1,4 +1,6 @@
 
+import { Template } from "./template.js";
+
 export class Период
 {
 	async view(parent)
@@ -9,7 +11,7 @@ export class Период
 		await template.out(parent);
 
 		// Элементы
-		this.from = parent.find("#manuscript-period-from");
-		this.to = parent.find("#manuscript-period-to");
+		this.from = parent.find("input#from");
+		this.to = parent.find("input#to");
 	}
 }

@@ -1,4 +1,8 @@
 
+import { auth } from "./server.js";
+import { display } from "./client.js";
+import { Template } from "./template.js";
+
 // Вход
 async function Войти()
 {
