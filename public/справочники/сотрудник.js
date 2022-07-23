@@ -6,10 +6,12 @@ export class Сотрудники
 	{
 		await LoadNav();
 	}
+	
 	async view(parent)
 	{
 		let layout = await new Layout().load("сотрудник.html");
-		layout.template("#list").fill(this).out(parent);
+		await layout.template("#list").fill(this).out(parent);
+		await binding(parent);
 		this.Заполнить();
 		document.find("#search").focus();
 	}

@@ -10,7 +10,7 @@ export class Организации
 
 	async view(parent)
 	{
-		let layout = await new Layout().load("shared.html");
+		let layout = await new Layout().load("справочники.html");
 		await layout.template("#list").fill(this).out(parent);
 		await binding(parent);
 		this.Заполнить();
@@ -18,7 +18,7 @@ export class Организации
 
 	async Заполнить(очистить = true)
 	{
-		let layout = await new Layout().load("shared.html");
+		let layout = await new Layout().load("справочники.html");
 		let paginator = await database.find(object.id + ".Paginator");
 		if (очистить)
 			paginator.clear();
@@ -40,7 +40,7 @@ export class Организация
 {
 	async view(parent)
 	{
-		let layout = await new Layout().load("shared.html");
+		let layout = await new Layout().load("справочники.html");
 		layout.template("#form").fill(this).out(parent);
 	}
 }
