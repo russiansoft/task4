@@ -1,31 +1,29 @@
 
 
-import { auth } from "./server.js";
+import { server, auth } from "./server.js";
 import { database } from "./database.js";
 import { model } from "./model.js";
-import { Layout } from "./template.js";
 import { binding } from "./reactive.js";
 
-model.classes.Навигация = class Навигация
+document.classes["nav-class"] = class
 {
-	async view(element)
+	async Create()
 	{
 		this.user = auth.user ?? "(неизвестный)";
-		element.classList.add("navbar", "sticky-top", "navbar-expand");
-		let layout = await new Layout().load("навигация.html");
+		this.classList.add("navbar", "sticky-top", "navbar-expand");
+		let layout = await server.LoadHTML("навигация.html");
 		let template = layout.template("#form");
-		await template.fill(auth).fill(this).out(element);
-		await binding(element);
-		document.find("button#login").show(!auth.user);
-		document.find("button#logout").show(auth.user);
+		await template.fill(auth).fill(this).Join(this);
+		document.get("button[data-cmd='Login']").show(!auth.user);
+		document.get("button[data-cmd='Logout']").show(auth.user);
 	}
 
-	async login()
+	async Login()
 	{
 		auth.google();
 	}
 
-	async logout()
+	async Logout()
 	{
 		auth.logout();
 	}

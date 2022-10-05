@@ -1,34 +1,19 @@
-﻿
-import "./classes.js";
-import { preload } from "./reactive.js";
-import { display } from "./client.js";
 
-async function load()
-{
-	let url = new URL(location);
-	await preload(url.searchParams.get("type") ?? "Задачи",
-	              url.searchParams.get("id"), "body");
-	display("main", true);
-}
+import { server, auth, hive } from "./server.js";
+import { Database, database } from "./database.js";
+import "./client.js";
 
-async function upload()
+document.classes["form-class"] = class
 {
-	new FileDialog().show(async function(file)
+	async Create()
 	{
-		let extension = "";
-		let point = file.name.lastIndexOf(".");
-		if (point != -1)
-			extension = file.name.slice(point + 1);
-		console.log(extension);
-		
-		let result = await hive.put(file.data, extension);
-		let value = "name:" + file.name;
-		if (file.type) 
-			value += "|type:" + file.type;
-		value += "|address:" + result.address + "|";
-		console.log(value);
-	} );
-}
+		// Аутентификация
+		await auth.load();
 
-addEventListener("load", load);
-document.find("button#upload").addEventListener("click", upload);
+		// Начало транзакции
+		await database.transaction();
+
+		await document.template().Join(this);
+		// binding(element);
+	}
+};
