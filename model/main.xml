@@ -1,19 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<unit name="main">
+<unit name="Main">
 
 	<role name="Администратор"/>
 	<role name="Пользователь"/>
 
-	<type name="main" scope="global">
+	<type name="Main" scope="global">
 		<field.object name="Аутентификация" type="Аутентификация"/>
+		<field.object name="Навигация" type="Навигация"/>
 
 		<function name="title">
 			<get value="Задачи"/>
 		</function>
-
-		<access.allow role="Администратор"/>
-		<access.allow role="Пользователь"/>
 	</type>
 	
 	<form name="main" role="Администратор">

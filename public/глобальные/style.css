@@ -12,3 +12,18 @@ nav
 	background-color: white;
 	border-bottom: 1px solid Highlight;
 }
+
+input#search
+{
+	border: gold solid 3px;
+}
+
+.dropdown-toggle::after
+{
+    display: none;
+}
+
+.nav-item
+{
+	cursor: pointer;
+}

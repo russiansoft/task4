@@ -1,10 +1,10 @@
 
+import { model } from "./model.js";
 import { Database, database } from "./database.js";
 import { Layout } from "./template.js";
-import { object, binding } from "./reactive.js";
-import { LoadNav } from "./nav.js";
+import { binding } from "./reactive.js";
 
-export class Статусы
+model.classes.Статусы = class Статусы
 {
 	async create()
 	{
@@ -22,7 +22,7 @@ export class Статусы
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("справочники.html");
-		let paginator = await database.find(object.id + ".Paginator");
+		let paginator = await database.find(this.id + ".Paginator");
 		if (очистить)
 			paginator.clear();
 		let query = { "from": "Статус" };
@@ -37,9 +37,14 @@ export class Статусы
 		}
 		await paginator.request(database);
 	}
+
+	async more()
+	{
+		await this.Заполнить(false);
+	}
 }
 
-export class Статус
+model.classes.Статус = class Статус
 {
 	async view(parent)
 	{

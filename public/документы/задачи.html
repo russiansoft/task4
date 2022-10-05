@@ -1,10 +1,11 @@
 
 <template id="filters">
-	<div data-id="{id}.Период" data-onsave="object.Заполнить()"></div>
+	<nav data-id="{id}.Навигация"></nav>
+	<div data-id="{id}.Период" data-cmd="Заполнить"></div>
 	<div class="row m-2">
 		<label class="col-form-label col-20ch">Статус:</label>
 		<div class="col-50ch">
-			<select class="form-select" id="status" data-type="Статус" onchange="object.Заполнить()">
+			<select class="form-select" id="status" data-type="Статус" data-cmd="Заполнить">
 				<option value="">(все)</option>
 				<option value="undone">(незавершенные)</option>
 			</select>
@@ -13,7 +14,7 @@
 	<div class="row m-2">
 		<label class="col-form-label col-20ch">Проект:</label>
 		<div class="col-50ch">
-			<select class="form-select" id="project" data-type="Договор" onchange="object.Заполнить()">
+			<select class="form-select" id="project" data-type="Договор" data-cmd="Заполнить">
 				<option value="">(все)</option>
 			</select>
 		</div>
@@ -26,7 +27,7 @@
 			<a class="btn btn-outline-success me-1" href="?type=Задача" target="_blank">
 				<i class="bi bi-plus-circle"></i> Создать
 			</a>
-			<button class="btn btn-outline-success" onclick="object.Заполнить()">
+			<button class="btn btn-outline-success" data-cmd="Заполнить">
 				<i class="bi bi-arrow-clockwise"></i>
 			</button>
 		</div>
@@ -35,7 +36,7 @@
 
 <template id="content">
 	<div class="row m-2" id="content"></div>
-	<data-view data-id="{id}.Paginator" data-container="#content" data-portion="4"
+	<data-view data-id="{id}.Paginator" data-container="#content" data-portion="10"
 	           data-onmore="object.Заполнить(false)"></data-view>
 </template>
 

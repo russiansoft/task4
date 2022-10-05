@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unit name="Представления">
+	<type name="Навигация" scope="global"/>
+	<type name="Paginator" title="Paginator" scope="global"/>
+</unit>

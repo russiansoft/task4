@@ -1,7 +1,8 @@
 
+import { model } from "./model.js";
 import { Template } from "./template.js";
 
-export class Период
+model.classes.Период = class Период
 {
 	async view(parent)
 	{
@@ -14,4 +15,4 @@ export class Период
 		this.from = parent.find("input#from");
 		this.to = parent.find("input#to");
 	}
-}
+};

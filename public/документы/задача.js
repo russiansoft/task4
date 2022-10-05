@@ -1,5 +1,12 @@
 
-export class Задача
+import { hive } from "./server.js";
+import { FileDialog } from "./client.js";
+import { model } from "./model.js";
+import { Layout } from "./template.js";
+import { Database, database } from "./database.js";
+import { binding } from "./reactive.js";
+
+model.classes.Задача = class Задача
 {
 	async create()
 	{
@@ -25,24 +32,25 @@ export class Задача
 		document.find("#attach").innerHTML = "";
 		for (let id of await database.select( {
 			"from": "owner",
-			"where": { "owner": object.id } } ))
+			"where": { "owner": this.id } } ))
 		{
 			let item = await database.find(id);
-			let attributes = { };
+			item.attributes = { };
 			for (let element of item.Файл.split("|"))
 			{
 				if (!element)
 					continue;
 				let pair = element.split(":");
-				attributes[pair[0]] = pair[1];
+				item.attributes[pair[0]] = pair[1];
 			}
-			attributes.address = attributes.address.replace(/\\/g, "/");
-			layout.template("#line").fill(attributes).out("#attach");
+			item.attributes.address = item.attributes.address.replace(/\\/g, "/");
+			layout.template("#line").fill(item).fill(item.attributes).out("#attach");
 		}
 	}
 
 	async Изображение()
 	{
+		let self = this;
 		new FileDialog().show(async function(file)
 		{
 			let extension = "";
@@ -58,9 +66,17 @@ export class Задача
 			value += "|address:" + result.address + "|";
 			console.log(value);
 	
-			database.add(object.id, "Вложения", { "Файл": value } );
-			await this.ЗаполнитьВложения();
+			database.add(self.id, "Вложения", { "Файл": value } );
+			await self.ЗаполнитьВложения();
 		} );
 	}
 }
 
+model.classes.Вложение = class Вложение
+{
+	async ОткрытьИзображение()
+	{
+		let attributes = this.attributes;
+		new FileDialog().download(attributes.name, attributes.type, attributes.address);
+	}
+};

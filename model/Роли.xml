@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Роли">
+	
+	<role name="Посетитель">
+		<access.full type="Аутентификация"/>
+		<access.full type="Навигация"/>
+		<access.full type="Main"/>
+		<access.full type="Paginator"/>
+	</role>
+	<role name="Администратор">
+		<access.full type="Аутентификация"/>
+		<access.full type="Вложение"/>
+		<access.full type="График"/>
+		<access.full type="Договор"/>
+		<access.full type="Договоры"/>
+		<access.full type="Задача"/>
+		<access.full type="Задачи"/>
+		<access.full type="Место"/>
+		<access.full type="Навигация"/>
+		<access.full type="Организация"/>
+		<access.full type="Организации"/>
+		<access.full type="Период"/>
+		<access.full type="Работа"/>
+		<access.full type="Работы"/>
+		<access.full type="Сотрудник"/>
+		<access.full type="Сотрудники"/>
+		<access.full type="Статус"/>
+		<access.full type="Статусы"/>
+		<access.full type="Main"/>
+		<access.full type="Paginator"/>
+	</role>
+
+</unit>

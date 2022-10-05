@@ -37,6 +37,11 @@ export class Организации
 		}
 		await paginator.request(database);
 	}
+
+	async more()
+	{
+		await this.Заполнить(false);
+	}
 }
 
 export class Организация

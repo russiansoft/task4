@@ -27,8 +27,6 @@
 				<today/>
 			</function>
 		</state>
-		
-		<access.allow role="Администратор"/>
 	</type>
 
 	<form name="interval">

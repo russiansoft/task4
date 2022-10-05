@@ -11,12 +11,10 @@
 		<index name="Статус">
 			<key field="Наименование"/>
 		</index>
-		<access.allow role="Администратор"/>
 	</type>
 
 	<type name="Статусы" scope="global">
 		<field.object name="Paginator" type="Paginator"/>
-		<access.allow role="Администратор"/>
 	</type>	
 
 	<form name="Статус">

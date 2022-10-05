@@ -1,0 +1,59 @@
+
+<template id="form">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">
+			<img class="img img-responsive align-text-top" src="favicon.svg" width="30">
+			<span>Задачи</span>
+		</a>
+		<div class="navbar-nav">
+			<a class="nav-link active text-center" data-read="Задачи" href="?type=Задачи">
+				<i class="bi bi-pin-angle fs-3 d-block d-sm-none"></i>
+				<i class="bi bi-pin-angle d-none d-sm-block d-md-inline"></i>
+				<span class="d-none d-sm-inline"> Задачи</span>
+			</a>
+			<a class="nav-link active text-center" data-read="Работы" href="?type=Работы">
+				<i class="bi bi-stopwatch fs-3 d-block d-sm-none"></i>
+				<i class="bi bi-stopwatch d-none d-sm-block d-md-inline"></i>
+				<span class="d-none d-sm-inline"> Работа</span>
+			</a>
+			<div class="nav-item dropdown" data-read="Организации">
+				<a class="nav-link active text-center dropdown-toggle" data-bs-toggle="dropdown">
+					<i class="bi bi-diagram-3 fs-3 d-block d-sm-none"></i>
+					<i class="bi bi-diagram-3 d-none d-sm-block d-md-inline"></i>
+					<span class="d-none d-sm-inline">
+						<span>Справочники</span>
+						<small><i class="bi bi-caret-down-fill"></i></small>
+					</span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-end">
+					<a class="dropdown-item" href="?type=Организации">Организации</a>
+					<a class="dropdown-item" href="?type=Договоры">Договоры</a>
+					<a class="dropdown-item" href="?type=Сотрудники">Сотрудники</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="?type=Статусы">Статусы</a>
+				</div>
+			</div>
+			<div class="nav-item dropdown">
+				<a class="nav-link active text-center dropdown-toggle" data-bs-toggle="dropdown">
+					<i class="bi bi-person fs-3 d-block d-sm-none"></i>
+					<i class="bi bi-person d-none d-sm-block d-md-inline"></i>
+					<span class="d-none d-sm-inline">
+						<span class="d-sm-inline d-md-none">Профиль</span>
+						<span class="d-sm-none d-md-inline">{user}</span>
+						<small><i class="bi bi-caret-down-fill"></i></small>
+					</span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-end">
+					<div class="dropdown-header d-block d-md-none">{user}</div>
+					<button class="dropdown-item d-none" id="login" data-cmd="login">
+						Войти
+					</button>
+					<button class="dropdown-item d-none" id="logout" data-cmd="logout">
+						<i class="bi bi-door-open"></i>
+						Выйти
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

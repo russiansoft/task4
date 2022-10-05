@@ -19,9 +19,6 @@
 		<state name="Выполнена">
 			
 		</state>
-
-		<access.allow role="Администратор"/>
-		<access.allow role="Пользователь"/>
 	</type>
 	
 	<form name="Аутентификация">

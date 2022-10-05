@@ -96,7 +96,6 @@
 			<key field="Срок"/>
 			<key field="Дата"/>
 		</index>
-		<access.allow role="Администратор"/>
 	</type>
 		
 	<form name="Задача">

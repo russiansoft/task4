@@ -10,7 +10,6 @@
 		<index name="Организация">
 			<key field="Наименование"/>
 		</index>
-		<access.allow role="Администратор"/>
 	</type>
 	
 	<form name="Организация">
@@ -31,7 +30,6 @@
 
 	<type name="Организации" scope="global">
 		<field.object name="Paginator" type="Paginator"/>
-		<access.allow role="Администратор"/>
 	</type>
 
 </unit>

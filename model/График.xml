@@ -104,7 +104,6 @@
 		<!--Индекс-->
 		<index name="График">
 		</index>
-		<access.allow role="Администратор"/>
 	</type>
 	
 	<!--Строка-->
@@ -120,7 +119,6 @@
 			<total field="Отработано" precision="2"/>
 			<total field="Расчет" precision="2"/>
 		</index>
-		<access.allow role="Администратор"/>
 	</type>
 	
 	<!--Форма графика-->

@@ -1,10 +1,9 @@
 
+import { model } from "./model.js";
 import { Database, database } from "./database.js";
 import { Layout } from "./template.js";
-import { object, binding } from "./reactive.js";
-import { LoadNav } from "./nav.js";
 
-export class Договоры
+model.classes.Договоры = class Договоры
 {
 	async create()
 	{
@@ -22,7 +21,7 @@ export class Договоры
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("справочники.html");
-		let paginator = database.get(object.id + ".Paginator");
+		let paginator = database.get(this.id + ".Paginator");
 		if (очистить)
 			paginator.clear();
 		let query = { "from": "Договор" };
@@ -37,13 +36,18 @@ export class Договоры
 		}
 		await paginator.request(database);
 	}
-}
 
-export class Договор
+	async more()
+	{
+		await this.Заполнить(false);
+	}
+};
+
+model.classes.Договор = class Договор
 {
 	async view(parent)
 	{
 		let layout = await new Layout().load("справочники.html");
 		layout.template("#form").fill(this).out(parent);
 	}
-}
+};

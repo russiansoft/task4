@@ -1,10 +1,10 @@
 
+import { model } from "./model.js";
 import { Database, database } from "./database.js";
 import { Layout } from "./template.js";
-import { object, binding } from "./reactive.js";
-import { LoadNav } from "./nav.js";
+import { binding } from "./reactive.js";
 
-export class Сотрудники
+model.classes.Сотрудники = class Сотрудники
 {
 	async create()
 	{
@@ -23,7 +23,7 @@ export class Сотрудники
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("сотрудник.html");
-		let paginator = await database.find(object.id + ".Paginator");
+		let paginator = await database.find(this.id + ".Paginator");
 		if (очистить)
 			paginator.clear();
 		let query = { "from": "Сотрудник" };
@@ -40,9 +40,14 @@ export class Сотрудники
 		}
 		await paginator.request(database);
 	}
-}
 
-export class Сотрудник
+	async more()
+	{
+		await this.Заполнить(false);
+	}
+};
+
+model.classes.Сотрудник = class Сотрудник
 {
 	async view(parent)
 	{

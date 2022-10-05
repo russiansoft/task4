@@ -1,20 +1,14 @@
 
 import { Database, database } from "./database.js";
 import { Layout } from "./template.js";
-import { object, binding } from "./reactive.js";
-import { LoadNav } from "./nav.js";
-import { Период } from "./период.js";
+import { model } from "./model.js";
+import { binding } from "./reactive.js";
 import { format } from "./client.js";
 
 let task = null;
 
-export class Работы
+model.classes.Работы = class Работы
 {
-	async create()
-	{
-		await LoadNav();
-	}
-
 	async view(parent)
 	{
 		let layout = await new Layout().load("работа.html");
@@ -39,9 +33,9 @@ export class Работы
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("работа.html");
-		let paginator = await database.find(object.id + ".Paginator");
-		let период = await database.find(object.Период.id);
-		let db = await new Database().begin();
+		let paginator = await database.find(this.id + ".Paginator");
+		let период = await database.find(this.id + ".Период");
+		let db = await new Database().transaction();
 		if (очистить)
 			paginator.clear();
 		let query = 
@@ -66,9 +60,14 @@ export class Работы
 		}
 		await paginator.request(db);
 	}
+
+	async more()
+	{
+		await this.Заполнить(false);
+	}
 }
 
-export class Работа
+model.classes.Работа = class Работа
 {
 	async create()
 	{

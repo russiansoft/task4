@@ -1,23 +1,21 @@
 
 import { Database, database } from "./database.js";
 import { Layout } from "./template.js";
-import { object, binding } from "./reactive.js";
-import { LoadNav } from "./nav.js";
-import { Период } from "./период.js";
+import { model } from "./model.js";
+import { binding } from "./reactive.js";
 import { format } from "./client.js";
 import "./paginator.js";
 
-export class Задачи
+model.classes.Задачи = class Задачи
 {
 	async view(parent)
 	{
-		await LoadNav();
 		let layout = await new Layout().load("задачи.html");
-		layout.template("#filters").fill(this).out(parent.find("header"));
+		layout.template("#filters").fill(this).out(parent);
 		document.find("#status").value = "undone";
-		layout.template("#commands").fill(this).out(parent.find("menu"));
-		layout.template("#content").fill(this).out(parent.find("main"));
-		layout.template("#footer").fill(this).out(parent.find("footer"));
+		layout.template("#commands").fill(this).out(parent);
+		layout.template("#content").fill(this).out(parent);
+		layout.template("#footer").fill(this).out(parent);
 		await binding(parent);
 		await this.Заполнить();
 	}
@@ -25,9 +23,9 @@ export class Задачи
 	async Заполнить(очистить = true)
 	{
 		let layout = await new Layout().load("задачи.html");
-		let paginator = await database.find(object.id + ".Paginator");
-		let период = await database.find(object.Период.id);
-		let db = await new Database().begin();
+		let paginator = await database.find(this.id + ".Paginator");
+		let период = await database.find(this.id + ".Период");
+		let db = await new Database().transaction();
 		if (очистить)
 			paginator.clear();
 		let query = 
@@ -86,5 +84,10 @@ export class Задачи
 			paginator.add();
 		}
 		await paginator.request(db);
+	}
+
+	async more()
+	{
+		await this.Заполнить(false);
 	}
 }
