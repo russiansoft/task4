@@ -1,10 +1,5 @@
 
-import { Database, database } from "./database.js";
-import { model } from "./model.js";
-import { review } from "./reactive.js";
-import { server } from "./server.js";
-import { format } from "./client.js";
-import "./pagination.js";
+import { Database, review, server, format } from "./manuscript.js";
 
 document.classes["tasks-class"] = class
 {

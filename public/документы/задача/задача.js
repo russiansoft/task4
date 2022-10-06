@@ -1,9 +1,5 @@
 
-import { auth, hive } from "./server.js";
-import { FileDialog } from "./client.js";
-import { model } from "./model.js";
-import { Database, database } from "./database.js";
-import { review } from "./reactive.js";
+import { auth, hive, FileDialog, database, review } from "./manuscript.js";
 
 document.classes["form-class"] = class
 {
@@ -43,11 +39,10 @@ document.classes["form-class"] = class
 
 	async ЗаполнитьВложения()
 	{
-		let layout = await new Layout().load("задача.html");
-		document.find("#attach").innerHTML = "";
-		for (let id of await database.select( {
-			"from": "owner",
-			"where": { "owner": this.id } } ))
+		document.get("#attach").innerHTML = "";
+		let query = { "from": "owner",
+			          "where": { "owner": this.dataset.id } }
+		for (let id of await database.select(query))
 		{
 			let item = await database.find(id);
 			item.attributes = { };
@@ -59,7 +54,7 @@ document.classes["form-class"] = class
 				item.attributes[pair[0]] = pair[1];
 			}
 			item.attributes.address = item.attributes.address.replace(/\\/g, "/");
-			layout.template("#line").fill(item).fill(item.attributes).out("#attach");
+			document.template("#line").fill(item).fill(item.attributes).Join("#attach");
 		}
 	}
 
@@ -87,7 +82,7 @@ document.classes["form-class"] = class
 	}
 }
 
-model.classes.Вложение = class Вложение
+document.classes["image-class"] = class
 {
 	async ОткрытьИзображение()
 	{

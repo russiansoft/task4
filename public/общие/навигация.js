@@ -1,9 +1,6 @@
 
 
-import { server, auth } from "./server.js";
-import { database } from "./database.js";
-import { model } from "./model.js";
-import { binding } from "./reactive.js";
+import { server, auth } from "./manuscript.js";
 
 document.classes["nav-class"] = class
 {
