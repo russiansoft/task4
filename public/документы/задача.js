@@ -1,15 +1,30 @@
 
-import { hive } from "./server.js";
+import { auth, hive } from "./server.js";
 import { FileDialog } from "./client.js";
 import { model } from "./model.js";
-import { Layout } from "./template.js";
 import { Database, database } from "./database.js";
-import { binding } from "./reactive.js";
+import { review } from "./reactive.js";
 
-model.classes.Задача = class Задача
+document.classes["form-class"] = class
 {
-	async create()
+	async Create()
 	{
+		// Аутентификация
+		await auth.load();
+
+		// Начало транзакции
+		await database.transaction();
+
+		// Получение идентификатора
+		let url = new URL(location);
+		this.dataset.id = url.searchParams.get("id");
+
+		// Получение экземпляра объекта
+		let object = await database.find(this.dataset.id);
+
+		await document.template("template#form").fill(object).Join(this);
+		await review(this);
+
 		this.Срок = (new Date).toISOString().slice(0, 10);
 		let входящие = await database.find( { "from": "Статус",
 		                                      "where": { "Наименование": "Входящие" } } );

@@ -44,6 +44,11 @@ document.classes["period-class"] = class
 			start = new Date(today.getFullYear(), today.getMonth(), 1);
 			finish = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 		}
+		else if (this.dataset.interval == "year-day")
+		{
+			start = new Date(today.getFullYear(), 0, 1);
+			finish = today;
+		}
 		this.from.value = start.toXML();
 		this.to.value = finish.toXML();
 	}
@@ -62,6 +67,11 @@ document.classes["period-class"] = class
 			start = new Date(start.getFullYear(), start.getMonth() - 1, 1);
 			finish = new Date(start.getFullYear(), start.getMonth() + 1, 0);
 		}
+		else if (this.dataset.interval == "year-day")
+		{
+			finish = new Date(this.to.value);
+			finish = new Date(finish.getFullYear(), finish.getMonth(), finish.getDate() - 1);
+		}
 		this.from.value = start.toXML();
 		this.to.value = finish.toXML();
 	}
@@ -79,6 +89,11 @@ document.classes["period-class"] = class
 		{
 			start = new Date(start.getFullYear(), start.getMonth() + 1, 1);
 			finish = new Date(start.getFullYear(), start.getMonth() + 1, 0);
+		}
+		else if (this.dataset.interval == "year-day")
+		{
+			finish = new Date(this.to.value);
+			finish = new Date(finish.getFullYear(), finish.getMonth(), finish.getDate() + 1);
 		}
 		this.from.value = start.toXML();
 		this.to.value = finish.toXML();

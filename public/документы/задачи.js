@@ -1,7 +1,7 @@
 
 import { Database, database } from "./database.js";
 import { model } from "./model.js";
-import { binding } from "./reactive.js";
+import { review } from "./reactive.js";
 import { server } from "./server.js";
 import { format } from "./client.js";
 import "./pagination.js";
@@ -14,6 +14,7 @@ document.classes["tasks-class"] = class
 		await layout.template("#form").fill(this).Join(this);
 		document.get("#status").value = "undone";
 		await this.Заполнить();
+		await review(this);
 	}
 
 	async Заполнить(очистить = true)

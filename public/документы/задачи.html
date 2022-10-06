@@ -7,7 +7,7 @@
 				<h2>Задачи</h2>
 			</div>
 		</div>
-		<div class="period-class" data-interval="day" data-cmd="Заполнить"></div>
+		<div class="period-class" data-interval="year-day" data-cmd="Заполнить"></div>
 		<div class="row g-2 mb-3">
 			<label class="col-auto col-form-label">Статус:</label>
 			<div class="col-50ch">
@@ -27,7 +27,7 @@
 		</div>
 		<div class="row g-2 mb-3">
 			<div class="col-auto">
-				<a class="btn btn-outline-success me-1" href="задача" target="_blank">
+				<a class="btn btn-outline-success" href="задача" target="_blank">
 					<i class="bi bi-plus-circle"></i> Создать
 				</a>
 			</div>
@@ -48,12 +48,12 @@
 			<div class="card-body">
 				<h3 class="card-title">{НаименованиеПроекта}</h3>
 				<!-- <a class="h4 card-title" href="задача?id={id}" target="_blank">{Тема}</a> -->
-				<a class="h4 card-title" href="задача&id={id}" target="_blank">{Тема}</a>
+				<a class="h4 card-title" href="задача?id={id}" target="_blank">{Тема}</a>
 				<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
 				<p class="card-text" style="max-height: 3em; overflow-y: hidden;">{Содержание}</p>
-				<a class="card-link" href="задача&id={id}" target="_blank">{Срок}</a>
-				<a class="card-link" href="задача&id={id}" target="_blank">{Дата}</a>
-				<a class="card-link" href="задача&id={id}" target="_blank">{НаименованиеПостановщика}</a>
+				<a class="card-link" href="задача?id={id}" target="_blank">{Срок}</a>
+				<a class="card-link" href="задача?id={id}" target="_blank">{Дата}</a>
+				<a class="card-link" href="задача?id={id}" target="_blank">{НаименованиеПостановщика}</a>
 			</div>
 		</div>
 	</div>
