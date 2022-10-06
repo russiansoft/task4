@@ -1,14 +1,28 @@
 
-<div data-source="{id}" class="row m-2">
-
-	<label class="col-form-label col-20ch">Период с:</label>
-	<div class="col-20ch">
-		<input class="form-control" id="from" type="date" data-bind="Начало"/>
+<template>
+	<div class="row g-2 mb-3">
+		<div class="d-none d-sm-inline col-auto col-form-label">
+			Период с:
+		</div>
+		<div class="col-auto">
+			<input class="form-control" type="date" id="from">
+		</div>
+		<div class="d-inline d-sm-none col-auto col-form-label">
+			-
+		</div>
+		<div class="d-none d-sm-inline col-auto col-form-label">
+			по:
+		</div>
+		<div class="col-auto">
+			<input class="form-control" type="date" id="to">
+		</div>
+		<div class="col-auto btn-group">
+			<button class="btn btn-outline-secondary" data-cmd="ПредыдущийПериод">
+				<i class="bi bi-caret-left"></i>
+			</button>
+			<button class="btn btn-outline-secondary" data-cmd="СледующийПериод">
+				<i class="bi bi-caret-right"></i>
+			</button>
+		</div>
 	</div>
-
-	<label class="col-form-label col-10ch text-center">по:</label>
-	<div class="col-20ch">
-		<input class="form-control" id="to" type="date" data-bind="Окончание"/>
-	</div>
-
-</div>
+</template>

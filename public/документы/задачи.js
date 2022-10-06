@@ -11,11 +11,8 @@ document.classes["tasks-class"] = class
 	async Create()
 	{
 		let layout = await server.LoadHTML("задачи.html");
-		layout.template("#filters").fill(this).Join(this);
+		await layout.template("#form").fill(this).Join(this);
 		document.get("#status").value = "undone";
-		layout.template("#commands").fill(this).Join(this);
-		layout.template("#content").fill(this).Join(this);
-		layout.template("#footer").fill(this).Join(this);
 		await this.Заполнить();
 	}
 
@@ -23,14 +20,17 @@ document.classes["tasks-class"] = class
 	{
 		let layout = await server.LoadHTML("задачи.html");
 		let pagination = document.get(".pagination-class");
-		let период = await database.find(this.id + ".Период");
+		let period = document.get(".period-class");
 		let db = await new Database().transaction();
 		if (очистить)
+		{
 			document.get("#content").innerHTML = "";
+			pagination.reset();
+		}
 		let query = 
 		{
 			"from": "Задача",
-			//"where": { "Срок": [ период.Начало, период.Окончание ] },
+			"where": { "Срок": [ period.from.value, period.to.value ] },
 			"filter": { }
 		};
 		let status = document.get("#status").value;
@@ -84,6 +84,16 @@ document.classes["tasks-class"] = class
 			pagination.add();
 		}
 		await pagination.Request(db);
+	}
+
+	async ПредыдущийПериод()
+	{
+		await this.Заполнить();
+	}
+
+	async СледующийПериод()
+	{
+		await this.Заполнить();
 	}
 
 	async More()

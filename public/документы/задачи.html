@@ -1,62 +1,60 @@
 
-<template id="filters">
-	<nav data-id="{id}.Навигация"></nav>
-	<div data-id="{id}.Период" data-cmd="Заполнить"></div>
-	<div class="row m-2">
-		<label class="col-form-label col-20ch">Статус:</label>
-		<div class="col-50ch">
-			<select class="form-select" id="status" data-type="Статус" data-cmd="Заполнить">
-				<option value="">(все)</option>
-				<option value="undone">(незавершенные)</option>
-			</select>
-		</div>
-	</div>
-	<div class="row m-2">
-		<label class="col-form-label col-20ch">Проект:</label>
-		<div class="col-50ch">
-			<select class="form-select" id="project" data-type="Договор" data-cmd="Заполнить">
-				<option value="">(все)</option>
-			</select>
-		</div>
-	</div>
-</template>
+<template id="form">
 
-<template id="commands">
-	<div class="row m-2 mt-3 mb-3">
-		<div class="col-grow">
-			<a class="btn btn-outline-success me-1" href="?type=Задача" target="_blank">
-				<i class="bi bi-plus-circle"></i> Создать
-			</a>
-			<button class="btn btn-outline-success" data-cmd="Заполнить">
-				<i class="bi bi-arrow-clockwise"></i>
-			</button>
+	<div class="container-fluid p-3">
+		<div class="row mb-3">
+			<div class="col">
+				<h2>Задачи</h2>
+			</div>
 		</div>
+		<div class="period-class" data-interval="day" data-cmd="Заполнить"></div>
+		<div class="row g-2 mb-3">
+			<label class="col-auto col-form-label">Статус:</label>
+			<div class="col-50ch">
+				<select class="form-select" id="status" data-type="Статус" data-cmd="Заполнить">
+					<option value="">(все)</option>
+					<option value="undone">(незавершенные)</option>
+				</select>
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<label class="col-auto col-form-label">Проект:</label>
+			<div class="col-50ch">
+				<select class="form-select" id="project" data-type="Договор" data-cmd="Заполнить">
+					<option value="">(все)</option>
+				</select>
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<div class="col-auto">
+				<a class="btn btn-outline-success me-1" href="задача" target="_blank">
+					<i class="bi bi-plus-circle"></i> Создать
+				</a>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-outline-success" data-cmd="Заполнить">
+					<i class="bi bi-arrow-clockwise"></i>
+				</button>
+			</div>
+		</div>
+		<div class="row mb-3" id="content"></div>
+		<div class="row mb-3 pagination-class" data-take="10"></div>
 	</div>
-</template>
-
-<template id="content">
-	<div class="row m-2" id="content"></div>
-	<div class="pagination-class" data-take="10"
-	           data-onmore="object.Заполнить(false)"></data-view>
 </template>
 
 <template id="card">
-	<div class="col-md-6 col-lg-4 col-xl-3 p-0">
+	<div class="col-md-6 col-lg-4 col-xl-3">
 		<div class="card me-3 mb-3 {class}" record="{id}">
 			<div class="card-body">
 				<h3 class="card-title">{НаименованиеПроекта}</h3>
 				<!-- <a class="h4 card-title" href="задача?id={id}" target="_blank">{Тема}</a> -->
-				<a class="h4 card-title" href="?type=Задача&id={id}" target="_blank">{Тема}</a>
+				<a class="h4 card-title" href="задача&id={id}" target="_blank">{Тема}</a>
 				<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
 				<p class="card-text" style="max-height: 3em; overflow-y: hidden;">{Содержание}</p>
-				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{Срок}</a>
-				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{Дата}</a>
-				<a class="card-link" href="?type=Задача&id={id}" target="_blank">{НаименованиеПостановщика}</a>
+				<a class="card-link" href="задача&id={id}" target="_blank">{Срок}</a>
+				<a class="card-link" href="задача&id={id}" target="_blank">{Дата}</a>
+				<a class="card-link" href="задача&id={id}" target="_blank">{НаименованиеПостановщика}</a>
 			</div>
 		</div>
 	</div>
-</template>
-
-<template id="footer">
-	<div class="row m-2"></div>
 </template>
