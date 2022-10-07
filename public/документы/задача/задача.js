@@ -24,7 +24,8 @@ document.classes["form-class"] = class
 	{
 		document.get("#attach").innerHTML = "";
 		let query = { "from": "owner",
-			          "where": { "owner": document.body.dataset.id } }
+			          "where": { "owner": document.body.dataset.id },
+					  "filter": { "deleted": "" } }
 		for (let id of await database.select(query))
 		{
 			let item = await database.find(id);
@@ -63,6 +64,17 @@ document.classes["form-class"] = class
 			await self.ЗаполнитьВложения();
 		} );
 	}
+
+	async ОчиститьИзображения()
+	{
+		let changes = [ ];
+		let query = { "from": "owner",
+			          "where": { "owner": document.body.dataset.id } };
+		for (let id of await database.select(query))
+			changes.push( { "id": id, "deleted": "1" } );
+		await database.save(changes);
+		await this.ЗаполнитьВложения();
+	}	
 }
 
 document.classes["image-class"] = class
