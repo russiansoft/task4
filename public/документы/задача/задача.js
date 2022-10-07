@@ -1,47 +1,30 @@
 
-import { auth, hive, FileDialog, database, review } from "./manuscript.js";
+import { hive, FileDialog, database, review } from "./manuscript.js";
 
 document.classes["form-class"] = class
 {
 	async Create()
 	{
-		// Аутентификация
-		await auth.load();
-
-		// Начало транзакции
-		await database.transaction();
-
-		// Получение объекта
-		let object = null;
-		let url = new URL(location);
-		if (url.searchParams.has("id"))
-		{
-			this.dataset.id = url.searchParams.get("id");
-			object = await database.find(this.dataset.id);
-		}
-
-		// Создание объекта
-		else
-		{
-			let входящие = await database.find( { "from": "Статус",
-												  "where": { "Наименование": "Входящие" } } );
-			let defaults = { "Срок": (new Date).toISOString().slice(0, 10),
-							 "Статус": входящие.id,
-							 "Дата": (new Date).toISOString().slice(0, 10) };
-			object = await database.create("Задача", defaults);
-			this.dataset.id = object.id;
-		}
-
+		let object = await database.find(document.body.dataset.id);
 		await document.template("template#form").fill(object).Join(this);
 		await review(this);
 		this.ЗаполнитьВложения();
+	}
+
+	async Defaults()
+	{
+		let входящие = await database.find( { "from": "Статус",
+											  "where": { "Наименование": "Входящие" } } );
+		return { "Срок": (new Date).toISOString().slice(0, 10),
+				 "Статус": входящие.id,
+				 "Дата": (new Date).toISOString().slice(0, 10) };
 	}
 
 	async ЗаполнитьВложения()
 	{
 		document.get("#attach").innerHTML = "";
 		let query = { "from": "owner",
-			          "where": { "owner": this.dataset.id } }
+			          "where": { "owner": document.body.dataset.id } }
 		for (let id of await database.select(query))
 		{
 			let item = await database.find(id);
@@ -76,7 +59,7 @@ document.classes["form-class"] = class
 			value += "|address:" + result.address + "|";
 			console.log(value);
 	
-			database.add(self.dataset.id, "Вложения", { "Файл": value } );
+			database.add(document.body.dataset.id, "Вложения", { "Файл": value } );
 			await self.ЗаполнитьВложения();
 		} );
 	}
@@ -86,7 +69,6 @@ document.classes["image-class"] = class
 {
 	async ОткрытьИзображение()
 	{
-		let record = database.find(this.id);
-		new FileDialog().download(record.name, record.type, record.address);
+		new FileDialog().download(this.dataset.name, this.dataset.type, this.dataset.address);
 	}
 };

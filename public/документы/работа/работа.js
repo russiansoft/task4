@@ -35,7 +35,7 @@ model.classes.Работы = class Работы
 		let layout = await new Layout().load("работа.html");
 		let paginator = await database.find(this.id + ".Paginator");
 		let период = await database.find(this.id + ".Период");
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		if (очистить)
 			paginator.clear();
 		let query = 

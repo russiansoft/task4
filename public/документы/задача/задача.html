@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -15,21 +16,15 @@
 			import "./период.js";
 			import "./задача.js";
 		</script>
-		<title>Задача</title>
 	</head>
-	<body class="form-class">
+	<body data-auth="device" data-purpose="edit" data-type="Задача"
+	      data-defaults="form-class">
+		<div class="nav-class"></div>
+		<div class="form-class"></div>
 
 		<template id="form">
 			<div class="container-fluid p-3">
 				<div class="title-class" data-text="Задача"></div>
-				<div class="row g-2 mb-3">
-					<div class="col-auto">
-						<button class="btn btn-primary cmd-ok">Записать</button>
-					</div>
-					<div class="col-auto">
-						<a class="btn btn-success" href="?type=Работы&задача={id}" target="_blank">Работа</a>
-					</div>
-				</div>
 				<div class="row mb-3">
 					<label class="col-25ch col-form-label">Срок:</label>
 					<div class="col-auto">
@@ -93,6 +88,14 @@
 						<textarea id="Содержание" class="form-control" data-bind="Содержание" rows="7"></textarea>
 					</div>
 				</div>
+				<div class="row g-2 mb-3">
+					<div class="col-auto">
+						<button class="btn btn-primary cmd-ok">Записать</button>
+					</div>
+					<div class="col-auto">
+						<a class="btn btn-success" href="?type=Работы&задача={id}" target="_blank">Работа</a>
+					</div>
+				</div>
 			</div>
 		</template>
 
@@ -100,7 +103,8 @@
 			<div class="row mb-2">
 				<div class="col-auto">
 					<button class="btn btn-outline-secondary image-class"
-					        data-id="{id}" data-cmd="ОткрытьИзображение">
+					        data-name="{name}" data-type="{type}" data-address="{address}"
+							data-cmd="ОткрытьИзображение">
 						<i class="bi bi-file-earmark"></i>
 						{name}
 					</button>

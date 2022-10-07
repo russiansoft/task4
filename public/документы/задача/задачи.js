@@ -1,10 +1,11 @@
 
-import { Database, review, server, format } from "./manuscript.js";
+import { Database, database, review, server, format } from "./manuscript.js";
 
 document.classes["tasks-class"] = class
 {
 	async Create()
 	{
+		await database.Begin();
 		let layout = await server.LoadHTML("задачи.html");
 		await layout.template("#form").fill(this).Join(this);
 		document.get("#status").value = "undone";
@@ -17,7 +18,7 @@ document.classes["tasks-class"] = class
 		let layout = await server.LoadHTML("задачи.html");
 		let pagination = document.get(".pagination-class");
 		let period = document.get(".period-class");
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		if (очистить)
 		{
 			document.get("#content").innerHTML = "";

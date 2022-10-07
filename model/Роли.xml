@@ -12,6 +12,7 @@
 		<access.full type="Аутентификация"/>
 		<access.full type="Вложение"/>
 		<access.full type="График"/>
+		<access.full type="График-Строка"/>
 		<access.full type="Договор"/>
 		<access.full type="Договоры"/>
 		<access.full type="Задача"/>

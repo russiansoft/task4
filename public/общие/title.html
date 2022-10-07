@@ -1,12 +1,17 @@
 
 <template>
-	<div class="row mb-3">
+	<div class="row g-0 mb-3">
 		<div class="col">
 			<h2>{text}</h2>
 		</div>
 		<div class="col-auto">
-			<button class="btn" data-cmd="Close">
-				<i class="bi bi-x-lg"></i>
+			<button class="btn cmd-ok d-none" title="Записать">
+				<i class="bi bi-check2 fs-3"></i>
+			</button>
+		</div>
+		<div class="col-auto">
+			<button class="btn" data-cmd="close" title="Закрыть">
+				<i class="bi bi-x-lg fs-3"></i>
 			</button>
 		</div>
 	</div>
