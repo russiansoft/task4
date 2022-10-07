@@ -11,29 +11,29 @@ document.classes["form-class"] = class
 		// Начало транзакции
 		await database.transaction();
 
-		// Получение идентификатора
+		// Получение объекта
+		let object = null;
 		let url = new URL(location);
-		this.dataset.id = url.searchParams.get("id");
+		if (url.searchParams.has("id"))
+		{
+			this.dataset.id = url.searchParams.get("id");
+			object = await database.find(this.dataset.id);
+		}
 
-		// Получение экземпляра объекта
-		let object = await database.find(this.dataset.id);
+		// Создание объекта
+		else
+		{
+			let входящие = await database.find( { "from": "Статус",
+												  "where": { "Наименование": "Входящие" } } );
+			let defaults = { "Срок": (new Date).toISOString().slice(0, 10),
+							 "Статус": входящие.id,
+							 "Дата": (new Date).toISOString().slice(0, 10) };
+			object = await database.create("Задача", defaults);
+			this.dataset.id = object.id;
+		}
 
 		await document.template("template#form").fill(object).Join(this);
 		await review(this);
-
-		this.Срок = (new Date).toISOString().slice(0, 10);
-		let входящие = await database.find( { "from": "Статус",
-		                                      "where": { "Наименование": "Входящие" } } );
-		this.Статус = входящие.id;
-		this.Дата = (new Date).toISOString().slice(0, 10);
-	}
-
-	async view(parent)
-	{
-		let layout = await new Layout().load("задача.html");
-		let template = layout.template("#form");
-		template.fill(this);
-		template.out(parent);
 		this.ЗаполнитьВложения();
 	}
 
@@ -58,7 +58,7 @@ document.classes["form-class"] = class
 		}
 	}
 
-	async Изображение()
+	async ДобавитьИзображение()
 	{
 		let self = this;
 		new FileDialog().show(async function(file)
@@ -76,7 +76,7 @@ document.classes["form-class"] = class
 			value += "|address:" + result.address + "|";
 			console.log(value);
 	
-			database.add(self.id, "Вложения", { "Файл": value } );
+			database.add(self.dataset.id, "Вложения", { "Файл": value } );
 			await self.ЗаполнитьВложения();
 		} );
 	}
@@ -86,7 +86,7 @@ document.classes["image-class"] = class
 {
 	async ОткрытьИзображение()
 	{
-		let attributes = this.attributes;
-		new FileDialog().download(attributes.name, attributes.type, attributes.address);
+		let record = database.find(this.id);
+		new FileDialog().download(record.name, record.type, record.address);
 	}
 };

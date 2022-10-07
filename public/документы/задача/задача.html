@@ -11,6 +11,7 @@
 		<script src="bootstrap.bundle.min.js"></script>
 		<script type="module">
 			import "./навигация.js";
+			import "./title.js";
 			import "./период.js";
 			import "./задача.js";
 		</script>
@@ -20,11 +21,7 @@
 
 		<template id="form">
 			<div class="container-fluid p-3">
-				<div class="row mb-3">
-					<div class="col">
-						<h2>Задача</h2>
-					</div>
-				</div>
+				<div class="title-class" data-text="Задача"></div>
 				<div class="row g-2 mb-3">
 					<div class="col-auto">
 						<button class="btn btn-primary cmd-ok">Записать</button>
@@ -84,7 +81,7 @@
 				<div class="row mb-3">
 					<label class="col-25ch col-form-label">Вложения:</label>
 					<div class="col-30ch col-grow">
-						<button class="btn btn-outline-secondary" data-cmd="Изображение">
+						<button class="btn btn-outline-secondary" data-cmd="ДобавитьИзображение">
 							<i class="bi bi-paperclip"></i>
 						</button>
 					</div>
@@ -100,9 +97,13 @@
 		</template>
 
 		<template id="line">
-			<div class="card m-2 bg-info text-white" data-id="{id}" data-cmd="ОткрытьИзображение">
-				<div class="card-body">
-					<p class="m-0"><i class="bi bi-file-earmark"></i> {name}</p>
+			<div class="row mb-2">
+				<div class="col-auto">
+					<button class="btn btn-outline-secondary image-class"
+					        data-id="{id}" data-cmd="ОткрытьИзображение">
+						<i class="bi bi-file-earmark"></i>
+						{name}
+					</button>
 				</div>
 			</div>
 		</template>
