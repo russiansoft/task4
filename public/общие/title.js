@@ -5,6 +5,7 @@ document.classes["title-class"] = class
 {
 	async Create()
 	{
+		//console.log("Create title-class");
 		let layout = await server.LoadHTML("title.html");
 		await layout.template().fill(this.dataset).Join(this);
 		if (this.dataset.text)
