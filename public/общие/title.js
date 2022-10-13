@@ -5,12 +5,11 @@ document.classes["title-class"] = class
 {
 	async Create()
 	{
-		//console.log("Create title-class");
 		let layout = await server.LoadHTML("title.html");
 		await layout.template().fill(this.dataset).Join(this);
 		if (this.dataset.text)
 			document.title = this.dataset.text;
-		this.get("[data-cmd='save']").show(document.body.dataset.purpose == "edit");
+		this.get("[data-cmd='save']").show(this.dataset.purpose == "edit");
 	}
 
 	async save()

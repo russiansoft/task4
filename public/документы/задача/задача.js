@@ -1,27 +1,34 @@
 
-import { hive, FileDialog, database, review } from "./manuscript.js";
+import { server, hive, FileDialog, database, review } from "./manuscript.js";
 
-document.classes["form-class"] = class
+	// <body data-purpose="edit" data-type="Задача"
+	//       data-defaults="form-class">
+
+document.classes["задача"] = class
 {
 	async Create()
 	{
-		let object = await database.find(document.body.dataset.id);
-		await document.template("template#form").fill(object).Join(this);
+		await database.Begin();
+		if (!this.dataset.id)
+		{
+			let входящие = await database.find( {
+				"from": "Статус",
+				"where": { "Наименование": "Входящие" } } );
+			let defaults = { "Срок": (new Date).toISOString().slice(0, 10),
+					         "Статус": входящие.id,
+					         "Дата": (new Date).toISOString().slice(0, 10) };
+			this.dataset.id = (await database.create("Задача", defaults)).id;
+		}
+		let object = await database.find(this.dataset.id);
+		let templates = await server.LoadHTML("задача.html");
+		await templates.template("#form").fill(object).Join(this);
 		await review(this);
 		this.ЗаполнитьВложения();
 	}
 
-	async Defaults()
-	{
-		let входящие = await database.find( { "from": "Статус",
-											  "where": { "Наименование": "Входящие" } } );
-		return { "Срок": (new Date).toISOString().slice(0, 10),
-				 "Статус": входящие.id,
-				 "Дата": (new Date).toISOString().slice(0, 10) };
-	}
-
 	async ЗаполнитьВложения()
 	{
+		let templates = await server.LoadHTML("задача.html");
 		document.get("#attach").innerHTML = "";
 		let query = { "from": "owner",
 			          "where": { "owner": document.body.dataset.id },
@@ -38,7 +45,7 @@ document.classes["form-class"] = class
 				item.attributes[pair[0]] = pair[1];
 			}
 			item.attributes.address = item.attributes.address.replace(/\\/g, "/");
-			document.template("#line").fill(item).fill(item.attributes).Join("#attach");
+			templates.template("#line").fill(item).fill(item.attributes).Join("#attach");
 		}
 	}
 

@@ -1,57 +1,26 @@
 
-import { model } from "./model.js";
-import { Database, database } from "./database.js";
-import { Layout } from "./template.js";
-import { binding } from "./reactive.js";
+import { Database, database, server, review } from "./manuscript.js";
 
-model.classes.Сотрудники = class Сотрудники
+document.classes["сотрудник"] = class
 {
-	async create()
+	async Create()
 	{
-		await LoadNav();
-	}
-	
-	async view(parent)
-	{
-		let layout = await new Layout().load("сотрудник.html");
-		await layout.template("#list").fill(this).out(parent);
-		await binding(parent);
-		this.Заполнить();
-		document.find("#search").focus();
+		await database.Begin();
+		if (!this.dataset.id)
+			this.dataset.id = (await database.create("Сотрудник")).id;
+		let html = await server.LoadHTML("справочники.html");
+		await html.template("#form").fill(this).Join(this);
+		await review(this);
 	}
 
-	async Заполнить(очистить = true)
+	async Записать()
 	{
-		let layout = await new Layout().load("сотрудник.html");
-		let paginator = await database.find(this.id + ".Paginator");
-		if (очистить)
-			paginator.clear();
-		let query = { "from": "Сотрудник" };
-		paginator.split(query);
-		let search = document.find("#search").value;
-		if (search)
-			query.search = search;
-		let records = await database.select(query);
-		for (let id of records)
-		{
-			let record = await database.find(id);
-			layout.template("#card").fill(record).out("#content");
-			paginator.add();
-		}
-		await paginator.request(database);
+		await database.commit();
+		close();
 	}
 
-	async more()
+	async Закрыть()
 	{
-		await this.Заполнить(false);
-	}
-};
-
-model.classes.Сотрудник = class Сотрудник
-{
-	async view(parent)
-	{
-		let layout = await new Layout().load("сотрудник.html");
-		layout.template("#form").fill(this).out(parent);
+		close();
 	}
 }

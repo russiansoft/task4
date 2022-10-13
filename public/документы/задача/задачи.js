@@ -1,7 +1,7 @@
 
 import { Database, database, review, server, format } from "./manuscript.js";
 
-document.classes["tasks-class"] = class
+document.classes["задачи"] = class
 {
 	async Create()
 	{

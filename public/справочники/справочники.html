@@ -1,30 +1,47 @@
 
 <template id="list">
-	<div class="container-fluid" id="content"></div>
-	<div data-id="{id}.Paginator" data-container="#content" data-portion="10"
-	           data-onmore="object.Заполнить(false)"></div>
+	<div class="container-fluid p-3">
+		<div class="title-class"></div>
+		<div class="row g-2 mb-3">
+			<label class="col-auto col-form-label">Поиск:</label>
+			<div class="col">
+				<input id="search" class="form-control"
+				       style="border: gold solid 3px;" data-cmd="Заполнить"/>
+			</div>
+		</div>
+		<div class="row mb-3" id="content"></div>
+		<div class="row mb-3 pagination-class" data-take="10"></div>
+	</div>
 </template>
 
 <template id="card">
 	<div class="card m-2">
 		<div class="card-body">
-			<a class="card-title h4" href="?type={type}&id={id}" target="_blank">{Наименование}</a>
+			<a class="card-title h4" href="{type}?id={id}"
+			   target="_blank">{Наименование}</a>
 		</div>
 	</div>
 </template>
 
 <template id="form">
-	<div class="row m-2">
-		<div class="col-grow">
-			<button class="btn btn-primary me-2 cmd-ok">Записать</button>
+	<div class="container-fluid p-3">
+		<div class="title-class" data-purpose="edit"></div>
+		<div class="row mb-3 form-group">
+			<div class="col-auto">
+				<label class="col-form-label">Наименование:</label>
+			</div>
+			<div class="col">
+				<input class="form-control" data-bind="Наименование"/>
+			</div>
 		</div>
-	</div>
-	<div class="row m-2 form-group">
-		<div class="col-20ch">
-			<label class="col-form-label">Наименование:</label>
-		</div>
-		<div class="col-30ch col-grow">
-			<input class="form-control" data-bind="Наименование"/>
+		<div class="row g-2 mb-3">
+			<div class="col"></div>
+			<div class="col-auto">
+				<button class="btn btn-primary" data-cmd="Записать">Записать</button>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-secondary" data-cmd="Закрыть">Закрыть</button>
+			</div>
 		</div>
 	</div>
 </template>

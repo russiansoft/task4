@@ -1,121 +1,96 @@
 
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" href="favicon.svg">
-		<link rel="stylesheet" href="bootstrap.min.css">
-		<link rel="stylesheet" href="bootstrap-icons.css">
-		<link rel="stylesheet" href="col.css">
-		<link rel="stylesheet" href="style.css"/>
-		<script src="bootstrap.bundle.min.js"></script>
-		<script type="module">
-			import "./навигация.js";
-			import "./title.js";
-			import "./период.js";
-			import "./задача.js";
-		</script>
-	</head>
-	<body data-auth="device" data-purpose="edit" data-type="Задача"
-	      data-defaults="form-class">
-		<div class="nav-class"></div>
-		<div class="form-class"></div>
-
-		<template id="form">
-			<div class="container-fluid p-3">
-				<div class="title-class" data-text="Задача"></div>
-				<div class="row mb-3">
-					<label class="col-25ch col-form-label">Срок:</label>
-					<div class="col-auto">
-						<input type="date" class="form-control" data-bind="Срок">
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-25ch col-form-label">Статус:</label>
-					<div class="col-30ch col-grow">
-						<select class="form-select" data-type="Статус" data-bind="Статус">
-							<option value="">(не выбран)</option>
-						</select>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-25ch col-form-label">Следующее действие:</label>
-					<div class="col-30ch col-grow">
-						<textarea class="form-control" data-bind="СледующееДействие" rows="3"></textarea>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-25ch col-form-label">Тема:</label>
-					<div class="col-30ch col-grow">
-						<textarea class="form-control" data-bind="Тема" rows="3"></textarea>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-25ch col-form-label">Проект:</label>
-					<div class="col-30ch col-grow">
-						<select id="project" class="form-select" data-type="Договор" data-bind="Проект">
-							<option value="">(не выбран)</option>
-						</select>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-25ch col-form-label">Постановщик:</label>
-					<div class="col-30ch col-grow">
-						<select id="employee" class="form-select" data-type="Сотрудник" data-bind="Постановщик">
-							<option value="">(не выбран)</option>
-						</select>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-25ch col-form-label">Дата постановки:</label>
-					<div class="col-auto">
-						<input id="Дата" type="date" class="form-control" data-bind="Дата">
-					</div>
-				</div>
-				<div class="row g-2 mb-3">
-					<label class="col-25ch col-form-label">Вложения:</label>
-					<div class="col-auto">
-						<button class="btn btn-outline-secondary" data-cmd="ДобавитьИзображение">
-							<i class="bi bi-paperclip"></i>Вложить
-						</button>
-					</div>
-					<div class="col-auto">
-						<button class="btn btn-outline-secondary" data-cmd="ОчиститьИзображения">
-							Очистить
-						</button>
-					</div>
-				</div>
-				<div id="attach"></div>
-				<div class="row mb-3">
-					<label class="col-30ch col-form-label col-grow">Содержание:</label>
-					<div class="col-grow">
-						<textarea id="Содержание" class="form-control" data-bind="Содержание" rows="7"></textarea>
-					</div>
-				</div>
-				<div class="row g-2 mb-3">
-					<div class="col-auto">
-						<button class="btn btn-primary cmd-ok">Записать</button>
-					</div>
-					<div class="col-auto">
-						<a class="btn btn-success" href="работы?задача={id}" target="_blank">Работа</a>
-					</div>
-				</div>
+<template id="form">
+	<div class="container-fluid p-3">
+		<div class="title-class" data-text="Задача" data-purpose="edit"></div>
+		<div class="row mb-3">
+			<label class="col-25ch col-form-label">Срок:</label>
+			<div class="col-auto">
+				<input type="date" class="form-control" data-bind="Срок">
 			</div>
-		</template>
-
-		<template id="line">
-			<div class="row mb-2">
-				<div class="col-auto">
-					<button class="btn btn-outline-secondary image-class"
-					        data-name="{name}" data-type="{type}" data-address="{address}"
-							data-cmd="ОткрытьИзображение">
-						<i class="bi bi-file-earmark"></i>
-						{name}
-					</button>
-				</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-25ch col-form-label">Статус:</label>
+			<div class="col-30ch col-grow">
+				<select class="form-select" data-type="Статус" data-bind="Статус">
+					<option value="">(не выбран)</option>
+				</select>
 			</div>
-		</template>
+		</div>
+		<div class="row mb-3">
+			<label class="col-25ch col-form-label">Следующее действие:</label>
+			<div class="col-30ch col-grow">
+				<textarea class="form-control" data-bind="СледующееДействие" rows="3"></textarea>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-25ch col-form-label">Тема:</label>
+			<div class="col-30ch col-grow">
+				<textarea class="form-control" data-bind="Тема" rows="3"></textarea>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-25ch col-form-label">Проект:</label>
+			<div class="col-30ch col-grow">
+				<select id="project" class="form-select" data-type="Договор" data-bind="Проект">
+					<option value="">(не выбран)</option>
+				</select>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-25ch col-form-label">Постановщик:</label>
+			<div class="col-30ch col-grow">
+				<select id="employee" class="form-select" data-type="Сотрудник" data-bind="Постановщик">
+					<option value="">(не выбран)</option>
+				</select>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-25ch col-form-label">Дата постановки:</label>
+			<div class="col-auto">
+				<input id="Дата" type="date" class="form-control" data-bind="Дата">
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<label class="col-25ch col-form-label">Вложения:</label>
+			<div class="col-auto">
+				<button class="btn btn-outline-secondary" data-cmd="ДобавитьИзображение">
+					<i class="bi bi-paperclip"></i>Вложить
+				</button>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-outline-secondary" data-cmd="ОчиститьИзображения">
+					Очистить
+				</button>
+			</div>
+		</div>
+		<div id="attach"></div>
+		<div class="row mb-3">
+			<label class="col-30ch col-form-label col-grow">Содержание:</label>
+			<div class="col-grow">
+				<textarea id="Содержание" class="form-control" data-bind="Содержание" rows="7"></textarea>
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<div class="col-auto">
+				<button class="btn btn-primary cmd-ok">Записать</button>
+			</div>
+			<div class="col-auto">
+				<a class="btn btn-success" href="работы?задача={id}" target="_blank">Работа</a>
+			</div>
+		</div>
+	</div>
+</template>
 
-	</body>
-</html>
+<template id="line">
+	<div class="row mb-2">
+		<div class="col-auto">
+			<button class="btn btn-outline-secondary image-class"
+					data-name="{name}" data-type="{type}" data-address="{address}"
+					data-cmd="ОткрытьИзображение">
+				<i class="bi bi-file-earmark"></i>
+				{name}
+			</button>
+		</div>
+	</div>
+</template>
+

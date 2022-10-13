@@ -1,66 +1,40 @@
 
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" href="favicon.svg">
-		<link rel="stylesheet" href="bootstrap.min.css">
-		<link rel="stylesheet" href="bootstrap-icons.css">
-		<link rel="stylesheet" href="col.css">
-		<link rel="stylesheet" href="style.css"/>
-		<script src="bootstrap.bundle.min.js"></script>
-		<script type="module">
-			import "./навигация.js";
-			import "./title.js";
-			import "./период.js";
-			import "./работа.js";
-		</script>
-	</head>
-	<body data-auth="device" data-purpose="edit" data-type="Работа"
-	      data-defaults="form-class">
-		<div class="nav-class"></div>
-		<div class="form-class"></div>
-
-		<template id="form">
-			<div class="container-fluid p-3">
-				<div class="title-class" data-text="Работа"></div>
-				<div class="row mb-3">
-					<div class="col">
-						<h4 class="text-success">Задача: {НаименованиеЗадачи}</h4>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-sm-4 col-form-label">Дата:</label>
-					<div class="col-sm-4">
-						<input type="date" class="form-control" data-bind="Дата">
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label for="Начало" class="col-sm-4 col-form-label">Начало:</label>
-					<div class="col-sm-3">
-						<input id="Начало" type="time" step="900" class="form-control" data-bind="Начало">
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label for="Окончание" class="col-sm-4 col-form-label">Окончание:</label>
-					<div class="col-sm-3">
-						<input id="Окончание" type="time" step="900" class="form-control" data-bind="Окончание">
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label for="Содержание" class="col-sm-12 col-form-label">Содержание:</label>
-					<div class="col">
-						<textarea id="Содержание" class="form-control" data-bind="Содержание" rows="7"></textarea>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<div class="col">
-						<button class="btn btn-primary cmd-ok">Записать</button>
-					</div>
-				</div>
+<template id="form">
+	<div class="container-fluid p-3">
+		<div class="title-class" data-text="Работа" data-purpose="edit"></div>
+		<div class="row mb-3">
+			<div class="col">
+				<h4 class="text-success">Задача: {НаименованиеЗадачи}</h4>
 			</div>
-		</template>
-
-	</body>
-</html>
+		</div>
+		<div class="row mb-3">
+			<label class="col-sm-4 col-form-label">Дата:</label>
+			<div class="col-sm-4">
+				<input type="date" class="form-control" data-bind="Дата">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="Начало" class="col-sm-4 col-form-label">Начало:</label>
+			<div class="col-sm-3">
+				<input id="Начало" type="time" step="900" class="form-control" data-bind="Начало">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="Окончание" class="col-sm-4 col-form-label">Окончание:</label>
+			<div class="col-sm-3">
+				<input id="Окончание" type="time" step="900" class="form-control" data-bind="Окончание">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="Содержание" class="col-sm-12 col-form-label">Содержание:</label>
+			<div class="col">
+				<textarea id="Содержание" class="form-control" data-bind="Содержание" rows="7"></textarea>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col">
+				<button class="btn btn-primary cmd-ok">Записать</button>
+			</div>
+		</div>
+	</div>
+</template>

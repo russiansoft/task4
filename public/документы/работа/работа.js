@@ -1,14 +1,20 @@
 
-import { hive, FileDialog, database, review } from "./manuscript.js";
+import { server, hive, FileDialog, database, review } from "./manuscript.js";
 
-document.classes["form-class"] = class
+document.classes["работа"] = class
 {
 	async Create()
 	{
-		let url = new URL(location);
-		document.body.dataset.task = url.searchParams.get("task");
+		await database.Begin();
 		let task = await database.find(document.body.dataset.task);
-		let template = document.template("#form");
+		if (!this.dataset.id)
+		{
+			let defaults = { "Дата": (new Date).toISOString().slice(0, 10),
+		                     "Задача": url.searchParams.get("task") };
+			this.dataset.id = (await database.create("Работа", defaults)).id;
+		}
+		let templates = await server.LoadHTML("работа.html");
+		let template =  templates.template("#form");
 		template.fill(this);
 		template.fill( { "НаименованиеЗадачи": task.Тема } );
 		await template.Join(this);
@@ -17,7 +23,6 @@ document.classes["form-class"] = class
 
 	async Defaults()
 	{
-		return { "Дата": (new Date).toISOString().slice(0, 10),
-		         "Задача": document.body.dataset.task };
+		let url = new URL(location);
 	}
 }
