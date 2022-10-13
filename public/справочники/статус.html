@@ -1,24 +1,31 @@
 
 <template id="form">
-	<div class="row m-2">
-		<div class="col-grow">
-			<button class="btn btn-primary me-2 cmd-ok">Записать</button>
+	<div class="container-fluid p-3">
+		<div class="title-class" data-text="Статус" data-purpose="edit"></div>
+		<div class="row g-2 mb-3">
+			<div class="col-auto">
+				<label class="col-form-label">Наименование:</label>
+			</div>
+			<div class="col">
+				<input class="form-control" data-bind="Наименование"/>
+			</div>
 		</div>
-	</div>
-	<div class="row m-2 form-group">
-		<div class="col-20ch">
-			<label class="col-form-label">Наименование:</label>
+		<div class="row g-2 mb-3">
+			<div class="col-auto">
+				<label class="col-form-label">Оформление:</label>
+			</div>
+			<div class="col">
+				<input class="form-control" data-bind="Оформление"/>
+			</div>
 		</div>
-		<div class="col-30ch col-grow">
-			<input class="form-control" data-bind="Наименование"/>
-		</div>
-	<div class="row m-2 form-group">
-	</div>
-		<div class="col-20ch">
-			<label class="col-form-label">Оформление:</label>
-		</div>
-		<div class="col-30ch col-grow">
-			<input class="form-control" data-bind="Оформление"/>
+		<div class="row g-2 mb-3">
+			<div class="col"></div>
+			<div class="col-auto">
+				<button class="btn btn-primary" data-cmd="Записать">Записать</button>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-secondary" data-cmd="Закрыть">Закрыть</button>
+			</div>
 		</div>
 	</div>
 </template>

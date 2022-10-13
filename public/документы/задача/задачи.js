@@ -1,47 +1,44 @@
 
-import { Database, database } from "./database.js";
-import { Layout } from "./template.js";
-import { model } from "./model.js";
-import { binding } from "./reactive.js";
-import { format } from "./client.js";
-import "./paginator.js";
+import { Database, database, review, server, format } from "./manuscript.js";
 
-model.classes.Задачи = class Задачи
+document.classes["задачи"] = class
 {
-	async view(parent)
+	async Create()
 	{
-		let layout = await new Layout().load("задачи.html");
-		layout.template("#filters").fill(this).out(parent);
-		document.find("#status").value = "undone";
-		layout.template("#commands").fill(this).out(parent);
-		layout.template("#content").fill(this).out(parent);
-		layout.template("#footer").fill(this).out(parent);
-		await binding(parent);
+		await database.Begin();
+		let layout = await server.LoadHTML("задачи.html");
+		await layout.template("#form").fill(this).Join(this);
+		document.get("#status").value = "undone";
 		await this.Заполнить();
+		await review(this);
 	}
 
 	async Заполнить(очистить = true)
 	{
-		let layout = await new Layout().load("задачи.html");
-		let paginator = await database.find(this.id + ".Paginator");
-		let период = await database.find(this.id + ".Период");
-		let db = await new Database().transaction();
+		let layout = await server.LoadHTML("задачи.html");
+		let pagination = document.get(".pagination-class");
+		let period = document.get(".period-class");
+		let db = await new Database().Begin();
 		if (очистить)
-			paginator.clear();
+		{
+			document.get("#content").innerHTML = "";
+			pagination.reset();
+		}
 		let query = 
 		{
 			"from": "Задача",
-			"where": { "Срок": [ период.Начало, период.Окончание ] },
+			"where": { "Срок": [ period.from.value, period.to.value ] },
 			"filter": { }
 		};
-		let status = document.find("#status").value;
+		let status = document.get("#status").value;
 		if (status)
 		{
 			if (status == "undone")
 			{
 				query.filter.Статус = [ ];
-				for (let статус of await db.select( { "select": [ "id", "Наименование" ],
-													  "from": "Статус" } ))
+				let q = { "select": { "id": "id", "Наименование": "Наименование" },
+				          "from": "Статус" }
+				for (let статус of await db.select(q))
 				{
 					if (статус.Наименование != "Завершено" &&
 						статус.Наименование != "Информация")
@@ -51,10 +48,10 @@ model.classes.Задачи = class Задачи
 			else
 				query.filter.Статус = status;
 		}
-		let project = document.find("#project").value;
+		let project = document.get("#project").value;
 		if (project)
 			query.filter.Проект = project;
-		paginator.split(query);
+		pagination.split(query);
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -80,13 +77,23 @@ model.classes.Задачи = class Задачи
 			}
 			template.fill( { "class": оформление } );
 			template.fill(record);
-			template.out("#content");
-			paginator.add();
+			template.Join("#content");
+			pagination.add();
 		}
-		await paginator.request(db);
+		await pagination.Request(db);
 	}
 
-	async more()
+	async ПредыдущийПериод()
+	{
+		await this.Заполнить();
+	}
+
+	async СледующийПериод()
+	{
+		await this.Заполнить();
+	}
+
+	async More()
 	{
 		await this.Заполнить(false);
 	}

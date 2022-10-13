@@ -1,0 +1,39 @@
+
+<template id="form">
+	<div class="container-fluid p-3">
+		<div class="title-class" data-text="Работы"></div>
+		<div class="row mb-3">
+			<div class="col">
+				<h4 class="text-success">Задача: {Тема}</h4>
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<div class="col-auto">
+				<a class="btn btn-outline-success" href="работа?task={id}" target="_blank">
+					<i class="bi bi-plus-circle"></i> Создать
+				</a>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-outline-success" onclick="object.Заполнить()">
+					<i class="bi bi-arrow-clockwise"></i>
+				</button>
+			</div>
+		</div>
+		<div class="row mb-3" id="content"></div>
+		<div class="row mb-3 pagination-class" data-take="10"></div>
+	</div>
+</template>
+
+<template id="card">
+	<div class="col-md-6 col-lg-4 col-xl-3">
+		<div class="card mb-3">
+			<div class="card-body">
+				<a class="card-title h3" href="работа?id={id}&task={Задача}"
+					target="_blank">{Дата}</a>
+				<h4 class="card-subtitle">{Начало}-{Окончание}</h4>
+				<p class="card-text">{Содержание}</p>
+			</div>
+		</div>
+	</div>
+</template>
+

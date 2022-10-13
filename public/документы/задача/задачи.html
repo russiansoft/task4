@@ -1,0 +1,56 @@
+
+<template id="form">
+
+	<div class="container-fluid p-3">
+		<div class="title-class" data-text="Задачи"></div>
+		<div class="period-class" data-interval="year-day" data-cmd="Заполнить"></div>
+		<div class="row g-2 mb-3">
+			<label class="col-auto col-form-label">Статус:</label>
+			<div class="col-50ch">
+				<select class="form-select" id="status" data-type="Статус" data-cmd="Заполнить">
+					<option value="">(все)</option>
+					<option value="undone">(незавершенные)</option>
+				</select>
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<label class="col-auto col-form-label">Проект:</label>
+			<div class="col-50ch">
+				<select class="form-select" id="project" data-type="Договор" data-cmd="Заполнить">
+					<option value="">(все)</option>
+				</select>
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<div class="col-auto">
+				<a class="btn btn-outline-success" href="задача" target="_blank">
+					<i class="bi bi-plus-circle"></i> Создать
+				</a>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-outline-success" data-cmd="Заполнить">
+					<i class="bi bi-arrow-clockwise"></i>
+				</button>
+			</div>
+		</div>
+		<div class="row mb-3" id="content"></div>
+		<div class="row mb-3 pagination-class" data-take="10"></div>
+	</div>
+</template>
+
+<template id="card">
+	<div class="col-md-6 col-lg-4 col-xl-3">
+		<div class="card mb-3 {class}" record="{id}">
+			<div class="card-body">
+				<h3 class="card-title">{НаименованиеПроекта}</h3>
+				<!-- <a class="h4 card-title" href="задача?id={id}" target="_blank">{Тема}</a> -->
+				<a class="h4 card-title" href="задача?id={id}" target="_blank">{Тема}</a>
+				<h6 class="text-muted card-subtitle mb-2">{СледующееДействие}</h6>
+				<p class="card-text" style="max-height: 3em; overflow-y: hidden;">{Содержание}</p>
+				<a class="card-link" href="задача?id={id}" target="_blank">{Срок}</a>
+				<a class="card-link" href="задача?id={id}" target="_blank">{Дата}</a>
+				<a class="card-link" href="задача?id={id}" target="_blank">{НаименованиеПостановщика}</a>
+			</div>
+		</div>
+	</div>
+</template>

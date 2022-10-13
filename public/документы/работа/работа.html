@@ -1,0 +1,40 @@
+
+<template id="form">
+	<div class="container-fluid p-3">
+		<div class="title-class" data-text="Работа" data-purpose="edit"></div>
+		<div class="row mb-3">
+			<div class="col">
+				<h4 class="text-success">Задача: {НаименованиеЗадачи}</h4>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-sm-4 col-form-label">Дата:</label>
+			<div class="col-sm-4">
+				<input type="date" class="form-control" data-bind="Дата">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="Начало" class="col-sm-4 col-form-label">Начало:</label>
+			<div class="col-sm-3">
+				<input id="Начало" type="time" step="900" class="form-control" data-bind="Начало">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="Окончание" class="col-sm-4 col-form-label">Окончание:</label>
+			<div class="col-sm-3">
+				<input id="Окончание" type="time" step="900" class="form-control" data-bind="Окончание">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="Содержание" class="col-sm-12 col-form-label">Содержание:</label>
+			<div class="col">
+				<textarea id="Содержание" class="form-control" data-bind="Содержание" rows="7"></textarea>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col">
+				<button class="btn btn-primary cmd-ok">Записать</button>
+			</div>
+		</div>
+	</div>
+</template>
